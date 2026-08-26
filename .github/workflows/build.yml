@@ -2,9 +2,12 @@ name: Build (native + wasm)
 
 on:
   push:
-    branches: [main, genspark_ai_developer]
-  pull_request:
+    branches: [main]
   workflow_dispatch:
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:

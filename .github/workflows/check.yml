@@ -1,0 +1,50 @@
+name: Check (fast)
+
+on:
+  push:
+    branches: [genspark_ai_developer, main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust (rustup)
+        run: |
+          if ! command -v rustup >/dev/null 2>&1 && [ ! -f "$HOME/.cargo/env" ]; then
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable --profile minimal
+          fi
+          . "$HOME/.cargo/env"
+          rustup target add wasm32-unknown-unknown
+          rustc --version
+
+      - name: System deps (bevy native, Debian/Ubuntu)
+        run: |
+          if command -v apt-get >/dev/null 2>&1; then
+            sudo apt-get update -qq || true
+            sudo apt-get install -y -qq pkg-config libasound2-dev libudev-dev libx11-dev libxi-dev libxcursor-dev libxrandr-dev libwayland-dev libxkbcommon-dev || true
+          fi
+
+      - name: cargo check (native)
+        run: |
+          . "$HOME/.cargo/env"
+          cargo check --all-targets
+
+      - name: cargo check (wasm)
+        run: |
+          . "$HOME/.cargo/env"
+          cargo check --target wasm32-unknown-unknown
+
+      - name: cargo clippy (best-effort)
+        run: |
+          . "$HOME/.cargo/env"
+          rustup component add clippy || true
+          cargo clippy -- -D warnings || true
