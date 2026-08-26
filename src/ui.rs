@@ -45,7 +45,7 @@ fn spawn_hud(mut commands: Commands) {
                 HudMoney,
             ));
             p.spawn((
-                Text::new("Día 0  08:00"),
+                Text::new("Dia 0  08:00"),
                 TextFont {
                     font_size: 16.0,
                     ..default()
@@ -77,11 +77,11 @@ fn update_hud(
     }
     if let Ok(mut t) = q_clock.single_mut() {
         t.0 = format!(
-            "Día {}  {:02}:{:02} {}",
+            "Dia {}  {:02}:{:02} {}",
             clock.day(),
             clock.hour_of_day(),
             clock.minute_of_hour(),
-            if clock.is_day() { "☀" } else { "🌙" }
+            if clock.is_day() { "[dia]" } else { "[noche]" }
         );
     }
     if let Ok(mut t) = q_speed.single_mut() {

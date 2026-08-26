@@ -22,8 +22,9 @@ pub struct BoothDef {
     pub jenis: Option<String>,
     #[serde(default)]
     pub price: Vec<f64>,
-    #[serde(default)]
-    pub booked_price: f64,
+    /// In gamedata this is `0` for Lobby but a per-level list for most booths.
+    #[serde(default, deserialize_with = "num_or_list")]
+    pub booked_price: Vec<f64>,
     #[serde(default)]
     pub opened: f64,
     #[serde(default)]
@@ -32,6 +33,20 @@ pub struct BoothDef {
     pub salary: Vec<f64>,
     #[serde(default)]
     pub pop: Vec<f64>,
+}
+
+/// Accept either a bare number or a list of numbers (gamedata mixes both).
+fn num_or_list<'de, D: serde::Deserializer<'de>>(d: D) -> Result<Vec<f64>, D::Error> {
+    #[derive(Deserialize)]
+    #[serde(untagged)]
+    enum NumOrList {
+        Num(f64),
+        List(Vec<f64>),
+    }
+    Ok(match NumOrList::deserialize(d)? {
+        NumOrList::Num(n) => vec![n],
+        NumOrList::List(v) => v,
+    })
 }
 
 #[derive(Debug, Deserialize, Clone)]
@@ -121,10 +136,21 @@ pub struct SceneryAnchor {
     pub base: [f32; 2],
 }
 
+/// Wall/building sprite drawn on top of the booth floor. `s_vertex` is the
+/// pixel (top-left origin) that must sit on the S vertex of the footprint.
+#[derive(Debug, Deserialize, Clone)]
+pub struct WallAnchor {
+    pub booth: String,
+    pub kind: String,
+    pub s_vertex: [f32; 2],
+    pub size: [f32; 2],
+}
+
 #[derive(Debug, Deserialize, Asset, TypePath)]
 pub struct Anchors {
     pub tile: TileAnchor,
     pub booth: HashMap<String, BoothAnchor>,
+    pub wall: HashMap<String, WallAnchor>,
     pub scenery: HashMap<String, SceneryAnchor>,
 }
 

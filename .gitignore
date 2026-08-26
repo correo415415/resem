@@ -4,3 +4,4 @@ Cargo.lock
 dist/
 *.log
 supervisord*
+dist_test/
