@@ -4,7 +4,9 @@ Objetivo: port jugable 1:1 del juego Flash original (Little Giant World), nativo
 usando el arte original extraído del SWF. Compilación SIEMPRE en el runner self-hosted
 (GitHub Actions), nunca en el sandbox. Mini-PRs por hito.
 
-## Hecho (PRs #1–#4 mergeados)
+Juego jugable en: https://correo415415.github.io/resem/ (gh-pages, se actualiza con cada build de main)
+
+## Hecho (PRs #1–#5 mergeados)
 - [x] Extracción de datos del AS3: gamedata.json (serbi.as), anchors2.json (medidos del arte), sprites, sonidos
 - [x] Matemática isométrica (rumus.as) + mapa por defecto (MapContainer.buildMap + zmap)
 - [x] Cámara pan/zoom, reloj de juego (velocidades x1/x3/x5, pausa), cartera ($10.000)
@@ -12,12 +14,14 @@ usando el arte original extraído del SWF. Compilación SIEMPRE en el runner sel
 - [x] Visitantes: spawn probabilístico por franja horaria (PROB_RANGE), caminan al lobby y se van
 - [x] CI: check rápido en cada push + build release (nativo + WASM) → Release `latest` + gh-pages
 - [x] Primer test in-browser del WASM compilado (screenshot OK)
+- [x] Fix precios $0 en menú (parseo booked_price número-o-lista)
+- [x] Fix HUD ASCII, dist_test/ en .gitignore
+- [x] GitHub Pages habilitado y desplegado
 
 ## En curso (este PR)
-- [ ] Fix parseo BoothDef: `booked_price` puede ser número o lista → precios $0 en menú
-- [ ] Fix Lobby/booths: dibujar también el sprite de pared/edificio (walls/N.png) sobre el suelo
-- [ ] Fix HUD: quitar glifos no soportados por la fuente por defecto (Día/☀/🌙 → ASCII)
-- [ ] Añadir dist_test/ a .gitignore
+- [ ] Alineación pared-suelo de booths: anclar la pared por su `n_corner` medido
+      (intersección de las dos líneas base) sobre el mismo vértice N que el suelo
+      (verificado con compuesto en Python: Lobby/Cottage/Sauna/Icecream/Pool alinean bien)
 
 ## Siguiente — hacia el 1:1 visual
 - [ ] Animación de visitantes: ciclo de andar con los 4 frames por skin (visitorN/1..4.png) + flip por dirección
@@ -30,7 +34,7 @@ usando el arte original extraído del SWF. Compilación SIEMPRE en el runner sel
 
 ## Gameplay pendiente
 - [ ] Economía: reservas de habitaciones (booked_price), horarios opened/closed, salarios, ingresos por día
-- [ ] Interior de habitaciones (frames wall 13/16 estilo interior) y estados ocupado/libre
+- [ ] Interior de habitaciones y estados ocupado/libre
 - [ ] Empleados: janitors + sistema de basura (trash/1..3.png)
 - [ ] Humor de visitantes (Smiley), popularidad, drainpop
 - [ ] Expansión de terreno (Expand/ExpandPrice)
@@ -40,6 +44,52 @@ usando el arte original extraído del SWF. Compilación SIEMPRE en el runner sel
 - [ ] Sonidos y música (assets/sounds ya extraídos)
 
 ## Infra
-- [ ] GitHub Pages: API sigue devolviendo 403 con el PAT → habilitar manualmente en
-      Settings → Pages → Deploy from branch → gh-pages / (root), o revisar permiso "Pages: Read and write"
+- [x] GitHub Pages habilitado (gh-pages / root) → https://correo415415.github.io/resem/
 - [x] Cuota de artifacts (500MB) resuelta: Release rodante `latest` + gh-pages
+
+---
+
+# Archivos del original (scripts/) — procesados vs pendientes
+
+Fuente: `juego.zip` → `source/scripts/` (AS3 descompilado con JPEXS).
+"Procesado" = su lógica/datos ya están portados o extraídos a assets.
+
+## Procesados (lógica portada o datos extraídos)
+| Archivo original | Qué se extrajo / dónde vive ahora |
+|---|---|
+| `pack/serbi.as` | Base de datos completa → `assets/data/gamedata.json` (Booth/Tile/Scenery/Visitor/Employee/Smiley/Mission/Expand/Achievements) |
+| `pack/rumus.as` | Matemática isométrica → `src/iso.rs` (SIZE_=24, findTile, findTileCoord) |
+| `pack/zmap.as` | Layout por defecto (carreteras, lobby, sceneries, cangrejos) → `src/map.rs` (consts KEPITING/SCENERIES/zmap roads) |
+| `pack/MapContainer.as` | buildMap (asfalto/acera/arena/hierba/grid, bounds, expand) → `src/map.rs::spawn_map` |
+| `Application.as` (parcial) | Reloj (counter/speed/minuto), dinero inicial, PROB_RANGE de spawn, DefaultGameVars (unlocks iniciales) → `src/game.rs`, `src/visitor.rs`, `src/build.rs` |
+| `pack/Instance/Booths/Booth.as` (parcial) | Footprint ROWS/COLS, colocación pared+suelo, ydepth → `src/map.rs::spawn_booth_at` |
+| `pack/Instance/Plant.as` (parcial) | Colocación de scenery → `src/map.rs::spawn_scenery_at` |
+| `pack/Instance/Visitor.as` (parcial) | Velocidad por skin, spawn probabilístico, jeda → `src/visitor.rs` |
+| Sprites del SWF | → `assets/sprites/` (booths 57, walls 106, tiles, scenery, 29 visitantes ×4 frames, janitor, car 6, trash 3, groundselect) |
+| Sonidos del SWF | → `assets/sounds/` (788K) |
+
+## Pendientes de procesar (lógica aún no portada)
+| Archivo original | Contenido pendiente |
+|---|---|
+| `Application.as` (resto, ~9000 líneas) | Economía completa: ingresos por reserva, día nuevo (salarios, informes), XP/level-up, popularidad, misiones, guardado SharedObject |
+| `pack/Instance/Booths/Booth.as` (resto, 3343 líneas) | Colas (antri), entrada/salida de visitantes (enterArray), upgrades de nivel, apertura/cierre por hora, wall_alpha hover, demolición |
+| `pack/Instance/Visitor.as` (resto) | Pathfinding real por tiles walkables, decisión de qué booth visitar, humor (Smiley), dejar basura, pagar |
+| `pack/Instance/Janitor.as` | Empleado limpiador: patrulla, recoger basura, salario |
+| `pack/Instance/Sampah.as` | Basura: aparición, efecto en humor/popularidad |
+| `pack/Instance/Mobil.as` + `Car2.as` | Coche de llegada por carretera (animación de entrada de visitantes) |
+| `pack/Instance/Tile.as` | Compra/colocación de tiles de suelo por el jugador |
+| `pack/Instance/TemporaryObject.as` | Ghost/preview original de construcción (ya hay versión propia, comparar) |
+| `pack/Instance/MoneyClip.as` | Popup flotante de dinero ganado/gastado |
+| `pack/Instance/Notif.as` | Notificaciones en pantalla |
+| `pack/Instance/Achievement.as` | Logros |
+| `pack/Instance/Outer.as` | Objetos fuera del recinto |
+| `GuideDialog.as` / `GuideInGame.as` | Tutorial |
+| `Opening.as` / `Preloader.as` | Pantalla de título / intro |
+| `Upgrade.as` | UI de mejora de booths |
+| `Wall.as` / `BoothTile.as` / `GroundSelect.as` / `TileClip.as` | Clips de render (blitting) — sustituidos por sprites estáticos ya extraídos; revisar si tienen frames de animación útiles |
+| `pack/bitmap/BlittingSingle.as` | Sistema de blitting (no se porta, Bevy lo reemplaza; sirve de referencia para offsets de canvas 240×136, dp=25,84) |
+| `Seat.as`, `Area.as`, `Adding.as`, `Titik*.as`, `Blub*.as`, `Cengkling.as`, etc. | Auxiliares menores — revisar uno a uno |
+| Sonido: `BGMusic1-5.as`, `ClickSound*.as`, `BuildSound.as`, etc. | Mapear cada clase de sonido a su mp3/wav extraído y reproducir en los eventos correctos |
+| UI original (SWF `buttons/`, `images/`, `frames/`) | Extraer paneles/botones/iconos de la UI para reconstruir menús 1:1 |
+| Booths individuales (`Lobby.as`, `Cottage.as`, `Sauna.as`, ... 21 clases) | Solo definen frames/comportamiento específico por booth; la mayoría es data ya en gamedata.json — revisar excepciones (Pool, Golf con áreas especiales) |
+| `com/` y `fl/` (frameworks) | No se portan (librerías estándar de Flash) |
