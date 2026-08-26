@@ -34,6 +34,24 @@ pub struct Visitor {
     pub leaving: bool,
 }
 
+/// Walk-cycle animation, port of Visitor.gerakArah() + jeda_frame stepping.
+/// Exported visitor sheets have 4 frames: 1-2 = walk_front cycle, 3-4 = walk_back.
+/// Original picks label "walk_front"/"walk_back" and mirrors with scaleX for L/R.
+#[derive(Component)]
+pub struct VisitorAnim {
+    /// preloaded frame handles [f1, f2, f3, f4]
+    pub frames: [Handle<Image>; 4],
+    pub timer: f32,
+    /// 0/1 within the current 2-frame cycle
+    pub step: usize,
+    /// true = facing camera (frames 1-2), false = back (frames 3-4)
+    pub front: bool,
+}
+
+/// Seconds per animation step at 1x clock speed (original steps every few
+/// frames gated by speed_effect; ~6 fps walk cycle looks equivalent).
+const ANIM_STEP: f32 = 0.16;
+
 #[derive(Resource, Default)]
 pub struct SpawnState {
     /// cooldown in game-minutes until next spawn roll
@@ -119,9 +137,15 @@ fn spawn_roll(
         if let Some(last) = route.last_mut() {
             last.1 = (last.1 + jitter).clamp(20, 23);
         }
+        let frames = [
+            assets.load(format!("sprites/visitor{skin}/1.png")),
+            assets.load(format!("sprites/visitor{skin}/2.png")),
+            assets.load(format!("sprites/visitor{skin}/3.png")),
+            assets.load(format!("sprites/visitor{skin}/4.png")),
+        ];
         commands.spawn((
             Sprite {
-                image: assets.load(format!("sprites/visitor{skin}/1.png")),
+                image: frames[0].clone(),
                 anchor: Anchor::BottomCenter,
                 ..default()
             },
@@ -133,6 +157,12 @@ fn spawn_roll(
                 next: 0,
                 stay: 60.0 + st.rand() * 240.0,
                 leaving: false,
+            },
+            VisitorAnim {
+                frames,
+                timer: 0.0,
+                step: 0,
+                front: true,
             },
         ));
         // reload cooldown: shrinks as popularity grows (approx of reloadMaxJedaVisitor)
@@ -155,7 +185,13 @@ fn walk(
     time: Res<Time>,
     clock: Res<GameClock>,
     mut commands: Commands,
-    mut q: Query<(Entity, &mut Visitor, &mut Transform, &mut Sprite)>,
+    mut q: Query<(
+        Entity,
+        &mut Visitor,
+        &mut Transform,
+        &mut Sprite,
+        &mut VisitorAnim,
+    )>,
     mut minute_ev: EventReader<MinuteTick>,
 ) {
     if clock.paused {
@@ -163,7 +199,7 @@ fn walk(
     }
     let minutes = minute_ev.read().count() as f64;
     let dt = time.delta_secs() * clock.speed as f32;
-    for (e, mut v, mut tf, mut sprite) in q.iter_mut() {
+    for (e, mut v, mut tf, mut sprite, mut anim) in q.iter_mut() {
         if v.next >= v.route.len() {
             // at destination: count stay, then leave
             if !v.leaving {
@@ -179,6 +215,12 @@ fn walk(
             }
             if v.leaving && v.next >= v.route.len() {
                 commands.entity(e).despawn();
+            }
+            // standing: rest on first frame of the facing cycle (gerak="stand")
+            let base = if anim.front { 0 } else { 2 };
+            if anim.step != 0 {
+                anim.step = 0;
+                sprite.image = anim.frames[base].clone();
             }
             continue;
         }
@@ -200,8 +242,20 @@ fn walk(
             let dir = delta / dist;
             tf.translation.x += dir.x * step;
             tf.translation.y += dir.y * step;
-            // face direction: frames 1..4 are down/up/left/right-ish; use flip for now
+            // gerakArah(): facing from movement direction.
+            //  moving down-screen (toward camera) -> front frames, up-screen -> back;
+            //  horizontal component mirrors the clip (original scaleX = L ? -1 : 1).
+            anim.front = dir.y <= 0.0;
             sprite.flip_x = dir.x < 0.0;
+            // step the 2-frame walk cycle
+            anim.timer += dt;
+            if anim.timer >= ANIM_STEP {
+                anim.timer -= ANIM_STEP;
+                anim.step = (anim.step + 1) % 2;
+            }
+            let base = if anim.front { 0 } else { 2 };
+            let want = base + anim.step;
+            sprite.image = anim.frames[want].clone();
         }
         // painter depth by y
         tf.translation.z = 400.0 - tf.translation.y * 0.001;
