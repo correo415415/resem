@@ -230,19 +230,17 @@ pub fn spawn_booth_at(
         Transform::from_xyz(wx, wy, Z_OBJ + depth_sum as f32 * 0.01),
     ));
     // building / wall sprite (walls/N.png) drawn on top of the floor.
-    // Its measured `s_vertex` pixel must sit on the S vertex of the
-    // footprint, i.e. the S corner of tile (tx, ty+COLS-1) which equals the
-    // N vertex of tile (tx+1, ty+COLS).
+    // Its measured `n_corner` pixel (intersection of the two wall base edges)
+    // must sit on the same footprint N vertex as the floor anchor.
     if let Some(wall_fr) = b.wall {
         if let Some(wa) = an.wall.get(&wall_fr.to_string()) {
-            let (sx, sy) = iso::tile_to_world(tx + 1, ty + b.cols);
             commands.spawn((
                 Sprite {
                     image: assets.load(format!("sprites/walls/{wall_fr}.png")),
-                    anchor: px_anchor(wa.s_vertex[0], wa.s_vertex[1], wa.size[0], wa.size[1]),
+                    anchor: px_anchor(wa.n_corner[0], wa.n_corner[1], wa.size[0], wa.size[1]),
                     ..default()
                 },
-                Transform::from_xyz(sx, sy, Z_OBJ + depth_sum as f32 * 0.01 + 0.005),
+                Transform::from_xyz(wx, wy, Z_OBJ + depth_sum as f32 * 0.01 + 0.005),
             ));
         }
     }

@@ -144,6 +144,9 @@ pub struct WallAnchor {
     pub kind: String,
     pub s_vertex: [f32; 2],
     pub size: [f32; 2],
+    /// Pixel of the wall-base N corner (intersection of the two wall base
+    /// edges); must sit on the footprint's N vertex, same as the floor anchor.
+    pub n_corner: [f32; 2],
 }
 
 #[derive(Debug, Deserialize, Asset, TypePath)]
