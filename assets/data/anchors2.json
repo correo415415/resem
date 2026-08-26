@@ -1,0 +1,725 @@
+{
+ "tile": {
+  "anchor": [
+   25.5,
+   1.0
+  ],
+  "size": [
+   51,
+   27
+  ]
+ },
+ "booth": {
+  "Lobby": {
+   "anchor": [
+    71.5,
+    26.0
+   ],
+   "rows": 4,
+   "cols": 2,
+   "fr": 1,
+   "blok": 50,
+   "left_tiles": 2.98,
+   "right_tiles": 3.98
+  },
+  "Cottage": {
+   "anchor": [
+    71.5,
+    26.0
+   ],
+   "rows": 2,
+   "cols": 2,
+   "fr": 4,
+   "blok": 51,
+   "left_tiles": 1.98,
+   "right_tiles": 1.98
+  },
+  "Lodge": {
+   "anchor": [
+    95.5,
+    14.0
+   ],
+   "rows": 2,
+   "cols": 3,
+   "fr": 7,
+   "blok": 56,
+   "left_tiles": 2.98,
+   "right_tiles": 1.98
+  },
+  "Sauna": {
+   "anchor": [
+    71.5,
+    26.0
+   ],
+   "rows": 2,
+   "cols": 2,
+   "fr": 41,
+   "blok": 51,
+   "left_tiles": 1.98,
+   "right_tiles": 1.98
+  },
+  "Gym": {
+   "anchor": [
+    71.5,
+    26.0
+   ],
+   "rows": 2,
+   "cols": 2,
+   "fr": 47,
+   "blok": 51,
+   "left_tiles": 1.98,
+   "right_tiles": 1.98
+  },
+  "Bar": {
+   "anchor": [
+    71.5,
+    26.0
+   ],
+   "rows": 2,
+   "cols": 2,
+   "fr": 29,
+   "blok": 51,
+   "left_tiles": 1.98,
+   "right_tiles": 1.98
+  },
+  "Jacuzi": {
+   "anchor": [
+    71.5,
+    26.0
+   ],
+   "rows": 2,
+   "cols": 2,
+   "fr": 32,
+   "blok": 51,
+   "left_tiles": 1.98,
+   "right_tiles": 1.98
+  },
+  "Arcade": {
+   "anchor": [
+    71.5,
+    26.0
+   ],
+   "rows": 2,
+   "cols": 2,
+   "fr": 13,
+   "blok": 51,
+   "left_tiles": 1.98,
+   "right_tiles": 1.98
+  },
+  "IndiaResto": {
+   "anchor": [
+    71.5,
+    26.0
+   ],
+   "rows": 2,
+   "cols": 2,
+   "fr": 16,
+   "blok": 51,
+   "left_tiles": 1.98,
+   "right_tiles": 1.98
+  },
+  "Spa": {
+   "anchor": [
+    71.5,
+    26.0
+   ],
+   "rows": 2,
+   "cols": 2,
+   "fr": 44,
+   "blok": 51,
+   "left_tiles": 1.98,
+   "right_tiles": 1.98
+  },
+  "JapanResto": {
+   "anchor": [
+    71.5,
+    26.0
+   ],
+   "rows": 2,
+   "cols": 2,
+   "fr": 23,
+   "blok": 51,
+   "left_tiles": 1.98,
+   "right_tiles": 1.98
+  },
+  "BaratResto": {
+   "anchor": [
+    71.5,
+    26.0
+   ],
+   "rows": 2,
+   "cols": 2,
+   "fr": 26,
+   "blok": 51,
+   "left_tiles": 1.98,
+   "right_tiles": 1.98
+  },
+  "Medical": {
+   "anchor": [
+    95.5,
+    14.0
+   ],
+   "rows": 3,
+   "cols": 3,
+   "fr": 38,
+   "blok": 52,
+   "left_tiles": 2.98,
+   "right_tiles": 2.98
+  },
+  "Minimarket": {
+   "anchor": [
+    95.5,
+    14.0
+   ],
+   "rows": 3,
+   "cols": 3,
+   "fr": 35,
+   "blok": 52,
+   "left_tiles": 2.98,
+   "right_tiles": 2.98
+  },
+  "Pool": {
+   "anchor": [
+    119.5,
+    2.0
+   ],
+   "rows": 3,
+   "cols": 4,
+   "fr": 20,
+   "blok": 54,
+   "left_tiles": 3.98,
+   "right_tiles": 2.98
+  },
+  "Golf": {
+   "anchor": [
+    119.5,
+    2.0
+   ],
+   "rows": 4,
+   "cols": 4,
+   "fr": 10,
+   "blok": 53,
+   "left_tiles": 3.98,
+   "right_tiles": 3.98
+  },
+  "Icecream": {
+   "anchor": [
+    47.5,
+    38.0
+   ],
+   "rows": 1,
+   "cols": 1,
+   "fr": 19,
+   "blok": 55,
+   "left_tiles": 0.98,
+   "right_tiles": 0.98
+  },
+  "Hotdog": {
+   "anchor": [
+    47.5,
+    38.0
+   ],
+   "rows": 1,
+   "cols": 1,
+   "fr": 19,
+   "blok": 55,
+   "left_tiles": 0.98,
+   "right_tiles": 0.98
+  },
+  "Taco": {
+   "anchor": [
+    47.5,
+    38.0
+   ],
+   "rows": 1,
+   "cols": 1,
+   "fr": 19,
+   "blok": 55,
+   "left_tiles": 0.98,
+   "right_tiles": 0.98
+  },
+  "Giftshop": {
+   "anchor": [
+    47.5,
+    38.0
+   ],
+   "rows": 1,
+   "cols": 1,
+   "fr": 19,
+   "blok": 55,
+   "left_tiles": 0.98,
+   "right_tiles": 0.98
+  },
+  "JanitorRoom": {
+   "anchor": [
+    47.5,
+    38.0
+   ],
+   "rows": 1,
+   "cols": 1,
+   "fr": 19,
+   "blok": 55,
+   "left_tiles": 0.98,
+   "right_tiles": 0.98
+  }
+ },
+ "wall": {
+  "1": {
+   "booth": "Lobby",
+   "kind": "wall",
+   "s_vertex": [
+    145.0,
+    101.0
+   ]
+  },
+  "4": {
+   "booth": "Lobby",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    145.0,
+    101.0
+   ]
+  },
+  "13": {
+   "booth": "Cottage",
+   "kind": "wall",
+   "s_vertex": [
+    67.0,
+    83.0
+   ]
+  },
+  "16": {
+   "booth": "Cottage",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    67.0,
+    83.0
+   ]
+  },
+  "7": {
+   "booth": "Lodge",
+   "kind": "wall",
+   "s_vertex": [
+    51.5,
+    92.0
+   ]
+  },
+  "10": {
+   "booth": "Lodge",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    51.5,
+    92.0
+   ]
+  },
+  "89": {
+   "booth": "Sauna",
+   "kind": "wall",
+   "s_vertex": [
+    21.5,
+    82.0
+   ]
+  },
+  "92": {
+   "booth": "Sauna",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    21.5,
+    82.0
+   ]
+  },
+  "101": {
+   "booth": "Gym",
+   "kind": "wall",
+   "s_vertex": [
+    76.5,
+    78.0
+   ]
+  },
+  "104": {
+   "booth": "Gym",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    76.5,
+    78.0
+   ]
+  },
+  "65": {
+   "booth": "Bar",
+   "kind": "wall",
+   "s_vertex": [
+    55.5,
+    77.0
+   ]
+  },
+  "68": {
+   "booth": "Bar",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    55.5,
+    77.0
+   ]
+  },
+  "71": {
+   "booth": "Jacuzi",
+   "kind": "wall",
+   "s_vertex": [
+    54.5,
+    98.0
+   ]
+  },
+  "74": {
+   "booth": "Jacuzi",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    54.5,
+    98.0
+   ]
+  },
+  "25": {
+   "booth": "Arcade",
+   "kind": "wall",
+   "s_vertex": [
+    55.0,
+    75.0
+   ]
+  },
+  "28": {
+   "booth": "Arcade",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    55.0,
+    75.0
+   ]
+  },
+  "31": {
+   "booth": "IndiaResto",
+   "kind": "wall",
+   "s_vertex": [
+    53.0,
+    75.0
+   ]
+  },
+  "34": {
+   "booth": "IndiaResto",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    53.0,
+    75.0
+   ]
+  },
+  "95": {
+   "booth": "Spa",
+   "kind": "wall",
+   "s_vertex": [
+    54.0,
+    73.0
+   ]
+  },
+  "98": {
+   "booth": "Spa",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    54.0,
+    73.0
+   ]
+  },
+  "53": {
+   "booth": "JapanResto",
+   "kind": "wall",
+   "s_vertex": [
+    53.0,
+    76.0
+   ]
+  },
+  "56": {
+   "booth": "JapanResto",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    53.0,
+    76.0
+   ]
+  },
+  "59": {
+   "booth": "BaratResto",
+   "kind": "wall",
+   "s_vertex": [
+    53.0,
+    75.0
+   ]
+  },
+  "62": {
+   "booth": "BaratResto",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    53.0,
+    75.0
+   ]
+  },
+  "83": {
+   "booth": "Medical",
+   "kind": "wall",
+   "s_vertex": [
+    77.5,
+    106.0
+   ]
+  },
+  "86": {
+   "booth": "Medical",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    77.5,
+    106.0
+   ]
+  },
+  "77": {
+   "booth": "Minimarket",
+   "kind": "wall",
+   "s_vertex": [
+    79.0,
+    105.0
+   ]
+  },
+  "80": {
+   "booth": "Minimarket",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    79.0,
+    105.0
+   ]
+  },
+  "47": {
+   "booth": "Pool",
+   "kind": "wall",
+   "s_vertex": [
+    23.0,
+    79.0
+   ]
+  },
+  "50": {
+   "booth": "Pool",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    23.0,
+    79.0
+   ]
+  },
+  "19": {
+   "booth": "Golf",
+   "kind": "wall",
+   "s_vertex": [
+    4.0,
+    73.0
+   ]
+  },
+  "22": {
+   "booth": "Golf",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    4.0,
+    73.0
+   ]
+  },
+  "37": {
+   "booth": "Icecream",
+   "kind": "wall",
+   "s_vertex": [
+    29.5,
+    81.0
+   ]
+  },
+  "38": {
+   "booth": "Icecream",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    29.5,
+    81.0
+   ]
+  },
+  "41": {
+   "booth": "Hotdog",
+   "kind": "wall",
+   "s_vertex": [
+    29.0,
+    84.0
+   ]
+  },
+  "42": {
+   "booth": "Hotdog",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    29.0,
+    84.0
+   ]
+  },
+  "39": {
+   "booth": "Taco",
+   "kind": "wall",
+   "s_vertex": [
+    27.5,
+    85.0
+   ]
+  },
+  "40": {
+   "booth": "Taco",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    27.5,
+    85.0
+   ]
+  },
+  "43": {
+   "booth": "Giftshop",
+   "kind": "wall",
+   "s_vertex": [
+    28.0,
+    85.0
+   ]
+  },
+  "44": {
+   "booth": "Giftshop",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    28.0,
+    85.0
+   ]
+  },
+  "45": {
+   "booth": "JanitorRoom",
+   "kind": "wall",
+   "s_vertex": [
+    27.5,
+    86.0
+   ]
+  },
+  "46": {
+   "booth": "JanitorRoom",
+   "kind": "wall_alpha",
+   "s_vertex": [
+    27.5,
+    86.0
+   ]
+  }
+ },
+ "scenery": {
+  "PLANT_99": {
+   "fr": 10,
+   "base": [
+    23.5,
+    51.0
+   ]
+  },
+  "PLANT_1": {
+   "fr": 1,
+   "base": [
+    24.0,
+    43.0
+   ]
+  },
+  "PLANT_2": {
+   "fr": 2,
+   "base": [
+    23.0,
+    43.0
+   ]
+  },
+  "PLANT_3": {
+   "fr": 3,
+   "base": [
+    23.0,
+    42.0
+   ]
+  },
+  "PLANT_4": {
+   "fr": 4,
+   "base": [
+    25.5,
+    43.0
+   ]
+  },
+  "PLANT_5": {
+   "fr": 5,
+   "base": [
+    23.5,
+    42.0
+   ]
+  },
+  "PLANT_6": {
+   "fr": 6,
+   "base": [
+    22.5,
+    42.0
+   ]
+  },
+  "PLANT_7": {
+   "fr": 7,
+   "base": [
+    21.5,
+    43.0
+   ]
+  },
+  "PLANT_8": {
+   "fr": 8,
+   "base": [
+    23.0,
+    42.0
+   ]
+  },
+  "PLANT_10": {
+   "fr": 12,
+   "base": [
+    22.0,
+    52.0
+   ]
+  },
+  "PLANT_11": {
+   "fr": 13,
+   "base": [
+    21.5,
+    52.0
+   ]
+  },
+  "PLANT_12": {
+   "fr": 14,
+   "base": [
+    22.5,
+    48.0
+   ]
+  },
+  "PLANT_13": {
+   "fr": 15,
+   "base": [
+    22.5,
+    48.0
+   ]
+  },
+  "PLANT_14": {
+   "fr": 16,
+   "base": [
+    21.5,
+    51.0
+   ]
+  },
+  "PLANT_15": {
+   "fr": 17,
+   "base": [
+    20.0,
+    48.0
+   ]
+  },
+  "PLANT_16": {
+   "fr": 18,
+   "base": [
+    23.5,
+    34.0
+   ]
+  },
+  "PLANT_17": {
+   "fr": 19,
+   "base": [
+    23.5,
+    34.0
+   ]
+  }
+ }
+}
