@@ -7,6 +7,7 @@ mod game;
 mod iso;
 mod map;
 mod ui;
+mod visitor;
 
 use bevy::prelude::*;
 use bevy::window::PresentMode;
@@ -33,6 +34,7 @@ fn main() {
             game::GamePlugin,
             ui::UiPlugin,
             build::BuildPlugin,
+            visitor::VisitorPlugin,
         ))
         .run();
 }

@@ -71,6 +71,8 @@ pub struct GameData {
     pub tile: HashMap<String, serde_json::Value>,
     #[serde(rename = "Scenery")]
     pub scenery: HashMap<String, serde_json::Value>,
+    #[serde(rename = "Visitor")]
+    pub visitor: HashMap<String, serde_json::Value>,
     #[serde(rename = "Expand")]
     pub expand: Vec<ExpandDef>,
     #[serde(rename = "ExpandPrice")]
@@ -86,6 +88,13 @@ impl GameData {
     }
     pub fn scenery_def(&self, jenis: u32) -> Option<SceneryDef> {
         serde_json::from_value(self.scenery.get(&format!("PLANT_{jenis}"))?.clone()).ok()
+    }
+    pub fn visitor_speed(&self, skin: u32) -> Option<f32> {
+        self.visitor
+            .get(&format!("Visitor{skin}"))?
+            .get("speed")?
+            .as_f64()
+            .map(|v| v as f32)
     }
 }
 
