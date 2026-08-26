@@ -78,6 +78,7 @@ fn spawn_map(
     handles: Res<DataHandles>,
     gamedata: Res<Assets<GameData>>,
     anchors: Res<Assets<Anchors>>,
+    mut occupancy: ResMut<crate::build::Occupancy>,
 ) {
     let gd = gamedata.get(&handles.gamedata).unwrap();
     let an = anchors.get(&handles.anchors).unwrap();
@@ -171,14 +172,17 @@ fn spawn_map(
     // sceneries
     for &(i, j, jenis) in SCENERIES {
         let (si, sj) = shift(i, j);
-        spawn_scenery(&mut commands, &assets, an, si, sj, jenis);
+        spawn_scenery_at(&mut commands, &assets, an, si, sj, jenis);
     }
 
     // ---- Lobby booth at (14,22) ----
-    spawn_booth(&mut commands, &assets, gd, an, "Lobby", 14, 22);
+    spawn_booth_at(&mut commands, &assets, gd, an, "Lobby", 14, 22);
+    if let Some(lobby) = gd.booth_def("Lobby") {
+        occupancy.occupy_booth(14, 22, lobby.rows, lobby.cols);
+    }
 }
 
-pub fn spawn_scenery(
+pub fn spawn_scenery_at(
     commands: &mut Commands,
     assets: &AssetServer,
     an: &Anchors,
@@ -201,7 +205,7 @@ pub fn spawn_scenery(
     ));
 }
 
-pub fn spawn_booth(
+pub fn spawn_booth_at(
     commands: &mut Commands,
     assets: &AssetServer,
     gd: &GameData,
