@@ -9,6 +9,9 @@ concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: [self-hosted, linux]
@@ -18,7 +21,7 @@ jobs:
 
       - name: Install Rust (rustup)
         run: |
-          if ! command -v rustup >/dev/null 2>&1; then
+          if ! command -v rustup >/dev/null 2>&1 && [ ! -f "$HOME/.cargo/env" ]; then
             curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable --profile minimal
           fi
           . "$HOME/.cargo/env"
@@ -42,26 +45,48 @@ jobs:
           . "$HOME/.cargo/env"
           cargo build --release --target wasm32-unknown-unknown
 
-      - name: wasm-bindgen
+      - name: wasm-bindgen + package
         run: |
           . "$HOME/.cargo/env"
           if ! command -v wasm-bindgen >/dev/null 2>&1; then
             cargo install wasm-bindgen-cli --locked
           fi
-          mkdir -p dist
+          rm -rf dist && mkdir -p dist
           wasm-bindgen --target web --no-typescript --out-dir dist \
             target/wasm32-unknown-unknown/release/resort_empire.wasm
           cp -r assets dist/assets
           cp web/index.html dist/index.html
+          tar -czf resort_empire-web.tar.gz -C dist .
+          cp target/release/resort_empire resort_empire-linux
+          ls -lh resort_empire-web.tar.gz resort_empire-linux
 
-      - name: Upload native binary
-        uses: actions/upload-artifact@v4
+      # Release assets do NOT count against the Actions artifact storage quota.
+      # Rolling tag `latest` is recreated on each main build.
+      - name: Publish rolling release "latest"
+        uses: softprops/action-gh-release@v2
         with:
-          name: resort_empire-linux
-          path: target/release/resort_empire
+          tag_name: latest
+          name: "Latest build (main)"
+          prerelease: true
+          make_latest: true
+          body: |
+            Build automático de la rama main.
+            - `resort_empire-linux`: binario nativo Linux x86_64
+            - `resort_empire-web.tar.gz`: bundle WASM (descomprimir y servir con cualquier HTTP server)
+          files: |
+            resort_empire-linux
+            resort_empire-web.tar.gz
 
-      - name: Upload web bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: resort_empire-web
-          path: dist/
+      # Publish the web build to gh-pages (playable at https://<user>.github.io/resem/)
+      - name: Deploy web bundle to gh-pages
+        run: |
+          cd dist
+          git init -q -b gh-pages
+          git config user.name "ci"
+          git config user.email "ci@local"
+          touch .nojekyll
+          git add -A
+          git commit -q -m "deploy web build ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
