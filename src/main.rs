@@ -1,6 +1,7 @@
 //! Resort Empire — Rust/Bevy port of the Flash original (Little Giant World).
 //! Milestone 2: isometric map render + camera + default map (roads, lobby, sceneries).
 
+mod build;
 mod data;
 mod game;
 mod iso;
@@ -31,6 +32,7 @@ fn main() {
             map::MapPlugin,
             game::GamePlugin,
             ui::UiPlugin,
+            build::BuildPlugin,
         ))
         .run();
 }
