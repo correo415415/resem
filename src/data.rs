@@ -121,8 +121,13 @@ pub struct Anchors {
 
 // ---------- JSON asset loader ----------
 
-#[derive(Default)]
 pub struct JsonLoader<T>(std::marker::PhantomData<T>);
+
+impl<T> Default for JsonLoader<T> {
+    fn default() -> Self {
+        Self(std::marker::PhantomData)
+    }
+}
 
 impl<T: Asset + for<'de> Deserialize<'de>> AssetLoader for JsonLoader<T> {
     type Asset = T;
