@@ -4,7 +4,7 @@
 //! plain strip stretched in between). A global UiScale reproduces the
 //! original stage scaling (726px logical width).
 
-use crate::build::BuildMode;
+use crate::build::{BuildMode, DialogKind, DialogState};
 use crate::data::AppState;
 use crate::game::{GameClock, Wallet};
 use crate::visitor::Visitor;
@@ -600,6 +600,7 @@ fn toolbar_buttons(
     mut q: Query<(&Interaction, &ToolBtn, &mut ImageNode), Changed<Interaction>>,
     mut state: ResMut<ToolbarState>,
     mut build_mode: ResMut<BuildMode>,
+    mut dialogs: ResMut<DialogState>,
 ) {
     for (interaction, btn, mut img) in &mut q {
         match interaction {
@@ -611,13 +612,27 @@ fn toolbar_buttons(
                 if let Some(f) = state.new_flags.get_mut(&btn.tool) {
                     *f = false;
                 }
+                // toggle behaviour: pressing the same tool again closes its
+                // dialog (original navigator2 semuaDialogOff/opened flow)
+                let toggle = |dialogs: &mut DialogState, kind: DialogKind| {
+                    dialogs.open = if dialogs.open == Some(kind) {
+                        None
+                    } else {
+                        Some(kind)
+                    };
+                };
                 match btn.tool {
                     // arrow = default cursor: cancel any pending build
-                    Tool::ArrowMouse | Tool::DragMouse => build_mode.selected = None,
+                    Tool::ArrowMouse | Tool::DragMouse => {
+                        build_mode.selected = None;
+                        dialogs.open = None;
+                    }
+                    Tool::Room => toggle(&mut dialogs, DialogKind::Room),
+                    Tool::Facility => toggle(&mut dialogs, DialogKind::Facility),
+                    Tool::Scenery => toggle(&mut dialogs, DialogKind::Scenery),
+                    Tool::Tile => toggle(&mut dialogs, DialogKind::Tile),
                     // expand stays locked until Expand1 is purchased
                     Tool::Expand if !state.expand_unlocked => {}
-                    // room/facility/scenery/etc. panels: to be wired to the
-                    // original build windows in a follow-up
                     _ => {}
                 }
             }

@@ -20,11 +20,26 @@ pub const LAHAN_Y: (i32, i32) = (12, 26);
 pub enum BuildItem {
     Booth(String),
     Scenery(u32),
+    Tile(u32),
 }
 
 #[derive(Resource, Default)]
 pub struct BuildMode {
     pub selected: Option<BuildItem>,
+}
+
+/// Which build dialog (original dialog_room/facility/scenery/tile clip) is open.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum DialogKind {
+    Room,
+    Facility,
+    Scenery,
+    Tile,
+}
+
+#[derive(Resource, Default)]
+pub struct DialogState {
+    pub open: Option<DialogKind>,
 }
 
 /// Which tiles are occupied by placed objects (booths, sceneries, lobby).
@@ -60,8 +75,20 @@ pub fn in_lahan(tx: i32, ty: i32) -> bool {
 #[derive(Component)]
 struct Ghost;
 
+/// A ground tile repainted by the player (original: MapContainer tile layer).
 #[derive(Component)]
-struct BuildButton(BuildItem);
+struct PaintedTile(i32, i32);
+
+#[derive(Component)]
+struct DialogRoot(DialogKind);
+
+/// Item button inside a dialog: swaps 1_up / 3_down frames like DefineButton2.
+#[derive(Component)]
+struct ItemBtn {
+    item: BuildItem,
+    up: Handle<Image>,
+    down: Handle<Image>,
+}
 
 pub struct BuildPlugin;
 
@@ -69,93 +96,211 @@ impl Plugin for BuildPlugin {
     fn build(&self, app: &mut App) {
         app.init_resource::<BuildMode>()
             .init_resource::<Occupancy>()
-            .add_systems(OnEnter(AppState::Playing), spawn_build_menu)
+            .init_resource::<DialogState>()
+            .add_systems(OnEnter(AppState::Playing), spawn_build_dialogs)
             .add_systems(
                 Update,
-                (menu_buttons, ghost_and_place).run_if(in_state(AppState::Playing)),
+                (menu_buttons, sync_dialogs, ghost_and_place)
+                    .run_if(in_state(AppState::Playing)),
             );
     }
 }
 
-// ---------------- build menu (bottom bar) ----------------
+// ---------------- build dialogs (original dialog_* MovieClips) ----------------
+//
+// Geometry decoded from the SWF PlaceObject2 tags of sprites 3205 (room),
+// 3142 (facility), 3230 (scenery) and 3184 (tile). Each dialog opens at
+// stage x = PX(42) with its own PY (room 137, facility 85, scenery 150,
+// tile 140); the exported panel PNG's top-left sits at (4.3, 2.9) in clip
+// space (11.3, 9.9 for the tile dialog), hence the adjusted lefts/tops.
+// Frame 1 of the panel art has the locked state baked in (lock + "00"
+// boxes), so unlocked items simply draw their DefineButton2 art on top.
 
-fn spawn_build_menu(mut commands: Commands, gamedata: Res<Assets<GameData>>, handles: Res<DataHandles>) {
-    let gd = gamedata.get(&handles.gamedata).unwrap();
-    // initial unlocks from Application.DefaultGameVars
-    let booths = ["Cottage", "Sauna", "Icecream"];
-    let plants: [u32; 3] = [1, 2, 3];
+/// (kind, panel file, stage left, stage top, width, height)
+const DIALOGS: [(DialogKind, &str, f32, f32, f32, f32); 4] = [
+    (DialogKind::Room, "panel_room", 46.3, 139.9, 86.0, 90.0),
+    (DialogKind::Facility, "panel_facility", 46.3, 87.9, 148.0, 290.0),
+    (DialogKind::Scenery, "panel_scenery", 46.3, 152.9, 86.0, 147.0),
+    (DialogKind::Tile, "panel_tile", 53.3, 149.9, 72.0, 217.0),
+];
 
-    commands
-        .spawn(Node {
-            position_type: PositionType::Absolute,
-            // above the original nav3 bottom bar (74 px tall)
-            bottom: Val::Px(82.0),
-            left: Val::Px(55.0),
-            column_gap: Val::Px(6.0),
-            padding: UiRect::all(Val::Px(6.0)),
-            ..default()
-        })
-        .insert(BackgroundColor(Color::srgba(0.0, 0.0, 0.0, 0.55)))
-        .with_children(|p| {
-            for name in booths {
-                let price = gd
-                    .booth_def(name)
-                    .and_then(|b| b.price.first().copied())
-                    .unwrap_or(0.0);
-                button(p, format!("{name}\n${price:.0}"), BuildItem::Booth(name.into()));
-            }
-            for j in plants {
-                let (nm, price) = gd
-                    .scenery_def(j)
-                    .map(|s| (s.nama.unwrap_or_default(), s.price))
-                    .unwrap_or_default();
-                button(p, format!("{nm}\n${price:.0}"), BuildItem::Scenery(j));
-            }
-            button(p, "Cancelar\n[Esc]".into(), BuildItem::Scenery(0));
-        });
+/// Room dialog: (button id, booth name, slot x, slot y) in panel space.
+const ROOM_ITEMS: [(u32, &str, f32, f32); 2] =
+    [(3204, "Cottage", 16.0, 19.0), (3202, "Lodge", 16.0, 48.0)];
+
+/// Facility dialog: instance name -> button id mapping from PlaceObject2.
+const FACILITY_ITEMS: [(u32, &str, f32, f32); 17] = [
+    (3132, "Icecream", 20.0, 18.0),
+    (3126, "Sauna", 81.0, 18.0),
+    (3124, "Gym", 20.0, 47.0),
+    (3122, "Bar", 81.0, 47.0),
+    (3120, "Hotdog", 20.0, 77.0),
+    (3118, "Jacuzi", 81.0, 77.0),
+    (3116, "Arcade", 20.0, 106.0),
+    (3114, "Taco", 81.0, 106.0),
+    (3112, "IndiaResto", 20.0, 135.0),
+    (3106, "Spa", 81.0, 135.0),
+    (3110, "JapanResto", 20.0, 163.0),
+    (3130, "Giftshop", 81.0, 163.0),
+    (3108, "Medical", 20.0, 192.0),
+    (3128, "BaratResto", 81.0, 192.0),
+    (3134, "Minimarket", 20.0, 221.0),
+    (3136, "Pool", 81.0, 221.0),
+    (3138, "Golf", 20.0, 249.0),
+];
+
+/// Scenery dialog: note the PLANT 6/7/8 button-id swap in the original clip.
+const SCENERY_ITEMS: [(u32, u32, f32, f32); 8] = [
+    (3208, 1, 16.0, 17.0),
+    (3211, 2, 46.0, 17.0),
+    (3214, 3, 16.0, 45.0),
+    (3217, 4, 46.0, 45.0),
+    (3220, 5, 16.0, 80.0),
+    (3229, 6, 46.0, 80.0),
+    (3223, 7, 16.0, 108.0),
+    (3226, 8, 46.0, 108.0),
+];
+
+/// Tile dialog: TILE_n uses button id 3147 + 3*(n-1); two-column layout.
+const TILE_SLOTS: [(f32, f32); 13] = [
+    (9.0, 10.0),
+    (39.0, 10.0),
+    (9.0, 38.0),
+    (39.0, 38.0),
+    (9.0, 73.0),
+    (39.0, 73.0),
+    (9.0, 101.0),
+    (39.0, 101.0),
+    (9.0, 130.0),
+    (39.0, 130.0),
+    (9.0, 157.0),
+    (39.0, 157.0),
+    (9.0, 185.0),
+];
+
+/// Initial unlocks from Application DefaultGameVars (game.UNLOCKED).
+fn initially_unlocked(name: &str) -> bool {
+    matches!(
+        name,
+        "Cottage" | "Sauna" | "Icecream" | "PLANT_1" | "PLANT_2" | "PLANT_3"
+    )
 }
 
-fn button(p: &mut ChildSpawnerCommands, label: String, item: BuildItem) {
+fn spawn_build_dialogs(mut commands: Commands, assets: Res<AssetServer>) {
+    for (kind, panel, left, top, w, h) in DIALOGS {
+        commands
+            .spawn((
+                ImageNode::new(assets.load(format!("sprites/ui/dialogs/{panel}.png"))),
+                Node {
+                    position_type: PositionType::Absolute,
+                    left: Val::Px(left),
+                    top: Val::Px(top),
+                    width: Val::Px(w),
+                    height: Val::Px(h),
+                    ..default()
+                },
+                ZIndex(30),
+                Visibility::Hidden,
+                DialogRoot(kind),
+            ))
+            .with_children(|p| {
+                match kind {
+                    DialogKind::Room => {
+                        for (id, name, x, y) in ROOM_ITEMS {
+                            if initially_unlocked(name) {
+                                item_button(p, &assets, id, BuildItem::Booth(name.into()), x, y);
+                            }
+                        }
+                    }
+                    DialogKind::Facility => {
+                        for (id, name, x, y) in FACILITY_ITEMS {
+                            if initially_unlocked(name) {
+                                item_button(p, &assets, id, BuildItem::Booth(name.into()), x, y);
+                            }
+                        }
+                    }
+                    DialogKind::Scenery => {
+                        for (id, jenis, x, y) in SCENERY_ITEMS {
+                            if initially_unlocked(&format!("PLANT_{jenis}")) {
+                                item_button(p, &assets, id, BuildItem::Scenery(jenis), x, y);
+                            }
+                        }
+                    }
+                    DialogKind::Tile => {
+                        // all floor tiles are available from the start
+                        for (i, (x, y)) in TILE_SLOTS.iter().enumerate() {
+                            let n = i as u32 + 1;
+                            item_button(
+                                p,
+                                &assets,
+                                3147 + 3 * (n - 1),
+                                BuildItem::Tile(n),
+                                *x,
+                                *y,
+                            );
+                        }
+                    }
+                }
+            });
+    }
+}
+
+fn item_button(
+    p: &mut ChildSpawnerCommands,
+    assets: &AssetServer,
+    id: u32,
+    item: BuildItem,
+    x: f32,
+    y: f32,
+) {
+    let up: Handle<Image> = assets.load(format!("sprites/ui/dialogs/items/btn_{id}_up.png"));
+    let down: Handle<Image> = assets.load(format!("sprites/ui/dialogs/items/btn_{id}_down.png"));
     p.spawn((
         Button,
+        ImageNode::new(up.clone()),
         Node {
-            padding: UiRect::axes(Val::Px(10.0), Val::Px(6.0)),
+            position_type: PositionType::Absolute,
+            left: Val::Px(x),
+            top: Val::Px(y),
+            width: Val::Px(24.0),
+            height: Val::Px(24.0),
             ..default()
         },
-        BackgroundColor(Color::srgb(0.15, 0.3, 0.4)),
-        BuildButton(item),
-    ))
-    .with_children(|b| {
-        b.spawn((
-            Text::new(label),
-            TextFont {
-                font_size: 11.0,
-                ..default()
-            },
-            TextColor(Color::WHITE),
-        ));
-    });
+        ItemBtn { item, up, down },
+    ));
+}
+
+/// Show only the dialog selected on the toolbar (original opened()/closing()).
+fn sync_dialogs(state: Res<DialogState>, mut q: Query<(&DialogRoot, &mut Visibility)>) {
+    if !state.is_changed() {
+        return;
+    }
+    for (root, mut vis) in &mut q {
+        *vis = if state.open == Some(root.0) {
+            Visibility::Inherited
+        } else {
+            Visibility::Hidden
+        };
+    }
 }
 
 fn menu_buttons(
-    mut q: Query<(&Interaction, &BuildButton, &mut BackgroundColor), Changed<Interaction>>,
+    mut q: Query<(&Interaction, &ItemBtn, &mut ImageNode), Changed<Interaction>>,
     mut mode: ResMut<BuildMode>,
+    mut dialogs: ResMut<DialogState>,
     keys: Res<ButtonInput<KeyCode>>,
 ) {
     if keys.just_pressed(KeyCode::Escape) {
         mode.selected = None;
+        dialogs.open = None;
     }
-    for (it, btn, mut bg) in q.iter_mut() {
+    for (it, btn, mut img) in q.iter_mut() {
         match *it {
             Interaction::Pressed => {
-                mode.selected = match &btn.0 {
-                    BuildItem::Scenery(0) => None, // cancel button
-                    other => Some(other.clone()),
-                };
-                *bg = BackgroundColor(Color::srgb(0.3, 0.55, 0.3));
+                img.image = btn.down.clone();
+                mode.selected = Some(btn.item.clone());
             }
-            Interaction::Hovered => *bg = BackgroundColor(Color::srgb(0.2, 0.4, 0.55)),
-            Interaction::None => *bg = BackgroundColor(Color::srgb(0.15, 0.3, 0.4)),
+            Interaction::Hovered | Interaction::None => img.image = btn.up.clone(),
         }
     }
 }
@@ -175,6 +320,7 @@ fn ghost_and_place(
     windows: Query<&Window, With<PrimaryWindow>>,
     camera: Query<(&Camera, &GlobalTransform), With<MainCamera>>,
     ghosts: Query<Entity, With<Ghost>>,
+    painted: Query<(Entity, &PaintedTile)>,
     buttons: Res<ButtonInput<MouseButton>>,
     ui_hover: Query<&Interaction, With<Button>>,
     mut counts: ResMut<HudCounts>,
@@ -263,6 +409,53 @@ fn ghost_and_place(
                 occupancy.tiles.insert((tx, ty), ());
                 spawn_scenery_at(&mut commands, &assets, an, tx, ty, *jenis);
                 counts.plants += 1;
+            }
+        }
+        BuildItem::Tile(jenis) => {
+            // Repaint a ground tile (original Tile.changeJenis): allowed on
+            // any lahan tile, replaces the previous paint on that tile.
+            let Some(t) = gd.tile_def(*jenis) else { return };
+            let free = in_lahan(tx, ty) && !occupancy.tiles.contains_key(&(tx, ty));
+            let affordable = wallet.money >= t.price;
+            let ok = free && affordable;
+            let ta = &an.tile;
+            let (wx, wy) = iso::tile_to_world(tx, ty);
+            let anchor = Anchor::Custom(Vec2::new(
+                ta.anchor[0] / ta.size[0] - 0.5,
+                0.5 - ta.anchor[1] / ta.size[1],
+            ));
+            commands.spawn((
+                Sprite {
+                    image: assets.load(format!("sprites/tiles/{}.png", t.fr)),
+                    anchor,
+                    color: if ok {
+                        Color::srgba(0.6, 1.0, 0.6, 0.7)
+                    } else {
+                        Color::srgba(1.0, 0.4, 0.4, 0.7)
+                    },
+                    ..default()
+                },
+                Transform::from_xyz(wx, wy, 500.0),
+                Ghost,
+            ));
+            if ok && !over_ui && buttons.just_pressed(MouseButton::Left) {
+                wallet.money -= t.price;
+                // remove any previous paint on this tile, then draw the new one
+                for (e, pt) in painted.iter() {
+                    if pt.0 == tx && pt.1 == ty {
+                        commands.entity(e).despawn();
+                    }
+                }
+                commands.spawn((
+                    Sprite {
+                        image: assets.load(format!("sprites/tiles/{}.png", t.fr)),
+                        anchor,
+                        ..default()
+                    },
+                    // just above the base tile layer (Z_TILE=0) but below decor
+                    Transform::from_xyz(wx, wy, 0.5),
+                    PaintedTile(tx, ty),
+                ));
             }
         }
     }
