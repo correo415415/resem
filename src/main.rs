@@ -2,6 +2,7 @@
 //! Milestone 2: isometric map render + camera + default map (roads, lobby, sceneries).
 
 mod build;
+mod car;
 mod data;
 mod game;
 mod iso;
@@ -42,6 +43,7 @@ fn main() {
             ui::UiPlugin,
             build::BuildPlugin,
             visitor::VisitorPlugin,
+            car::CarPlugin,
         ))
         .run();
 }
