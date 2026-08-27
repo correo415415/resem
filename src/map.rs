@@ -201,7 +201,7 @@ pub fn spawn_scenery_at(
             anchor: Anchor::Custom(Vec2::new(sa.base[0] / 49.0 - 0.5, 0.5 - sa.base[1] / 54.0)),
             ..default()
         },
-        Transform::from_xyz(cx, cy - 6.0, Z_OBJ + (tx + ty) as f32 * 0.01),
+        Transform::from_xyz(cx, cy - 6.0, Z_OBJ + (200 - (tx + ty)) as f32 * 0.01),
     ));
 }
 
@@ -216,10 +216,13 @@ pub fn spawn_booth_at(
 ) {
     let Some(b) = gd.booth_def(name) else { return };
     let Some(ba) = an.booth.get(name) else { return };
-    // footprint: tx-ROWS+1..=tx, ty..=ty+COLS-1; its N vertex belongs to
-    // tile (tx-ROWS+1, ty)
-    let (wx, wy) = iso::tile_to_world(tx - b.rows + 1, ty);
-    let depth_sum = tx + ty + b.cols - 1; // southernmost footprint tile
+    // footprint: tx-ROWS+1..=tx, ty..=ty+COLS-1. With the Flash-faithful
+    // orientation, the screen-topmost footprint corner is the lattice point
+    // of (tx, ty+COLS-1); the floor art's measured top-vertex anchor and the
+    // wall's n_corner both sit on that point.
+    let (wx, wy) = iso::tile_to_world(tx, ty + b.cols - 1);
+    // painter: front-most footprint corner (smallest tx+ty) decides depth
+    let depth_sum = 200 - ((tx - b.rows + 1) + ty);
     // floor / platform sprite (booths/fr.png)
     commands.spawn((
         Sprite {
