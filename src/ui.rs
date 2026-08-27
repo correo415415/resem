@@ -75,13 +75,14 @@ pub struct ToolbarState {
 
 impl Default for ToolbarState {
     fn default() -> Self {
-        // Application.DefaultGameVars: fresh game shows NEW on the build
-        // categories + expand + extra; new_Tips starts hidden.
+        // Verified against the original reference screenshot: on a fresh
+        // game only the Tips button shows a NEW badge; the others appear
+        // once their content unlocks, and Expand starts locked.
         let mut new_flags = HashMap::new();
         for t in [Tool::Room, Tool::Facility, Tool::Scenery, Tool::Expand, Tool::Extra] {
-            new_flags.insert(t, true);
+            new_flags.insert(t, false);
         }
-        new_flags.insert(Tool::Tips, false);
+        new_flags.insert(Tool::Tips, true);
         Self {
             new_flags,
             expand_unlocked: false,
