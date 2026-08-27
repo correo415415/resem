@@ -27,8 +27,18 @@ Juego jugable en: https://correo415415.github.io/resem/ (gh-pages, se actualiza 
       arena construible arriba, lobby con la alfombra saliendo hacia el frente — igual que el original.
 
 ## Siguiente — hacia el 1:1 visual
-- [ ] Extraer el arte de la UI original del SWF (paneles, botones, iconos, barra inferior de construcción,
-      panel superior de dinero/día) y reconstruir el HUD/menú con ese arte (el menú actual es PLACEHOLDER)
+- [x] Extraer el arte de la UI original del SWF: navigator1 (panel superior: logo, barra de título,
+      barra RP, estrella de nivel, contadores), navigator2 (barra de herramientas izquierda),
+      navigator3 (barra inferior: reloj, DAY, botones de velocidad, sliders, popularidad, dinero),
+      reloj animasiJam y 18 botones con frames normal/hover → assets/sprites/ui/ (PR #11)
+- [x] Limpiar el texto dinámico "horneado" en los exports (título, barra RP, DAY, popularidad,
+      dinero, etiqueta del regalo, ticker) con rellenos planos del color de banda (PR #11)
+- [x] Reconstruir el HUD en src/ui.rs con el arte original: paneles como ImageNode, overlays de
+      texto dinámico (dinero con puntos de miles, DAY, POPULARITY, RP) y botones de velocidad
+      clicables (play/1X/2X/3X) cableados a GameClock (PR #11) — PENDIENTE verificar screenshot
+- [ ] Botones de la barra de herramientas izquierda (nav2) funcionales con frames hover
+      (btn_scenery, btn_destroy, btn_tile, etc.) y menú de construcción con el arte original
+- [ ] Manecillas del reloj animadas sobre la esfera (animasiJam) + icono de regalo funcional
 - [ ] Fuente: usar/extraer la tipografía del juego o una equivalente con acentos (Día, etc.)
 - [ ] Paredes alpha (wall_alpha) al pasar el ratón por detrás de edificios
 - [ ] Coche de entrada (car/1..6.png) y llegada de visitantes por carretera como el original
