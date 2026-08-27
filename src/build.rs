@@ -87,8 +87,9 @@ fn spawn_build_menu(mut commands: Commands, gamedata: Res<Assets<GameData>>, han
     commands
         .spawn(Node {
             position_type: PositionType::Absolute,
-            bottom: Val::Px(8.0),
-            left: Val::Px(8.0),
+            // above the original nav3 bottom bar (74 px tall)
+            bottom: Val::Px(82.0),
+            left: Val::Px(55.0),
             column_gap: Val::Px(6.0),
             padding: UiRect::all(Val::Px(6.0)),
             ..default()
