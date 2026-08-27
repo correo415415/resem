@@ -45,6 +45,11 @@ impl GameClock {
     pub fn minute_of_hour(&self) -> u64 {
         self.total_minutes() % 60
     }
+    /// Fractional hour of day (original `hourDay`), drives the clock hands:
+    /// panjang.rotation = hourDay*360, pendek.rotation = hourDay*(360/12).
+    pub fn hour_frac(&self) -> f64 {
+        (self.counter / TICKS_PER_MINUTE / 60.0) % 24.0
+    }
     /// true between 06:00 and 18:00 (original day/night split)
     pub fn is_day(&self) -> bool {
         let h = self.hour_of_day();
