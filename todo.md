@@ -35,16 +35,23 @@ Juego jugable en: https://correo415415.github.io/resem/ (gh-pages, se actualiza 
       dinero, etiqueta del regalo, ticker) con rellenos planos del color de banda (PR #11)
 - [x] Reconstruir el HUD en src/ui.rs con el arte original: paneles como ImageNode, overlays de
       texto dinámico (dinero con puntos de miles, DAY, POPULARITY, RP) y botones de velocidad
-      clicables (play/1X/2X/3X) cableados a GameClock (PR #11) — PENDIENTE verificar screenshot
+      clicables (play/1X/2X/3X) cableados a GameClock (PR #11) — verificado en screenshots
 - [ ] Botones de la barra de herramientas izquierda (nav2) funcionales con frames hover
       (btn_scenery, btn_destroy, btn_tile, etc.) y menú de construcción con el arte original
-- [ ] Manecillas del reloj animadas sobre la esfera (animasiJam) + icono de regalo funcional
+- [x] Manecillas del reloj animadas sobre la esfera + caras día/noche (animasiJam) (PR #25)
+- [ ] Icono de regalo (gift) funcional
+- [ ] PULIR HUD vs original (reporte del usuario): la barra superior (título GREEN ISLAND,
+      barra RP) y la estrella de nivel no están tan pulidas como en el original — comparar
+      pixel a pixel con navigator1 del SWF y corregir posiciones/recortes/escalas
 - [ ] Fuente: usar/extraer la tipografía del juego o una equivalente con acentos (Día, etc.)
 - [ ] Paredes alpha (wall_alpha) al pasar el ratón por detrás de edificios
 - [x] Tráfico de carretera (port de Mobil.as): buses/furgonetas en las carreteras de entrada,
       bus de pasajeros con parada en (5,19), aceleración 2→rand(7..10) px/frame (PR #26)
-      — PENDIENTE verificar anchor (94,96) y profundidad en screenshot del build
-- [ ] Llegada de visitantes bajándose del bus (Mobil.as modo pasajeros + Car2.as)
+      — VERIFICADO in-game (screenshot build 44cdf66): bus naranja circulando bien asentado
+      sobre el asfalto, anchor (94,96) y profundidad correctos
+- [ ] Llegada de visitantes bajándose del bus (Mobil.as modo pasajeros: newMobil() 55% Bus
+      maxVisitor=min(pop*0.1,8) / 45% Box maxVisitor=min(pop*0.1,4), jumlahV=rand(1..max),
+      para en stop_point (5,19), suelta 1 visitante por tick vía newVisitor(false,true))
 - [ ] Pantalla de título / menú principal del original
 
 ## Gameplay pendiente
