@@ -9,6 +9,7 @@ mod map;
 mod ui;
 mod visitor;
 
+use bevy::asset::AssetMetaCheck;
 use bevy::prelude::*;
 use bevy::window::PresentMode;
 
@@ -16,6 +17,12 @@ fn main() {
     App::new()
         .add_plugins(
             DefaultPlugins
+                .set(AssetPlugin {
+                    // The original assets have no .meta files; skip probing them
+                    // (avoids hundreds of harmless 404s on the web build).
+                    meta_check: AssetMetaCheck::Never,
+                    ..default()
+                })
                 .set(WindowPlugin {
                     primary_window: Some(Window {
                         title: "Resort Empire".into(),

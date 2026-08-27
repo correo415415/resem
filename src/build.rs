@@ -299,6 +299,11 @@ fn menu_buttons(
             Interaction::Pressed => {
                 img.image = btn.down.clone();
                 mode.selected = Some(btn.item.clone());
+                // Original: clickOnNavigator2Dialog -> _selectOnDefault() resets
+                // the toolbar tool to the arrow, which closes the open dialog
+                // (onSelected(prev, false) -> _dialog.closing()) before the
+                // temporary ghost (CreateTemporary) starts following the cursor.
+                dialogs.open = None;
             }
             Interaction::Hovered | Interaction::None => img.image = btn.up.clone(),
         }
