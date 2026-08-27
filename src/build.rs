@@ -199,8 +199,9 @@ fn ghost_and_place(
             let price = b.price.first().copied().unwrap_or(0.0);
             let affordable = wallet.money >= price;
             let ok = free && affordable;
-            // ghost sprite
-            let (wx, wy) = iso::tile_to_world(tx - b.rows + 1, ty);
+            // ghost sprite: anchor at the screen-topmost footprint corner
+            // (lattice point of (tx, ty+cols-1)), same as spawn_booth_at
+            let (wx, wy) = iso::tile_to_world(tx, ty + b.cols - 1);
             commands.spawn((
                 Sprite {
                     image: assets.load(format!("sprites/booths/{}.png", b.fr)),
