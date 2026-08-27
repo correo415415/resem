@@ -41,7 +41,10 @@ Juego jugable en: https://correo415415.github.io/resem/ (gh-pages, se actualiza 
 - [ ] Manecillas del reloj animadas sobre la esfera (animasiJam) + icono de regalo funcional
 - [ ] Fuente: usar/extraer la tipografía del juego o una equivalente con acentos (Día, etc.)
 - [ ] Paredes alpha (wall_alpha) al pasar el ratón por detrás de edificios
-- [ ] Coche de entrada (car/1..6.png) y llegada de visitantes por carretera como el original
+- [x] Tráfico de carretera (port de Mobil.as): buses/furgonetas en las carreteras de entrada,
+      bus de pasajeros con parada en (5,19), aceleración 2→rand(7..10) px/frame (PR #26)
+      — PENDIENTE verificar anchor (94,96) y profundidad en screenshot del build
+- [ ] Llegada de visitantes bajándose del bus (Mobil.as modo pasajeros + Car2.as)
 - [ ] Pantalla de título / menú principal del original
 
 ## Gameplay pendiente
