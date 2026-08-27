@@ -6,7 +6,7 @@ usando el arte original extraído del SWF. Compilación SIEMPRE en el runner sel
 
 Juego jugable en: https://correo415415.github.io/resem/ (gh-pages, se actualiza con cada build de main)
 
-## Hecho (PRs #1–#5 mergeados)
+## Hecho (PRs #1–#8 mergeados)
 - [x] Extracción de datos del AS3: gamedata.json (serbi.as), anchors2.json (medidos del arte), sprites, sonidos
 - [x] Matemática isométrica (rumus.as) + mapa por defecto (MapContainer.buildMap + zmap)
 - [x] Cámara pan/zoom, reloj de juego (velocidades x1/x3/x5, pausa), cartera ($10.000)
@@ -17,14 +17,15 @@ Juego jugable en: https://correo415415.github.io/resem/ (gh-pages, se actualiza 
 - [x] Fix precios $0 en menú (parseo booked_price número-o-lista)
 - [x] Fix HUD ASCII, dist_test/ en .gitignore
 - [x] GitHub Pages habilitado y desplegado
-
-## En curso (este PR)
-- [ ] Alineación pared-suelo de booths: anclar la pared por su `n_corner` medido
-      (intersección de las dos líneas base) sobre el mismo vértice N que el suelo
-      (verificado con compuesto en Python: Lobby/Cottage/Sauna/Icecream/Pool alinean bien)
+- [x] Alineación pared-suelo de booths por `n_corner` medido (PR #6) — verificado en el juego compilado
+- [x] Animación de visitantes (PR #7): frames 1-2 = walk_front, 3-4 = walk_back,
+      flip_x para L/R (port de gerakArah() de Visitor.as), ~6 fps escalado por velocidad del reloj
+- [x] Orientación del mapa corregida (PR #8): el port anterior no negaba flash-y → mapa espejado
+      verticalmente vs el original (entrada arriba en vez de abajo). Ahora world.y = +(tx+ty)*12,
+      anclas de booth/ghost al vértice superior del footprint (tx, ty+cols-1), depth invertido.
+      PENDIENTE verificar con screenshot del build nuevo (entrada/carreteras abajo como la captura del original)
 
 ## Siguiente — hacia el 1:1 visual
-- [ ] Animación de visitantes: ciclo de andar con los 4 frames por skin (visitorN/1..4.png) + flip por dirección
 - [ ] Extraer el arte de la UI original del SWF (paneles, botones, iconos, barra inferior de construcción,
       panel superior de dinero/día) y reconstruir el HUD/menú con ese arte (el menú actual es PLACEHOLDER)
 - [ ] Fuente: usar/extraer la tipografía del juego o una equivalente con acentos (Día, etc.)
