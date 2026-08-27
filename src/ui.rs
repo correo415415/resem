@@ -1,29 +1,48 @@
 //! HUD built from the original SWF art (navigator1/2/3 clips).
-//! nav1_top: top panel (logo, title bar, RP bar, level star, counter buttons)
-//! nav2_tools: left vertical toolbar
-//! nav3_bottom: bottom bar (clock, DAY, speed buttons, sliders, popularity, money)
+//! The top and bottom bars stretch to the full window width like the
+//! original (left block anchored left, info boxes anchored right, a 1px
+//! plain strip stretched in between). A global UiScale reproduces the
+//! original stage scaling (726px logical width).
 
 use crate::build::BuildMode;
 use crate::data::AppState;
 use crate::game::{GameClock, Wallet};
+use crate::visitor::Visitor;
 use bevy::prelude::*;
+use bevy::window::PrimaryWindow;
 use std::collections::HashMap;
 
 // ---- panel geometry (pixel-measured on the extracted art) ----
-const NAV1_SIZE: (f32, f32) = (640.0, 78.0);
+const NAV1_H: f32 = 78.0;
 const NAV2_SIZE: (f32, f32) = (47.0, 346.0);
-const NAV3_SIZE: (f32, f32) = (676.0, 74.0);
+const NAV3_H: f32 = 74.0;
+/// Original Flash logical stage width the art was designed for.
+const STAGE_W: f32 = 726.0;
 
-#[derive(Component)]
-struct HudMoney;
-#[derive(Component)]
-struct HudPop;
-#[derive(Component)]
-struct HudDay;
-#[derive(Component)]
-struct HudRp;
-#[derive(Component)]
-struct HudTicker;
+/// Every dynamic HUD text carries one of these.
+#[derive(Component, Clone, Copy, PartialEq)]
+enum HudField {
+    Money,
+    Day,
+    Pop,
+    Rp,
+    Ticker,
+    Gift,
+    Star,
+    /// 0=janitor 1=visitor 2=room 3=plant 4=facility
+    Counter(u8),
+}
+
+/// Placed-object counters shown in the top bar (rooms/plants/facilities
+/// are incremented by the build system; janitors not implemented yet).
+#[derive(Resource, Default)]
+pub struct HudCounts {
+    pub janitors: u32,
+    pub janitors_max: u32,
+    pub rooms: u32,
+    pub plants: u32,
+    pub facilities: u32,
+}
 
 /// Speed control buttons on nav3 (play toggles pause; 1x/2x/3x set speed).
 #[derive(Component, Clone, Copy, PartialEq)]
@@ -95,73 +114,194 @@ pub struct UiPlugin;
 impl Plugin for UiPlugin {
     fn build(&self, app: &mut App) {
         app.init_resource::<ToolbarState>()
+            .init_resource::<HudCounts>()
             .add_systems(OnEnter(AppState::Playing), spawn_hud)
             .add_systems(
                 Update,
-                (update_hud, speed_buttons, toolbar_buttons, sync_badges)
+                (
+                    update_ui_scale,
+                    update_hud,
+                    speed_buttons,
+                    toolbar_buttons,
+                    sync_badges,
+                )
                     .run_if(in_state(AppState::Playing)),
             );
     }
 }
 
+/// Reproduce the original stage scaling: the Flash stage is ~726px of
+/// logical width scaled up to the window, so UI pixels grow with it.
+fn update_ui_scale(
+    windows: Query<&Window, With<PrimaryWindow>>,
+    mut scale: ResMut<UiScale>,
+) {
+    if let Ok(w) = windows.single() {
+        let s = (w.width() / STAGE_W).max(1.0);
+        if (scale.0 - s).abs() > 0.01 {
+            scale.0 = s;
+        }
+    }
+}
+
 fn spawn_hud(mut commands: Commands, assets: Res<AssetServer>) {
-    // ---------- top panel (navigator1) ----------
+    // ---------- top panel (navigator1): full-width ----------
     commands
         .spawn((
-            ImageNode::new(assets.load("sprites/ui/nav1_top.png")),
             Node {
                 position_type: PositionType::Absolute,
                 top: Val::Px(0.0),
                 left: Val::Px(0.0),
-                width: Val::Px(NAV1_SIZE.0),
-                height: Val::Px(NAV1_SIZE.1),
+                right: Val::Px(0.0),
+                height: Val::Px(NAV1_H),
                 ..default()
             },
             ZIndex(10),
         ))
         .with_children(|p| {
-            // resort title over the gray title bar (52,35)-(188,50)
+            // stretched 1px strip: green top band + white counter panel
             p.spawn((
-                Text::new("RESORT EMPIRE"),
-                TextFont {
-                    font_size: 10.0,
-                    ..default()
-                },
-                TextColor(Color::WHITE),
+                ImageNode::new(assets.load("sprites/ui/nav1_mid.png")),
                 Node {
                     position_type: PositionType::Absolute,
-                    left: Val::Px(56.0),
-                    top: Val::Px(36.0),
+                    left: Val::Px(0.0),
+                    right: Val::Px(0.0),
+                    top: Val::Px(0.0),
+                    height: Val::Px(NAV1_H),
                     ..default()
                 },
             ));
-            // RP label over the green strip (52,52)-(133,68)
+            // left block: dragon logo, title bar, RP bar, level star
             p.spawn((
-                Text::new("RP 0/1400"),
-                TextFont {
-                    font_size: 9.0,
-                    ..default()
-                },
-                TextColor(Color::srgb(0.1, 0.25, 0.05)),
+                ImageNode::new(assets.load("sprites/ui/nav1_left.png")),
                 Node {
                     position_type: PositionType::Absolute,
-                    left: Val::Px(56.0),
-                    top: Val::Px(54.0),
+                    left: Val::Px(0.0),
+                    top: Val::Px(0.0),
+                    width: Val::Px(222.0),
+                    height: Val::Px(NAV1_H),
                     ..default()
                 },
-                HudRp,
-            ));
-            // red RP progress fill inside the black bar (134,54)-(192,64)
+            ))
+            .with_children(|l| {
+                // resort title over the gray title bar (52,35)-(188,50)
+                l.spawn((
+                    Text::new("GREEN ISLAND"),
+                    TextFont {
+                        font_size: 10.0,
+                        ..default()
+                    },
+                    TextColor(Color::WHITE),
+                    Node {
+                        position_type: PositionType::Absolute,
+                        left: Val::Px(58.0),
+                        top: Val::Px(36.0),
+                        ..default()
+                    },
+                ));
+                // RP label over the green strip (52,52)-(133,68)
+                l.spawn((
+                    Text::new("RP (0%)"),
+                    TextFont {
+                        font_size: 9.0,
+                        ..default()
+                    },
+                    TextColor(Color::srgb(0.1, 0.25, 0.05)),
+                    Node {
+                        position_type: PositionType::Absolute,
+                        left: Val::Px(58.0),
+                        top: Val::Px(54.0),
+                        ..default()
+                    },
+                    HudField::Rp,
+                ));
+                // red RP progress fill inside the black bar (134,54)-(192,64)
+                l.spawn((
+                    Node {
+                        position_type: PositionType::Absolute,
+                        left: Val::Px(135.0),
+                        top: Val::Px(55.0),
+                        width: Val::Px(0.0),
+                        height: Val::Px(8.0),
+                        ..default()
+                    },
+                    BackgroundColor(Color::srgb(0.85, 0.1, 0.1)),
+                ));
+                // star level number (star art around x188-218, y28-56)
+                l.spawn((
+                    Node {
+                        position_type: PositionType::Absolute,
+                        left: Val::Px(190.0),
+                        top: Val::Px(33.0),
+                        width: Val::Px(22.0),
+                        height: Val::Px(16.0),
+                        justify_content: JustifyContent::Center,
+                        ..default()
+                    },
+                ))
+                .with_children(|s| {
+                    s.spawn((
+                        Text::new("0"),
+                        TextFont {
+                            font_size: 12.0,
+                            ..default()
+                        },
+                        TextColor(Color::srgb(0.1, 0.08, 0.02)),
+                        HudField::Star,
+                    ));
+                });
+            });
+            // counters block: stretched between the left block and right box.
+            // Labels are baked in the art; the value texts sit in each box.
             p.spawn((
+                ImageNode::new(assets.load("sprites/ui/nav1_counters.png")),
                 Node {
                     position_type: PositionType::Absolute,
-                    left: Val::Px(135.0),
-                    top: Val::Px(55.0),
-                    width: Val::Px(0.0),
-                    height: Val::Px(8.0),
+                    left: Val::Px(222.0),
+                    right: Val::Px(40.0),
+                    top: Val::Px(0.0),
+                    height: Val::Px(NAV1_H),
                     ..default()
                 },
-                BackgroundColor(Color::srgb(0.85, 0.1, 0.1)),
+            ))
+            .with_children(|c| {
+                // blue box interiors in the 378px counters image (percent):
+                // (13..81)(86..154)(159..227)(232..300)(305..373)
+                const BOX_LEFTS: [f32; 5] = [3.4, 22.8, 42.1, 61.4, 80.7];
+                for (i, left_pct) in BOX_LEFTS.iter().enumerate() {
+                    c.spawn((Node {
+                        position_type: PositionType::Absolute,
+                        left: Val::Percent(*left_pct),
+                        width: Val::Percent(18.0),
+                        top: Val::Px(46.0),
+                        height: Val::Px(14.0),
+                        justify_content: JustifyContent::Center,
+                        ..default()
+                    },))
+                        .with_children(|b| {
+                            b.spawn((
+                                Text::new(if i == 0 { "0(0)" } else { "0" }),
+                                TextFont {
+                                    font_size: 9.0,
+                                    ..default()
+                                },
+                                TextColor(Color::WHITE),
+                                HudField::Counter(i as u8),
+                            ));
+                        });
+                }
+            });
+            // right box button (item storage) anchored to the right edge
+            p.spawn((
+                ImageNode::new(assets.load("sprites/ui/nav1_box.png")),
+                Node {
+                    position_type: PositionType::Absolute,
+                    right: Val::Px(0.0),
+                    top: Val::Px(0.0),
+                    width: Val::Px(40.0),
+                    height: Val::Px(NAV1_H),
+                    ..default()
+                },
             ));
         });
 
@@ -263,139 +403,193 @@ fn spawn_hud(mut commands: Commands, assets: Res<AssetServer>) {
             }
         });
 
-    // ---------- bottom bar (navigator3) ----------
+    // ---------- bottom bar (navigator3): full-width ----------
     commands
         .spawn((
-            ImageNode::new(assets.load("sprites/ui/nav3_bottom.png")),
             Node {
                 position_type: PositionType::Absolute,
                 bottom: Val::Px(0.0),
                 left: Val::Px(0.0),
-                width: Val::Px(NAV3_SIZE.0),
-                height: Val::Px(NAV3_SIZE.1),
+                right: Val::Px(0.0),
+                height: Val::Px(NAV3_H),
                 ..default()
             },
             ZIndex(10),
         ))
         .with_children(|p| {
-            // DAY text in the block under the clock (10,56)-(66,70)
+            // stretched 1px strip: ticker band + green body
             p.spawn((
-                Text::new("DAY 1"),
-                TextFont {
-                    font_size: 10.0,
-                    ..default()
-                },
-                TextColor(Color::WHITE),
+                ImageNode::new(assets.load("sprites/ui/nav3_mid.png")),
                 Node {
                     position_type: PositionType::Absolute,
-                    left: Val::Px(14.0),
-                    top: Val::Px(56.0),
+                    left: Val::Px(0.0),
+                    right: Val::Px(0.0),
+                    top: Val::Px(0.0),
+                    height: Val::Px(NAV3_H),
                     ..default()
                 },
-                HudDay,
             ));
-            // news ticker text over the light band (93..520, rows 12..22)
+            // left block: clock, DAY, menu buttons, speed buttons, sliders
             p.spawn((
-                Text::new("Welcome to Resort Empire!"),
-                TextFont {
-                    font_size: 9.0,
-                    ..default()
-                },
-                TextColor(Color::WHITE),
+                ImageNode::new(assets.load("sprites/ui/nav3_left.png")),
                 Node {
                     position_type: PositionType::Absolute,
-                    left: Val::Px(96.0),
-                    top: Val::Px(12.0),
+                    left: Val::Px(0.0),
+                    top: Val::Px(0.0),
+                    width: Val::Px(517.0),
+                    height: Val::Px(NAV3_H),
                     ..default()
                 },
-                HudTicker,
-            ));
-            // POPULARITY value in the blue box (524,28)-(631,43)
-            p.spawn((
-                Text::new("POPULARITY 000.0"),
-                TextFont {
-                    font_size: 9.0,
-                    ..default()
-                },
-                TextColor(Color::WHITE),
-                Node {
-                    position_type: PositionType::Absolute,
-                    left: Val::Px(527.0),
-                    top: Val::Px(30.0),
-                    ..default()
-                },
-                HudPop,
-            ));
-            // money value in the white box (532,49)-(628,66); "$" prefix is baked
-            p.spawn((
-                Text::new("10.000"),
-                TextFont {
-                    font_size: 11.0,
-                    ..default()
-                },
-                TextColor(Color::srgb(0.05, 0.05, 0.05)),
-                Node {
-                    position_type: PositionType::Absolute,
-                    left: Val::Px(546.0),
-                    top: Val::Px(51.0),
-                    ..default()
-                },
-                HudMoney,
-            ));
-            // invisible clickable zones over the speed buttons
-            // play (293..319), 1x (327..353), 2x (355..381), 3x (381..407), rows 37..61
-            for (x, w, which) in [
-                (291.0, 30.0, SpeedBtn::Play),
-                (325.0, 28.0, SpeedBtn::X1),
-                (353.0, 28.0, SpeedBtn::X2),
-                (381.0, 26.0, SpeedBtn::X3),
-            ] {
-                p.spawn((
-                    Button,
-                    Node {
-                        position_type: PositionType::Absolute,
-                        left: Val::Px(x),
-                        top: Val::Px(37.0),
-                        width: Val::Px(w),
-                        height: Val::Px(24.0),
+            ))
+            .with_children(|l| {
+                // DAY text in the block under the clock (10,56)-(66,70)
+                l.spawn((
+                    Text::new("DAY 1"),
+                    TextFont {
+                        font_size: 10.0,
                         ..default()
                     },
-                    BackgroundColor(Color::NONE),
-                    which,
+                    TextColor(Color::WHITE),
+                    Node {
+                        position_type: PositionType::Absolute,
+                        left: Val::Px(14.0),
+                        top: Val::Px(56.0),
+                        ..default()
+                    },
+                    HudField::Day,
                 ));
-            }
+                // invisible clickable zones over the speed buttons
+                for (x, w, which) in [
+                    (291.0, 30.0, SpeedBtn::Play),
+                    (325.0, 28.0, SpeedBtn::X1),
+                    (353.0, 28.0, SpeedBtn::X2),
+                    (381.0, 26.0, SpeedBtn::X3),
+                ] {
+                    l.spawn((
+                        Button,
+                        Node {
+                            position_type: PositionType::Absolute,
+                            left: Val::Px(x),
+                            top: Val::Px(37.0),
+                            width: Val::Px(w),
+                            height: Val::Px(24.0),
+                            ..default()
+                        },
+                        BackgroundColor(Color::NONE),
+                        which,
+                    ));
+                }
+            });
+            // right block: gift box, POPULARITY, money — anchored right
+            p.spawn((
+                ImageNode::new(assets.load("sprites/ui/nav3_right.png")),
+                Node {
+                    position_type: PositionType::Absolute,
+                    right: Val::Px(0.0),
+                    top: Val::Px(0.0),
+                    width: Val::Px(159.0),
+                    height: Val::Px(NAV3_H),
+                    ..default()
+                },
+            ))
+            .with_children(|r| {
+                // gift amount next to the baked gift icon (icon x4..17)
+                r.spawn((
+                    Text::new("$ 500"),
+                    TextFont {
+                        font_size: 9.0,
+                        ..default()
+                    },
+                    TextColor(Color::WHITE),
+                    Node {
+                        position_type: PositionType::Absolute,
+                        left: Val::Px(22.0),
+                        top: Val::Px(11.0),
+                        ..default()
+                    },
+                    HudField::Gift,
+                ));
+                // POPULARITY in the blue box (block coords ~7..114)
+                r.spawn((
+                    Text::new("POPULARITY 0%"),
+                    TextFont {
+                        font_size: 9.0,
+                        ..default()
+                    },
+                    TextColor(Color::WHITE),
+                    Node {
+                        position_type: PositionType::Absolute,
+                        left: Val::Px(12.0),
+                        top: Val::Px(30.0),
+                        ..default()
+                    },
+                    HudField::Pop,
+                ));
+                // money value right-aligned in the white box ("$" is baked)
+                r.spawn((
+                    Text::new("10000"),
+                    TextFont {
+                        font_size: 11.0,
+                        ..default()
+                    },
+                    TextColor(Color::srgb(0.05, 0.05, 0.05)),
+                    Node {
+                        position_type: PositionType::Absolute,
+                        right: Val::Px(52.0),
+                        top: Val::Px(51.0),
+                        ..default()
+                    },
+                    HudField::Money,
+                ));
+            });
+            // news ticker: centered between the clock block and the gift
+            p.spawn((Node {
+                position_type: PositionType::Absolute,
+                left: Val::Px(90.0),
+                right: Val::Px(165.0),
+                top: Val::Px(10.0),
+                height: Val::Px(14.0),
+                justify_content: JustifyContent::Center,
+                ..default()
+            },))
+                .with_children(|t| {
+                    t.spawn((
+                        Text::new("Build a room on your resort"),
+                        TextFont {
+                            font_size: 9.0,
+                            ..default()
+                        },
+                        TextColor(Color::WHITE),
+                        HudField::Ticker,
+                    ));
+                });
         });
-}
-
-/// Format money like the original: thousands separated by dots.
-fn fmt_money(v: f64) -> String {
-    let n = v.max(0.0) as u64;
-    let s = n.to_string();
-    let mut out = String::new();
-    for (i, c) in s.chars().enumerate() {
-        if i > 0 && (s.len() - i) % 3 == 0 {
-            out.push('.');
-        }
-        out.push(c);
-    }
-    out
 }
 
 fn update_hud(
     clock: Res<GameClock>,
     wallet: Res<Wallet>,
-    mut q_money: Query<&mut Text, (With<HudMoney>, Without<HudDay>, Without<HudPop>)>,
-    mut q_day: Query<&mut Text, (With<HudDay>, Without<HudMoney>, Without<HudPop>)>,
-    mut q_pop: Query<&mut Text, (With<HudPop>, Without<HudMoney>, Without<HudDay>)>,
+    counts: Res<HudCounts>,
+    visitors: Query<(), With<Visitor>>,
+    mut texts: Query<(&HudField, &mut Text)>,
 ) {
-    if let Ok(mut t) = q_money.single_mut() {
-        t.0 = fmt_money(wallet.money);
-    }
-    if let Ok(mut t) = q_day.single_mut() {
-        t.0 = format!("DAY {}", clock.day() + 1);
-    }
-    if let Ok(mut t) = q_pop.single_mut() {
-        t.0 = format!("POPULARITY {:05.1}", wallet.popularity);
+    let n_visitors = visitors.iter().count() as u32;
+    for (field, mut t) in &mut texts {
+        let new = match field {
+            HudField::Money => format!("{}", wallet.money.max(0.0) as u64),
+            HudField::Day => format!("DAY {}", clock.day() + 1),
+            HudField::Pop => format!("POPULARITY {}%", wallet.popularity.round() as i64),
+            HudField::Counter(0) => format!("{}({})", counts.janitors, counts.janitors_max),
+            HudField::Counter(1) => format!("{n_visitors}"),
+            HudField::Counter(2) => format!("{}", counts.rooms),
+            HudField::Counter(3) => format!("{}", counts.plants),
+            HudField::Counter(4) => format!("{}", counts.facilities),
+            // static for now (RP/level/gift/ticker systems come later)
+            _ => continue,
+        };
+        if t.0 != new {
+            t.0 = new;
+        }
     }
 }
 

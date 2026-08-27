@@ -37,8 +37,14 @@ pub struct MainCamera;
 
 fn setup_camera(mut commands: Commands) {
     let (cx, cy) = iso::tile_center(14, 22); // lobby
+    // Original stage is ~726 logical px wide scaled to the window; a 1024px
+    // window therefore shows the world at ~726/1024 = 0.71 ortho scale.
     commands.spawn((
         Camera2d,
+        Projection::Orthographic(OrthographicProjection {
+            scale: 0.71,
+            ..OrthographicProjection::default_2d()
+        }),
         Transform::from_xyz(cx, cy, 1000.0),
         MainCamera,
     ));

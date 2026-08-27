@@ -4,6 +4,7 @@
 
 use crate::data::{Anchors, AppState, DataHandles, GameData};
 use crate::game::Wallet;
+use crate::ui::HudCounts;
 use crate::iso;
 use crate::map::{spawn_booth_at, spawn_scenery_at, MainCamera};
 use bevy::prelude::*;
@@ -176,6 +177,7 @@ fn ghost_and_place(
     ghosts: Query<Entity, With<Ghost>>,
     buttons: Res<ButtonInput<MouseButton>>,
     ui_hover: Query<&Interaction, With<Button>>,
+    mut counts: ResMut<HudCounts>,
 ) {
     // clear previous ghost every frame (simple + robust)
     for e in ghosts.iter() {
@@ -224,6 +226,12 @@ fn ghost_and_place(
                 wallet.money -= price;
                 occupancy.occupy_booth(tx, ty, b.rows, b.cols);
                 spawn_booth_at(&mut commands, &assets, gd, an, name, tx, ty);
+                // ROOM(S) counts blok 51/56 (bookable rooms); everything
+                // else placed from the booth list is a FACILITY.
+                match b.blok {
+                    51 | 56 => counts.rooms += 1,
+                    _ => counts.facilities += 1,
+                }
             }
         }
         BuildItem::Scenery(jenis) => {
@@ -254,6 +262,7 @@ fn ghost_and_place(
                 wallet.money -= s.price;
                 occupancy.tiles.insert((tx, ty), ());
                 spawn_scenery_at(&mut commands, &assets, an, tx, ty, *jenis);
+                counts.plants += 1;
             }
         }
     }
