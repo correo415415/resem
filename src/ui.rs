@@ -44,6 +44,16 @@ pub struct HudCounts {
     pub facilities: u32,
 }
 
+/// Animated clock pieces (original animasiJam clip: panjang/pendek hands
+/// rotate with hourDay; siang/malam faces swap at 06:00/18:00).
+#[derive(Component, Clone, Copy, PartialEq)]
+enum ClockPiece {
+    FaceDay,
+    FaceNight,
+    HandMinute,
+    HandHour,
+}
+
 /// Speed control buttons on nav3 (play toggles pause; 1x/2x/3x set speed).
 #[derive(Component, Clone, Copy, PartialEq)]
 enum SpeedBtn {
@@ -121,6 +131,7 @@ impl Plugin for UiPlugin {
                 (
                     update_ui_scale,
                     update_hud,
+                    animate_clock,
                     speed_buttons,
                     toolbar_buttons,
                     sync_badges,
@@ -443,6 +454,33 @@ fn spawn_hud(mut commands: Commands, assets: Res<AssetServer>) {
                 },
             ))
             .with_children(|l| {
+                // animated clock over the baked one; dial center at (36,31)
+                // in nav3_left coords (white dial spans 15..57 x 10..52).
+                // layering matches the original clip: faces (siang/malam),
+                // then the dial tick marks (shape 3562), then the hands.
+                for (piece, path, w, h, z) in [
+                    (Some(ClockPiece::FaceDay), "sprites/ui/clock/face_day.png", 47.0, 47.0, 0),
+                    (Some(ClockPiece::FaceNight), "sprites/ui/clock/face_night.png", 47.0, 47.0, 0),
+                    (None, "sprites/ui/clock/dial_marks.png", 41.0, 41.0, 1),
+                    (Some(ClockPiece::HandMinute), "sprites/ui/clock/hand_minute.png", 3.0, 32.0, 2),
+                    (Some(ClockPiece::HandHour), "sprites/ui/clock/hand_hour.png", 5.0, 20.0, 2),
+                ] {
+                    let mut e = l.spawn((
+                        ImageNode::new(assets.load(path)),
+                        Node {
+                            position_type: PositionType::Absolute,
+                            left: Val::Px(36.0 - w / 2.0),
+                            top: Val::Px(31.0 - h / 2.0),
+                            width: Val::Px(w),
+                            height: Val::Px(h),
+                            ..default()
+                        },
+                        ZIndex(z),
+                    ));
+                    if let Some(p) = piece {
+                        e.insert(p);
+                    }
+                }
                 // DAY text in the block under the clock (10,56)-(66,70)
                 l.spawn((
                     Text::new("DAY 1"),
@@ -565,6 +603,41 @@ fn spawn_hud(mut commands: Commands, assets: Res<AssetServer>) {
                     ));
                 });
         });
+}
+
+/// Original animasiJam: jalanJam(hourDay) sets panjang.rotation = hourDay*360
+/// and pendek.rotation = hourDay*(360/12); toSiang/toMalam swap the face.
+fn animate_clock(
+    clock: Res<GameClock>,
+    mut q: Query<(&ClockPiece, &mut Transform, &mut Visibility)>,
+) {
+    let hour = clock.hour_frac() as f32;
+    let day = clock.is_day();
+    for (piece, mut tf, mut vis) in &mut q {
+        match piece {
+            ClockPiece::FaceDay => {
+                *vis = if day {
+                    Visibility::Inherited
+                } else {
+                    Visibility::Hidden
+                };
+            }
+            ClockPiece::FaceNight => {
+                *vis = if day {
+                    Visibility::Hidden
+                } else {
+                    Visibility::Inherited
+                };
+            }
+            // Flash rotation is clockwise-positive; Bevy Z+ is CCW, so negate.
+            ClockPiece::HandMinute => {
+                tf.rotation = Quat::from_rotation_z(-(hour * 360.0f32).to_radians());
+            }
+            ClockPiece::HandHour => {
+                tf.rotation = Quat::from_rotation_z(-(hour * 30.0f32).to_radians());
+            }
+        }
+    }
 }
 
 fn update_hud(
