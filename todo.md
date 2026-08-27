@@ -23,7 +23,8 @@ Juego jugable en: https://correo415415.github.io/resem/ (gh-pages, se actualiza 
 - [x] Orientación del mapa corregida (PR #8): el port anterior no negaba flash-y → mapa espejado
       verticalmente vs el original (entrada arriba en vez de abajo). Ahora world.y = +(tx+ty)*12,
       anclas de booth/ghost al vértice superior del footprint (tx, ty+cols-1), depth invertido.
-      PENDIENTE verificar con screenshot del build nuevo (entrada/carreteras abajo como la captura del original)
+      VERIFICADO in-game (screenshot del build a711fb1): carreteras de entrada abajo/adelante,
+      arena construible arriba, lobby con la alfombra saliendo hacia el frente — igual que el original.
 
 ## Siguiente — hacia el 1:1 visual
 - [ ] Extraer el arte de la UI original del SWF (paneles, botones, iconos, barra inferior de construcción,
