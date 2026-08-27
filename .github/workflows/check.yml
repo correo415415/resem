@@ -3,7 +3,15 @@ name: Check (fast)
 on:
   push:
     branches: [genspark_ai_developer, main]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
   pull_request:
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
   workflow_dispatch:
 
 concurrency:
