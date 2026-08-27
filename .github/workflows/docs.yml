@@ -1,0 +1,44 @@
+name: Docs check
+
+on:
+  push:
+    branches: [genspark_ai_developer, main]
+    paths:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
+  pull_request:
+    paths:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
+  workflow_dispatch:
+
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  docs:
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Lint markdown (lightweight)
+        run: |
+          set -e
+          fail=0
+          for f in $(git ls-files '*.md'); do
+            # no merge-conflict markers
+            if grep -nE '^(<<<<<<<|=======$|>>>>>>>)' "$f"; then
+              echo "::error file=$f::merge conflict marker found"
+              fail=1
+            fi
+            # no trailing whitespace noise (warning only)
+            grep -nE ' +$' "$f" | head -3 | sed "s|^|$f: trailing-ws |" || true
+          done
+          # todo.md must exist and keep its main sections
+          test -f todo.md
+          grep -q '## ' todo.md
+          exit $fail
