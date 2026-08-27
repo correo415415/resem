@@ -368,14 +368,15 @@ fn spawn_hud(mut commands: Commands, assets: Res<AssetServer>) {
                         hover,
                     },
                 ));
-                // lock overlay on the expand button (centered)
+                // lock overlay on the expand button (bottom-right corner,
+                // matching where the original SWF placed the `_locked` child)
                 if tool == Tool::Expand {
                     p.spawn((
                         ImageNode::new(assets.load("sprites/ui/buttons/badge_lock.png")),
                         Node {
                             position_type: PositionType::Absolute,
-                            left: Val::Px(8.0 + (w - 10.0) / 2.0),
-                            top: Val::Px(y + (h - 12.0) / 2.0),
+                            left: Val::Px(8.0 + w - 10.0),
+                            top: Val::Px(y + h - 12.0),
                             width: Val::Px(10.0),
                             height: Val::Px(12.0),
                             ..default()
