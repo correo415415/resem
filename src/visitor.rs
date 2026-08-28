@@ -7,6 +7,7 @@
 //!   rand(0..100) <= prob + popularity*0.5 -> spawn (1-5am extra gate: 25% pass)
 //!   After a spawn, cooldown (jeda) = random minutes range shrinking with popularity.
 
+use crate::car::BusArrival;
 use crate::data::{AppState, DataHandles, GameData};
 use crate::game::{GameClock, MinuteTick, Wallet};
 use crate::iso;
@@ -92,7 +93,7 @@ impl Plugin for VisitorPlugin {
         })
         .add_systems(
             Update,
-            (spawn_roll, walk).run_if(in_state(AppState::Playing)),
+            (spawn_roll, bus_arrivals, walk).run_if(in_state(AppState::Playing)),
         );
     }
 }
@@ -124,47 +125,14 @@ fn spawn_roll(
         true
     };
     if roll <= prob && night_gate {
-        let skin = (st.rand() * NUM_SKINS as f64) as u32 % NUM_SKINS + 1;
-        // per-skin speed from gamedata (Visitor{n}.speed), fallback 1.15
-        let speed = gamedata
-            .get(&handles.gamedata)
-            .and_then(|gd| gd.visitor_speed(skin))
-            .unwrap_or(1.15);
-        let (wx, wy) = iso::tile_center(ENTRY.0, ENTRY.1);
-        let mut route: Vec<(i32, i32)> = WAYPOINTS.to_vec();
-        // small per-visitor offset target near lobby
-        let jitter = ((st.rand() * 3.0) as i32) - 1;
-        if let Some(last) = route.last_mut() {
-            last.1 = (last.1 + jitter).clamp(20, 23);
-        }
-        let frames = [
-            assets.load(format!("sprites/visitor{skin}/1.png")),
-            assets.load(format!("sprites/visitor{skin}/2.png")),
-            assets.load(format!("sprites/visitor{skin}/3.png")),
-            assets.load(format!("sprites/visitor{skin}/4.png")),
-        ];
-        commands.spawn((
-            Sprite {
-                image: frames[0].clone(),
-                anchor: Anchor::BottomCenter,
-                ..default()
-            },
-            Transform::from_xyz(wx, wy, 400.0),
-            Visitor {
-                skin,
-                speed,
-                route,
-                next: 0,
-                stay: 60.0 + st.rand() * 240.0,
-                leaving: false,
-            },
-            VisitorAnim {
-                frames,
-                timer: 0.0,
-                step: 0,
-                front: true,
-            },
-        ));
+        spawn_visitor(
+            &mut commands,
+            &assets,
+            &handles,
+            &gamedata,
+            &mut st,
+            ENTRY,
+        );
         // reload cooldown: shrinks as popularity grows (approx of reloadMaxJedaVisitor)
         let base = if wallet.popularity < 20.0 {
             (4.0, 9.0)
@@ -178,6 +146,84 @@ fn spawn_roll(
         st.jeda = base.0 + st.rand() * (base.1 - base.0);
     } else {
         st.jeda = 1.0;
+    }
+}
+
+/// Spawn one visitor at `at` walking the standard route toward the lobby.
+/// Shared by the probabilistic street spawner and bus unloading.
+fn spawn_visitor(
+    commands: &mut Commands,
+    assets: &AssetServer,
+    handles: &DataHandles,
+    gamedata: &Assets<GameData>,
+    st: &mut SpawnState,
+    at: (i32, i32),
+) {
+    let skin = (st.rand() * NUM_SKINS as f64) as u32 % NUM_SKINS + 1;
+    // per-skin speed from gamedata (Visitor{n}.speed), fallback 1.15
+    let speed = gamedata
+        .get(&handles.gamedata)
+        .and_then(|gd| gd.visitor_speed(skin))
+        .unwrap_or(1.15);
+    let (wx, wy) = iso::tile_center(at.0, at.1);
+    let mut route: Vec<(i32, i32)> = WAYPOINTS.to_vec();
+    // small per-visitor offset target near lobby
+    let jitter = ((st.rand() * 3.0) as i32) - 1;
+    if let Some(last) = route.last_mut() {
+        last.1 = (last.1 + jitter).clamp(20, 23);
+    }
+    let frames = [
+        assets.load(format!("sprites/visitor{skin}/1.png")),
+        assets.load(format!("sprites/visitor{skin}/2.png")),
+        assets.load(format!("sprites/visitor{skin}/3.png")),
+        assets.load(format!("sprites/visitor{skin}/4.png")),
+    ];
+    commands.spawn((
+        Sprite {
+            image: frames[0].clone(),
+            anchor: Anchor::BottomCenter,
+            ..default()
+        },
+        Transform::from_xyz(wx, wy, 400.0),
+        Visitor {
+            skin,
+            speed,
+            route,
+            next: 0,
+            stay: 60.0 + st.rand() * 240.0,
+            leaving: false,
+        },
+        VisitorAnim {
+            frames,
+            timer: 0.0,
+            step: 0,
+            front: true,
+        },
+    ));
+}
+
+/// Port of Mobil.activitiesOnTick unloading: when a passenger bus stops,
+/// `count` visitors step out at the sidewalk tile next to the stop and walk
+/// to the lobby (parent_.newVisitor(false, true) x jumlahV).
+fn bus_arrivals(
+    mut ev: EventReader<BusArrival>,
+    mut st: ResMut<SpawnState>,
+    mut commands: Commands,
+    assets: Res<AssetServer>,
+    handles: Res<DataHandles>,
+    gamedata: Res<Assets<GameData>>,
+) {
+    for arrival in ev.read() {
+        for _ in 0..arrival.count {
+            spawn_visitor(
+                &mut commands,
+                &assets,
+                &handles,
+                &gamedata,
+                &mut st,
+                arrival.tile,
+            );
+        }
     }
 }
 
