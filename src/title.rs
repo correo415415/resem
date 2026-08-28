@@ -261,6 +261,9 @@ fn spawn_title(mut commands: Commands, assets: Res<AssetServer>) {
                             },
                             TextColor(Color::BLACK),
                             TextLayout::new_with_justify(JustifyText::Center),
+                            // Same GlobalZIndex-descendant fix as the
+                            // CHECKING overlay: lift above the dialog art.
+                            GlobalZIndex(61),
                         ));
                         // OK / CANCEL buttons over the baked art.
                         let dlg_buttons: [(TitleButton, &str, (f32, f32, f32, f32)); 2] = [
@@ -284,6 +287,7 @@ fn spawn_title(mut commands: Commands, assets: Res<AssetServer>) {
                                 },
                                 ImageNode::new(up.clone()),
                                 ButtonArt { up, over, down },
+                                GlobalZIndex(61),
                             ));
                         }
                     });
@@ -322,6 +326,11 @@ fn spawn_title(mut commands: Commands, assets: Res<AssetServer>) {
                                     ..default()
                                 },
                                 ImageNode::new(panel),
+                                // Children of a non-root GlobalZIndex node
+                                // paint in the *stage* context, i.e. below
+                                // the lifted parent -- lift them too or the
+                                // curtain covers its own panel/text.
+                                GlobalZIndex(71),
                             ))
                             .with_children(|p| {
                                 // Text 2865: two centered lines in the
@@ -343,6 +352,7 @@ fn spawn_title(mut commands: Commands, assets: Res<AssetServer>) {
                                     },
                                     TextColor(Color::WHITE),
                                     TextLayout::new_with_justify(JustifyText::Center),
+                                    GlobalZIndex(72),
                                 ));
                             });
                     });
