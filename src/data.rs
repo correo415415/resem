@@ -92,11 +92,37 @@ pub struct GameData {
     pub expand: Vec<ExpandDef>,
     #[serde(rename = "ExpandPrice")]
     pub expand_price: Vec<f64>,
+    #[serde(rename = "Mission", default)]
+    pub mission: HashMap<String, serde_json::Value>,
+}
+
+/// A serbi.Mission entry: {desc, bonus, batas}.
+#[derive(Debug, Deserialize, Clone)]
+pub struct MissionDef {
+    pub desc: String,
+    pub bonus: f64,
+    /// threshold shown as "n/batas" counters (0 = one-shot tutorial mission)
+    pub batas: f64,
 }
 
 impl GameData {
     pub fn booth_def(&self, name: &str) -> Option<BoothDef> {
         serde_json::from_value(self.booth.get(name)?.clone()).ok()
+    }
+    pub fn mission_def(&self, key: &str) -> Option<MissionDef> {
+        serde_json::from_value(self.mission.get(key)?.clone()).ok()
+    }
+    /// serbi.Mission.listing: the ordered mission queue.
+    pub fn mission_listing(&self) -> Vec<String> {
+        self.mission
+            .get("listing")
+            .and_then(|v| v.as_array())
+            .map(|a| {
+                a.iter()
+                    .filter_map(|s| s.as_str().map(str::to_owned))
+                    .collect()
+            })
+            .unwrap_or_default()
     }
     pub fn tile_def(&self, jenis: u32) -> Option<TileDef> {
         serde_json::from_value(self.tile.get(&format!("TILE_{jenis}"))?.clone()).ok()
