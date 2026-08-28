@@ -94,8 +94,15 @@ La experiencia del port debe ser IDÉNTICA. Fases con timestamps del vídeo reco
       logo "Resort empire" manuscrito en círculo azul arriba-dcha, panel verde con
       botones dorados NEW GAME / LOAD GAME / BACK, "(c)LittleGiantWorld" arriba-izq,
       logo GAMESFREE.com abajo-izq, "ver 1.1" abajo-dcha
-- [ ] Modal "INPUT YOUR NAME HERE" (~11.8s): nombre por defecto "HOME SWEET LAND",
-      botones CANCEL / OK
+- [x] Modal "INPUT YOUR NAME HERE" (~11.8s): nombre por defecto "HOME SWEET LAND",
+      botones CANCEL / OK — HECHO (PRs #42 arte + #43 código). NEW GAME abre el
+      diálogo con nombre aleatorio de serbi.resortName (11 nombres); teclado
+      restringido A-Z + espacio (restrict="A-Z a-z"), máx 20 chars, select-all
+      inicial como setSelection(0,20), Enter=OK, Backspace edita; OK guarda
+      recurso ResortName y arranca el juego; CANCEL oculta el diálogo; botones
+      del menú inertes mientras el modal está abierto. El HUD ahora muestra
+      ResortName en la barra de título (antes "GREEN ISLAND" fijo).
+      PENDIENTE verificar in-game
 - [ ] Intro del mapa (~13.8–21.8s, frame t0021_8s): mapa vacío SIN HUD; una
       apisonadora (steamroller) con obreros y andamios construye la entrada;
       el dragón mascota asoma arriba-izquierda

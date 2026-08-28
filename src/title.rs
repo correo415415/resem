@@ -1,14 +1,14 @@
-//! Title screen (original mainMenuD symbol, "init_load" pose: frame 38).
-//! Background is the original render cropped to the 640x480 stage;
-//! NEW GAME / LOAD GAME / BACK buttons use the original DefineButton2
-//! up/over/down art at pixel-measured stage positions.
+//! Title screen (original mainMenuD symbol). Background is the original
+//! render cropped to the 640x480 stage; buttons use the original
+//! DefineButton2 up/over/down art at pixel-measured stage positions.
 //!
 //! Original flow (Application.as / mainMenuD_470.as): after preloading the
-//! menu shows PLAY/OPTION/CREDIT/MORE ("stand"), then clicking PLAY plays
-//! "init_load" revealing NEW GAME / LOAD GAME / BACK. Our port jumps
-//! straight to the init_load pose (matching the reference capture, which
-//! starts there). LOAD GAME is disabled while there is no save support,
-//! mirroring `mainMenuD.btn_load.mouseEnabled = false` when no save exists.
+//! menu stops on "stand" (PLAY/OPTIONS/CREDIT/MORE GAMES, frame 27);
+//! clicking PLAY plays "init_load" revealing NEW GAME / LOAD GAME / BACK
+//! (frame 38), and BACK returns to "stand". LOAD GAME is disabled while
+//! there is no save support, mirroring `mainMenuD.btn_load.mouseEnabled =
+//! false` when no save exists. OPTIONS/CREDIT/MORE GAMES are visual
+//! no-ops for now (original: quality settings / credits / sponsor link).
 
 use crate::data::AppState;
 use bevy::input::keyboard::{Key, KeyboardInput};
@@ -24,6 +24,7 @@ const BTN_SIZE: (f32, f32) = (106.0, 26.0);
 const BTN_X: f32 = 484.0;
 const BTN_NEW_Y: f32 = 240.0;
 const BTN_LOAD_Y: f32 = 275.0;
+const BTN_CREDIT_Y: f32 = 313.0;
 const BTN_BACK_Y: f32 = 349.0;
 
 /// Input-name dialog art size and baked button rects (measured on the
@@ -59,11 +60,26 @@ impl Default for ResortName {
 
 #[derive(Component, Clone, Copy, PartialEq)]
 enum TitleButton {
+    // "stand" pose (mainMenuD frame 27)
+    Play,
+    Options,
+    Credit,
+    MoreGames,
+    // "init_load" pose (frame 38)
     NewGame,
     LoadGame,
     Back,
+    // input-name dialog
     DialogOk,
     DialogCancel,
+}
+
+/// Which mainMenuD pose a menu button belongs to (visibility toggled
+/// when the timeline would gotoAndPlay between poses).
+#[derive(Component, Clone, Copy, PartialEq)]
+enum PoseTag {
+    Stand,
+    InitLoad,
 }
 
 #[derive(Component)]
@@ -118,10 +134,16 @@ fn title_scale(windows: Query<&Window, With<PrimaryWindow>>, mut scale: ResMut<U
 fn spawn_title(mut commands: Commands, assets: Res<AssetServer>) {
     let bg = assets.load("sprites/title/menu_bg.png");
 
-    let buttons: [(TitleButton, &str, f32); 3] = [
-        (TitleButton::NewGame, "btn_new_game", BTN_NEW_Y),
-        (TitleButton::LoadGame, "btn_load_game", BTN_LOAD_Y),
-        (TitleButton::Back, "btn_back", BTN_BACK_Y),
+    // Both poses share the same panel slots; the original swaps them by
+    // moving along the timeline (stand: frame 27, init_load: frame 38).
+    let buttons: [(TitleButton, PoseTag, &str, f32); 7] = [
+        (TitleButton::Play, PoseTag::Stand, "btn_play", BTN_NEW_Y),
+        (TitleButton::Options, PoseTag::Stand, "btn_options", BTN_LOAD_Y),
+        (TitleButton::Credit, PoseTag::Stand, "btn_credit", BTN_CREDIT_Y),
+        (TitleButton::MoreGames, PoseTag::Stand, "btn_more_games", BTN_BACK_Y),
+        (TitleButton::NewGame, PoseTag::InitLoad, "btn_new_game", BTN_NEW_Y),
+        (TitleButton::LoadGame, PoseTag::InitLoad, "btn_load_game", BTN_LOAD_Y),
+        (TitleButton::Back, PoseTag::InitLoad, "btn_back", BTN_BACK_Y),
     ];
 
     commands
@@ -151,12 +173,20 @@ fn spawn_title(mut commands: Commands, assets: Res<AssetServer>) {
                 ImageNode::new(bg),
             ))
             .with_children(|stage| {
-                for (which, name, y) in buttons {
+                for (which, pose, name, y) in buttons {
                     let up = assets.load(format!("sprites/title/{name}_up.png"));
                     let over = assets.load(format!("sprites/title/{name}_over.png"));
                     let down = assets.load(format!("sprites/title/{name}_down.png"));
+                    // The menu starts on the "stand" pose like the original
+                    // (frame 27 stop() after the intro animation).
+                    let vis = if pose == PoseTag::Stand {
+                        Visibility::Inherited
+                    } else {
+                        Visibility::Hidden
+                    };
                     stage.spawn((
                         which,
+                        pose,
                         Button,
                         Node {
                             position_type: PositionType::Absolute,
@@ -168,6 +198,7 @@ fn spawn_title(mut commands: Commands, assets: Res<AssetServer>) {
                         },
                         ImageNode::new(up.clone()),
                         ButtonArt { up, over, down },
+                        vis,
                     ));
                 }
 
@@ -253,7 +284,8 @@ fn title_buttons(
         (&TitleButton, &Interaction, &ButtonArt, &mut ImageNode),
         (Changed<Interaction>, With<Button>),
     >,
-    mut dialog: Query<&mut Visibility, With<NameDialog>>,
+    mut dialog: Query<&mut Visibility, (With<NameDialog>, Without<PoseTag>)>,
+    mut poses: Query<(&PoseTag, &mut Visibility), (With<PoseTag>, Without<NameDialog>)>,
     mut name_text: Query<(&mut Text, &mut NameText)>,
     mut resort: ResMut<ResortName>,
     time: Res<Time>,
@@ -263,6 +295,21 @@ fn title_buttons(
         .single()
         .map(|v| *v == Visibility::Visible)
         .unwrap_or(false);
+
+    // Emulates mainMenuD.gotoAndPlay("init_load") / back to "stand".
+    let mut set_pose = |poses: &mut Query<
+        (&PoseTag, &mut Visibility),
+        (With<PoseTag>, Without<NameDialog>),
+    >,
+                        show: PoseTag| {
+        for (tag, mut vis) in poses.iter_mut() {
+            *vis = if *tag == show {
+                Visibility::Inherited
+            } else {
+                Visibility::Hidden
+            };
+        }
+    };
 
     for (which, interaction, art, mut img) in &mut q {
         // LOAD GAME is disabled (no save data yet), like the original's
@@ -284,6 +331,15 @@ fn title_buttons(
             Interaction::Pressed => {
                 img.image = art.down.clone();
                 match which {
+                    TitleButton::Play => {
+                        // Original ClickMainMenu btn_play:
+                        // mainMenuD.gotoAndPlay("init_load").
+                        set_pose(&mut poses, PoseTag::InitLoad);
+                    }
+                    TitleButton::Back => {
+                        // Original btn_back: return to the "stand" pose.
+                        set_pose(&mut poses, PoseTag::Stand);
+                    }
                     TitleButton::NewGame => {
                         // Original randomPlayerName(): random pick from
                         // serbi.resortName, then BoxInputName.showing(name).
@@ -312,10 +368,10 @@ fn title_buttons(
                             *vis = Visibility::Hidden;
                         }
                     }
+                    // OPTIONS (quality settings), CREDIT (credits scene) and
+                    // MORE GAMES (sponsor link) are visual no-ops for now.
                     _ => {}
                 }
-                // BACK: the original returns to the sponsor "stand" menu;
-                // our port has no previous screen, so it is a visual no-op.
             }
             Interaction::None => img.image = art.up.clone(),
         }
