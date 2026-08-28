@@ -67,6 +67,38 @@ Juego jugable en: https://correo415415.github.io/resem/ (gh-pages, se actualiza 
       original Mobil.activitiesOnTick (PR #31) — PENDIENTE verificar in-game
 - [ ] Pantalla de título / menú principal del original
 
+## Experiencia 1:1 desde el arranque (vídeo de referencia del usuario)
+Vídeo del emulador (carga → fin del tutorial) guardado en AI Drive:
+`/mnt/aidrive/referencias/resort_empire_tutorial_2026-08-28.mp4` (13.9MB, 2026-08-28).
+La experiencia del port debe ser IDÉNTICA a esta secuencia. Fases con timestamps (ms):
+
+- [ ] Preloader (0–2500): fondo gris con grid isométrico, barra de progreso central,
+      texto "LOADING" azul; al 100% el logo Resort Empire pulsa/brilla y transiciona
+- [ ] Splash 1 (2500–6000): fondo azul claro, mascota dragón verde + logo del sponsor
+- [ ] Splash 2 (6000–9500): fondo negro, logo pixel-art "Little Giant World" + PRESENTS
+- [ ] Menú principal (9500–14000): escena isométrica del resort de fondo, panel verde a
+      la derecha con 4 botones dorados biselados PLAY / OPTIONS / CREDIT / MORE GAMES,
+      "ver 1.1" abajo a la derecha
+- [ ] Submenú PLAY (12000): el panel verde cambia a NEW GAME / LOAD GAME / BACK
+- [ ] NEW GAME (13000–14000): modal "Input Your Name" + OK → barra "Please Wait...
+      Initializing Objects" sobre el grid
+- [ ] Tutorial (24000–64000): panel central pergamino con borde amarillo + avatar del
+      manager (gorra roja) + botón "Click here to skip tutorial". Pasos:
+      1. Intro (24s) · 2. objetivo: construir en arena dentro de los setos (28s)
+      3. construir habitación (29–38s): flecha roja rebotando sobre el icono de
+         Accommodation en la toolbar izquierda → colocar Cottage $1000 (X roja en
+         tiles inválidos) · 4. tiles (40–48s): flecha al icono Tiles → conectar 2
+         tiles walkable del cottage a la carretera · 5. plantas (48–56s): flecha al
+         icono Plants → colocar Windbill Palm $40 · 6. upgrades (56s): flecha al
+         icono estrella · 7. cámara y tips (58–62s): drag/WASD y botón "?" ·
+         8. felicitación y cierre (63s)
+- [ ] Durante el tutorial: los botones de la UI no señalados quedan bloqueados/grises
+- [ ] Post-tutorial (64s): notificación "NEW MISSION" arriba a la derecha + objetivo
+      en el ticker inferior (ya portado el motor de misiones, falta la notificación)
+- [ ] Tooltip en ítems bloqueados del menú de construcción: "Need Resort Upgrade: ..."
+- [ ] Menús con efecto pop-in de escala (Achievements, Statistics, Settings);
+      Statistics = hoja de ingresos/gastos diarios
+
 ## Gameplay pendiente
 - [ ] Economía: reservas de habitaciones (booked_price), horarios opened/closed, salarios, ingresos por día
 - [ ] Interior de habitaciones y estados ocupado/libre
