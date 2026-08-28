@@ -8,6 +8,7 @@ mod game;
 mod iso;
 mod map;
 mod missions;
+mod title;
 mod ui;
 mod visitor;
 
@@ -46,6 +47,7 @@ fn main() {
             visitor::VisitorPlugin,
             car::CarPlugin,
             missions::MissionPlugin,
+            title::TitlePlugin,
         ))
         .run();
 }

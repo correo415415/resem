@@ -227,6 +227,8 @@ pub struct DataHandles {
 pub enum AppState {
     #[default]
     Loading,
+    /// Main menu (original mainMenuD "init_load" pose).
+    Title,
     Playing,
 }
 
@@ -258,6 +260,6 @@ fn check_loaded(
     mut next: ResMut<NextState<AppState>>,
 ) {
     if gamedata.get(&handles.gamedata).is_some() && anchors.get(&handles.anchors).is_some() {
-        next.set(AppState::Playing);
+        next.set(AppState::Title);
     }
 }
