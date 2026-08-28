@@ -39,7 +39,8 @@ Juego jugable en: https://correo415415.github.io/resem/ (gh-pages, se actualiza 
 - [ ] Botones de la barra de herramientas izquierda (nav2) funcionales con frames hover
       (btn_scenery, btn_destroy, btn_tile, etc.) y menú de construcción con el arte original
 - [x] Manecillas del reloj animadas sobre la esfera + caras día/noche (animasiJam) (PR #25)
-- [ ] Icono de regalo (gift) funcional
+- [x] Icono de regalo (gift) funcional: ahora muestra el bonus de la misión activa
+      (MissionState.gift → HudField::Gift) (PR #33)
 - [x] PULIR HUD vs original (reporte del usuario): barra superior + estrella — medidos los
       bboxes exactos en nav1_left.png (estrella (189,23)-(220,54), barra título gris
       (50,33)-(192,52), barra RP negra (134,54)-(192,66)); estrella centrada en caja 32×32,
@@ -47,6 +48,9 @@ Juego jugable en: https://correo415415.github.io/resem/ (gh-pages, se actualiza 
       visualmente en el próximo build
 - [x] Fuente: extraída la tipografía original del SWF (Starmap Truetype, 89 glifos ASCII)
       → assets/fonts/starmap.ttf, aplicada a los 9 nodos de texto del HUD (PR #29)
+- [x] Fix espacio de palabras: el glifo espacio de starmap.ttf tenía advance 100/1024
+      ("GREENISLAND", "POPULARITY0%") → parcheado a 460 con fontTools (PR #32)
+      — PENDIENTE verificar visualmente en el próximo build
 - [ ] Fallback de fuente con acentos: Starmap NO tiene á/é/í/ó/ú/ñ — añadir fuente de
       respaldo o evitar acentos en textos dinámicos
 - [ ] Paredes alpha (wall_alpha) al pasar el ratón por detrás de edificios
@@ -58,8 +62,9 @@ Juego jugable en: https://correo415415.github.io/resem/ (gh-pages, se actualiza 
       el bus de pasajeros (roll<20) calcula jumlahV = 1 + rand·clamp(pop·0.1, 1, 8) y lo
       emite al llegar a la parada (5,19); listener bus_arrivals en visitor.rs hace spawn
       de `count` visitantes en la acera (4,19) caminando al lobby (helper spawn_visitor
-      compartido) — PENDIENTE verificar in-game. Falta la variante Box (45%, max 4) y el
-      ritmo 1-por-tick del original (ahora salen todos a la vez)
+      compartido) — PENDIENTE verificar in-game
+- [x] Variante Box van (45%, max 4 pasajeros, frame 5) + bajada 1-por-tick (0.25s) del
+      original Mobil.activitiesOnTick (PR #31) — PENDIENTE verificar in-game
 - [ ] Pantalla de título / menú principal del original
 
 ## Gameplay pendiente
@@ -68,7 +73,13 @@ Juego jugable en: https://correo415415.github.io/resem/ (gh-pages, se actualiza 
 - [ ] Empleados: janitors + sistema de basura (trash/1..3.png)
 - [ ] Humor de visitantes (Smiley), popularidad, drainpop
 - [ ] Expansión de terreno (Expand/ExpandPrice)
-- [ ] Misiones y logros (Mission/Achievements de gamedata)
+- [x] Misiones (PR #33): motor CheckMissions portado — cola ordenada de serbi.Mission.listing
+      (94 misiones), ticker del navigator3 con desc + contadores (n/goal), bonus junto al
+      icono de regalo, flash "MISSION CLEAR!" 2s y pago del bonus al completar. Métricas
+      soportadas: rooms/facilities/plants/rooms+facilities/money/visitors/tiles pintados.
+      Misiones de sistemas no portados (bookings, janitors, upgrades…) se saltan de momento
+- [ ] Misiones: métricas pendientes (bookings, janitors, upgrades, CheckRoomWithPath real
+      con pathfinding en vez del proxy tiles_painted) + logros (Achievements de gamedata)
 - [ ] Upgrades de booths (price[1], price[2], niveles)
 - [ ] Guardado/carga (localStorage en WASM, archivo en nativo)
 - [ ] Sonidos y música (assets/sounds ya extraídos)
