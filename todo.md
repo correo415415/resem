@@ -111,7 +111,11 @@ La experiencia del port debe ser IDÉNTICA. Fases con timestamps del vídeo reco
       cortina con GlobalZIndex(70) NO se pintaban (frame gris uniforme 102) —
       en Bevy 0.16 los hijos de un nodo elevado quedan en el contexto base y
       la cortina los tapa. FIX (PR #47): GlobalZIndex propio en panel (71),
-      texto (72) e hijos del NameDialog (61). PENDIENTE re-verificar tras deploy
+      texto (72) e hijos del NameDialog (61). Segundo bug (PR #48): en wasm
+      checking_panel.png/starmap.ttf no cargaban dentro de los 1.3s del
+      overlay — ahora el timer espera a is_loaded_with_dependencies.
+      VERIFICADO in-game: cortina + panel + texto CHECKING.../DATA...
+      renderizando 1:1 con t0007_8s (screenshot playwright)
 - [ ] Menú de título (~10.3s, frame t0010_3s): resort animado de fondo con visitantes,
       logo "Resort empire" manuscrito en círculo azul arriba-dcha, panel verde con
       botones dorados NEW GAME / LOAD GAME / BACK, "(c)LittleGiantWorld" arriba-izq,
@@ -124,7 +128,9 @@ La experiencia del port debe ser IDÉNTICA. Fases con timestamps del vídeo reco
       recurso ResortName y arranca el juego; CANCEL oculta el diálogo; botones
       del menú inertes mientras el modal está abierto. El HUD ahora muestra
       ResortName en la barra de título (antes "GREEN ISLAND" fijo).
-      PENDIENTE verificar in-game
+      VERIFICADO in-game: click PLAY→pose init_load (NEW GAME/LOAD GAME/
+      BACK) → click NEW GAME abre el diálogo con título, nombre aleatorio
+      y botones CANCEL/OK renderizando (screenshots playwright)
 - [ ] Intro del mapa (~13.8–21.8s, frame t0021_8s): mapa vacío SIN HUD; una
       apisonadora (steamroller) con obreros y andamios construye la entrada;
       el dragón mascota asoma arriba-izquierda
