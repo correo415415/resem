@@ -75,8 +75,12 @@ Juego jugable en: https://correo415415.github.io/resem/ (gh-pages, se actualiza 
       limitado a Playing — PENDIENTE verificar in-game
 - [ ] Título: fondo animado del resort con visitantes (el original anima la escena
       detrás del panel; nuestro fondo es estático de momento)
-- [ ] Título: pose "stand" previa (PLAY/OPTIONS/CREDIT/MORE GAMES, botones
-      2972/2968/2976/2964) + transición init_load de mainMenuD_470
+- [x] Título: pose "stand" previa (PLAY/OPTIONS/CREDIT/MORE GAMES, botones
+      2972/2968/2976/2964) + transición init_load de mainMenuD_470 — HECHO
+      (PR #44): PoseTag {Stand, InitLoad} con toggling de visibilidad;
+      el menú arranca en stand como el gotoAndStop("stand") original;
+      PLAY→init_load, BACK→stand; mismas posiciones de panel verificadas
+      por medición (x=484, y=240/275/313/349). PENDIENTE verificar in-game
 
 ## Experiencia 1:1 desde el arranque (vídeo de referencia del usuario)
 Referencias EN EL REPO (PRs #37/#38): `docs/reference/resort_empire_tutorial.mp4`
@@ -87,9 +91,21 @@ La experiencia del port debe ser IDÉNTICA. Fases con timestamps del vídeo reco
 (≈ vídeo antiguo − 2.2s). Detalles CONFIRMADOS frame a frame con Read:
 
 - [ ] Arranque (0–0.8s): pantalla de carga tenue sobre el mapa isométrico apagado
-- [ ] Splash 1 (~0.8–4s): mascota dragón verde, fondo azul pizarra
-- [ ] Splash 2 (~4–7s): logo pixel-art "Little Giant World", fondo negro
-- [ ] Diálogo "CHECKING... DATA..." (~7.8s): panel gris centrado antes del menú
+- [x] Splash 1 (~0.8–4s): mascota dragón verde, fondo azul pizarra — HECHO
+      (PR #45): AppState::Splash + splash.rs; 28 frames únicos del dragón
+      (359x89) con timeline RLE a 30fps sobre fondo (59,75,98); click/
+      Space/Enter salta la fase. PENDIENTE verificar in-game
+- [x] Splash 2 (~4–7s): logo pixel-art "Little Giant World", fondo negro — HECHO
+      (PR #45): 49 frames únicos (656x484 recortado, pos (0,-8)) sobre
+      negro; al terminar pasa a Title. PENDIENTE verificar in-game
+- [x] Diálogo "CHECKING... DATA..." (~7.8s): panel gris centrado antes del menú —
+      HECHO (PR #46): cortina gris (tutup símbolo 3038) a pantalla completa
+      sobre el stage del título + panel shape 2863 (186x112, borde negro
+      redondeado horneado, interior gris alpha 192) en (227,216) medido
+      sobre t0007_8s + texto 2865 "CHECKING...\nDATA..." en starmap blanco
+      centrado; se despawnea a ~1.3s (anim 13f @30fps + pausa de
+      CheckLocalData); menú inerte mientras la cortina está arriba.
+      PENDIENTE verificar in-game
 - [ ] Menú de título (~10.3s, frame t0010_3s): resort animado de fondo con visitantes,
       logo "Resort empire" manuscrito en círculo azul arriba-dcha, panel verde con
       botones dorados NEW GAME / LOAD GAME / BACK, "(c)LittleGiantWorld" arriba-izq,
