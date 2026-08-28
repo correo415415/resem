@@ -80,7 +80,8 @@ Juego jugable en: https://correo415415.github.io/resem/ (gh-pages, se actualiza 
       (PR #44): PoseTag {Stand, InitLoad} con toggling de visibilidad;
       el menú arranca en stand como el gotoAndStop("stand") original;
       PLAY→init_load, BACK→stand; mismas posiciones de panel verificadas
-      por medición (x=484, y=240/275/313/349). PENDIENTE verificar in-game
+      por medición (x=484, y=240/275/313/349). VERIFICADO in-game: pose
+      stand con los 4 botones renderiza correcto (vídeo playwright)
 
 ## Experiencia 1:1 desde el arranque (vídeo de referencia del usuario)
 Referencias EN EL REPO (PRs #37/#38): `docs/reference/resort_empire_tutorial.mp4`
@@ -94,10 +95,11 @@ La experiencia del port debe ser IDÉNTICA. Fases con timestamps del vídeo reco
 - [x] Splash 1 (~0.8–4s): mascota dragón verde, fondo azul pizarra — HECHO
       (PR #45): AppState::Splash + splash.rs; 28 frames únicos del dragón
       (359x89) con timeline RLE a 30fps sobre fondo (59,75,98); click/
-      Space/Enter salta la fase. PENDIENTE verificar in-game
+      Space/Enter salta la fase. VERIFICADO in-game (vídeo playwright:
+      fondo (59,75,98) + dragón presentes)
 - [x] Splash 2 (~4–7s): logo pixel-art "Little Giant World", fondo negro — HECHO
       (PR #45): 49 frames únicos (656x484 recortado, pos (0,-8)) sobre
-      negro; al terminar pasa a Title. PENDIENTE verificar in-game
+      negro; al terminar pasa a Title. VERIFICADO in-game (vídeo playwright)
 - [x] Diálogo "CHECKING... DATA..." (~7.8s): panel gris centrado antes del menú —
       HECHO (PR #46): cortina gris (tutup símbolo 3038) a pantalla completa
       sobre el stage del título + panel shape 2863 (186x112, borde negro
@@ -105,7 +107,11 @@ La experiencia del port debe ser IDÉNTICA. Fases con timestamps del vídeo reco
       sobre t0007_8s + texto 2865 "CHECKING...\nDATA..." en starmap blanco
       centrado; se despawnea a ~1.3s (anim 13f @30fps + pausa de
       CheckLocalData); menú inerte mientras la cortina está arriba.
-      PENDIENTE verificar in-game
+      BUG encontrado en verificación in-game: los hijos (panel+texto) de la
+      cortina con GlobalZIndex(70) NO se pintaban (frame gris uniforme 102) —
+      en Bevy 0.16 los hijos de un nodo elevado quedan en el contexto base y
+      la cortina los tapa. FIX (PR #47): GlobalZIndex propio en panel (71),
+      texto (72) e hijos del NameDialog (61). PENDIENTE re-verificar tras deploy
 - [ ] Menú de título (~10.3s, frame t0010_3s): resort animado de fondo con visitantes,
       logo "Resort empire" manuscrito en círculo azul arriba-dcha, panel verde con
       botones dorados NEW GAME / LOAD GAME / BACK, "(c)LittleGiantWorld" arriba-izq,
