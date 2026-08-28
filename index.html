@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resort Empire (Rust/Bevy port)</title>
+  <style>
+    html, body { margin: 0; padding: 0; background: #10222e; height: 100%; overflow: hidden; }
+    canvas { display: block; margin: 0 auto; outline: none; }
+    #loading { color: #cfe8f5; font: 16px sans-serif; text-align: center; padding-top: 40vh; }
+  </style>
+</head>
+<body>
+  <div id="loading">Cargando Resort Empire…</div>
+  <script type="module">
+    import init from './resort_empire.js';
+    init().catch((e) => {
+      if (!e.message?.includes("Using exceptions for control flow")) {
+        document.getElementById('loading').textContent = 'Error: ' + e.message;
+        throw e;
+      }
+    }).finally(() => {
+      document.getElementById('loading')?.remove();
+    });
+  </script>
+</body>
+</html>

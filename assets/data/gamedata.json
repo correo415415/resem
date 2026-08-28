@@ -1,0 +1,5232 @@
+{
+ "Scenery": {
+  "PLANT_0": {
+   "nama": "EMPTY",
+   "lbl": "p_empty",
+   "jenis": 0,
+   "fr": 0,
+   "price": 0,
+   "pop": 0
+  },
+  "PLANT_99": {
+   "nama": "CORNER PLANT",
+   "lbl": "p_corner",
+   "jenis": 99,
+   "fr": 10,
+   "price": 0,
+   "pop": 0
+  },
+  "PLANT_1": {
+   "nama": "CANNA",
+   "lbl": "_plant_canna",
+   "jenis": 1,
+   "fr": 1,
+   "price": 35,
+   "pop": 0.06,
+   "unlocked_level": 0,
+   "unlocked_persen": 0
+  },
+  "PLANT_2": {
+   "nama": "PINELLIA",
+   "lbl": "_plant_pinelia",
+   "jenis": 2,
+   "fr": 2,
+   "price": 40,
+   "pop": 0.07,
+   "unlocked_level": 0,
+   "unlocked_persen": 0
+  },
+  "PLANT_3": {
+   "nama": "WINDMILL PALM",
+   "lbl": "_plant_windmill",
+   "jenis": 3,
+   "fr": 3,
+   "price": 40,
+   "pop": 0.08,
+   "unlocked_level": 0,
+   "unlocked_persen": 0
+  },
+  "PLANT_4": {
+   "nama": "BAMBOO TREE",
+   "lbl": "_plant_bamboo",
+   "jenis": 4,
+   "fr": 4,
+   "price": 50,
+   "pop": 0.09,
+   "unlocked_level": 0,
+   "unlocked_persen": 50
+  },
+  "PLANT_5": {
+   "nama": "CEDAR TREE 1",
+   "lbl": "_plant_cedar1",
+   "jenis": 5,
+   "fr": 5,
+   "price": 75,
+   "pop": 0.105,
+   "unlocked_level": 1,
+   "unlocked_persen": 5
+  },
+  "PLANT_6": {
+   "nama": "CEDAR TREE 2",
+   "lbl": "_plant_cedar2",
+   "jenis": 6,
+   "fr": 6,
+   "price": 90,
+   "pop": 0.115,
+   "unlocked_level": 1,
+   "unlocked_persen": 75
+  },
+  "PLANT_7": {
+   "nama": "PALM TREE",
+   "lbl": "_plant_palm",
+   "jenis": 7,
+   "fr": 7,
+   "price": 90,
+   "pop": 0.14,
+   "unlocked_level": 2,
+   "unlocked_persen": 15
+  },
+  "PLANT_8": {
+   "nama": "MAPLE TREE",
+   "lbl": "_plant_maple",
+   "jenis": 8,
+   "fr": 8,
+   "price": 100,
+   "pop": 0.155,
+   "unlocked_level": 3,
+   "unlocked_persen": 0
+  },
+  "PLANT_9": {
+   "nama": "ACC",
+   "lbl": "_trees",
+   "jenis": 9,
+   "fr": 0,
+   "price": 0,
+   "pop": 0
+  },
+  "PLANT_10": {
+   "nama": "ACC",
+   "lbl": "acc_1",
+   "jenis": 10,
+   "fr": 12,
+   "price": 0,
+   "pop": 0
+  },
+  "PLANT_11": {
+   "nama": "ACC",
+   "lbl": "acc_2",
+   "jenis": 11,
+   "fr": 13,
+   "price": 0,
+   "pop": 0
+  },
+  "PLANT_12": {
+   "nama": "ACC",
+   "lbl": "acc_3",
+   "jenis": 12,
+   "fr": 14,
+   "price": 0,
+   "pop": 0
+  },
+  "PLANT_13": {
+   "nama": "ACC",
+   "lbl": "acc_4",
+   "jenis": 13,
+   "fr": 15,
+   "price": 0,
+   "pop": 0
+  },
+  "PLANT_14": {
+   "nama": "ACC",
+   "lbl": "acc_5",
+   "jenis": 13,
+   "fr": 16,
+   "price": 0,
+   "pop": 0
+  },
+  "PLANT_15": {
+   "nama": "ACC",
+   "lbl": "acc_6",
+   "jenis": 13,
+   "fr": 17,
+   "price": 0,
+   "pop": 0
+  },
+  "PLANT_16": {
+   "nama": "ACC",
+   "lbl": "acc_7",
+   "jenis": 14,
+   "fr": 18,
+   "price": 0,
+   "pop": 0
+  },
+  "PLANT_17": {
+   "nama": "ACC",
+   "lbl": "acc_8",
+   "jenis": 15,
+   "fr": 19,
+   "price": 0,
+   "pop": 0
+  },
+  "listing": [
+   "PLANT_1",
+   "PLANT_2",
+   "PLANT_3",
+   "PLANT_4",
+   "PLANT_5",
+   "PLANT_6",
+   "PLANT_7",
+   "PLANT_8"
+  ]
+ },
+ "Tile": {
+  "TILE_0": {
+   "nama": "EMPTY TILE",
+   "mainJenis": 0,
+   "lbl": "_empty",
+   "jenis": 0,
+   "fr": 24,
+   "walkable": false,
+   "plenty": false,
+   "price": 0,
+   "pop": 0
+  },
+  "TILE_1": {
+   "nama": "TILE 1",
+   "mainJenis": 0,
+   "lbl": "_tile1",
+   "jenis": 1,
+   "fr": 10,
+   "walkable": true,
+   "plenty": false,
+   "price": 25,
+   "pop": 0
+  },
+  "TILE_2": {
+   "nama": "TILE 2",
+   "mainJenis": 0,
+   "lbl": "_tile2",
+   "jenis": 2,
+   "fr": 11,
+   "walkable": true,
+   "plenty": false,
+   "price": 25,
+   "pop": 0
+  },
+  "TILE_3": {
+   "nama": "TILE 3",
+   "mainJenis": 0,
+   "lbl": "_tile3",
+   "jenis": 3,
+   "fr": 12,
+   "walkable": true,
+   "plenty": false,
+   "price": 25,
+   "pop": 0
+  },
+  "TILE_4": {
+   "nama": "TILE 4",
+   "mainJenis": 0,
+   "lbl": "_tile4",
+   "jenis": 4,
+   "fr": 13,
+   "walkable": true,
+   "plenty": false,
+   "price": 25,
+   "pop": 0
+  },
+  "TILE_5": {
+   "nama": "GRASS (NO CORNER)",
+   "mainJenis": 1,
+   "lbl": "_tile_grass0",
+   "jenis": 5,
+   "fr": 14,
+   "walkable": false,
+   "plenty": true,
+   "price": 35,
+   "pop": 0.035
+  },
+  "TILE_6": {
+   "nama": "GRASS 1",
+   "mainJenis": 1,
+   "lbl": "_tile_grass1",
+   "jenis": 6,
+   "fr": 15,
+   "walkable": false,
+   "plenty": true,
+   "price": 35,
+   "pop": 0.035
+  },
+  "TILE_7": {
+   "nama": "GRASS 2",
+   "mainJenis": 1,
+   "lbl": "_tile_grass2",
+   "jenis": 7,
+   "fr": 16,
+   "walkable": false,
+   "plenty": true,
+   "price": 35,
+   "pop": 0.035
+  },
+  "TILE_8": {
+   "nama": "GRASS 3",
+   "mainJenis": 1,
+   "lbl": "_tile_grass3",
+   "jenis": 8,
+   "fr": 17,
+   "walkable": false,
+   "plenty": true,
+   "price": 35,
+   "pop": 0.035
+  },
+  "TILE_9": {
+   "nama": "GRASS 4",
+   "mainJenis": 1,
+   "lbl": "_tile_grass4",
+   "jenis": 9,
+   "fr": 18,
+   "walkable": false,
+   "plenty": true,
+   "price": 35,
+   "pop": 0.035
+  },
+  "TILE_10": {
+   "nama": "GRASS 5",
+   "mainJenis": 1,
+   "lbl": "_tile_grass5",
+   "jenis": 10,
+   "fr": 19,
+   "walkable": false,
+   "plenty": true,
+   "price": 35,
+   "pop": 0.035
+  },
+  "TILE_11": {
+   "nama": "GRASS 6",
+   "mainJenis": 1,
+   "lbl": "_tile_grass6",
+   "jenis": 11,
+   "fr": 20,
+   "walkable": false,
+   "plenty": true,
+   "price": 35,
+   "pop": 0.035
+  },
+  "TILE_12": {
+   "nama": "GRASS 7",
+   "mainJenis": 1,
+   "lbl": "_tile_grass7",
+   "jenis": 12,
+   "fr": 21,
+   "walkable": false,
+   "plenty": true,
+   "price": 35,
+   "pop": 0.035
+  },
+  "TILE_13": {
+   "nama": "GRASS 8",
+   "mainJenis": 1,
+   "lbl": "_tile_grass8",
+   "jenis": 13,
+   "fr": 22,
+   "walkable": false,
+   "plenty": true,
+   "price": 35,
+   "pop": 0.035
+  },
+  "TILE_15": {
+   "fr": 26
+  },
+  "TILE_80": {
+   "nama": "SAND TILE",
+   "mainJenis": 0,
+   "lbl": "_sand",
+   "jenis": 80,
+   "fr": 7,
+   "walkable": false,
+   "plenty": true,
+   "price": 0,
+   "pop": 0
+  },
+  "TILE_81": {
+   "nama": "CORNER TILE",
+   "mainJenis": 0,
+   "lbl": "_corner",
+   "jenis": 81,
+   "fr": 0,
+   "walkable": false,
+   "plenty": false,
+   "price": 0,
+   "pop": 0
+  },
+  "TILE_82": {
+   "nama": "SIDEWALK TILE",
+   "mainJenis": 0,
+   "lbl": "_trotoar",
+   "jenis": 82,
+   "fr": 8,
+   "walkable": true,
+   "plenty": false,
+   "price": 0,
+   "pop": 0
+  },
+  "TILE_83": {
+   "nama": "ASPHALT TILE",
+   "mainJenis": 0,
+   "lbl": "_aspal",
+   "jenis": 83,
+   "fr": 9,
+   "walkable": true,
+   "plenty": false,
+   "price": 0,
+   "pop": 0
+  },
+  "TILE_93": {
+   "nama": "OUTER",
+   "mainJenis": 0,
+   "lbl": "_outer",
+   "jenis": 93,
+   "fr": 25,
+   "walkable": true,
+   "plenty": false,
+   "price": 0,
+   "pop": 0
+  },
+  "TILE_94": {
+   "nama": "LOBBY TILE 1",
+   "mainJenis": 0,
+   "lbl": "_lobby1",
+   "jenis": 94,
+   "fr": 4,
+   "walkable": true,
+   "plenty": false,
+   "price": 0,
+   "pop": 0
+  },
+  "TILE_95": {
+   "nama": "LOBBY TILE 2",
+   "mainJenis": 0,
+   "lbl": "_lobby2",
+   "jenis": 95,
+   "fr": 5,
+   "walkable": true,
+   "plenty": false,
+   "price": 0,
+   "pop": 0
+  },
+  "TILE_96": {
+   "nama": "LOBBY TILE 3",
+   "mainJenis": 0,
+   "lbl": "_lobby3",
+   "jenis": 96,
+   "fr": 6,
+   "walkable": true,
+   "plenty": false,
+   "price": 0,
+   "pop": 0
+  },
+  "TILE_97": {
+   "nama": "HALANG TILE",
+   "mainJenis": 0,
+   "lbl": "_halang",
+   "jenis": 97,
+   "fr": 0,
+   "walkable": false,
+   "plenty": false,
+   "price": 0,
+   "pop": 0
+  },
+  "TILE_98": {
+   "nama": "TEHEL TILE",
+   "mainJenis": 0,
+   "lbl": "_tehel",
+   "jenis": 98,
+   "fr": 2,
+   "walkable": false,
+   "plenty": false,
+   "price": 0,
+   "pop": 0
+  },
+  "TILE_99": {
+   "nama": "TEMP TILE",
+   "mainJenis": 0,
+   "lbl": "_temp",
+   "jenis": 99,
+   "fr": 3,
+   "walkable": false,
+   "plenty": false,
+   "price": 0,
+   "pop": 0
+  }
+ },
+ "Booth": {
+  "boostMood": {
+   "targeted": 0.02,
+   "antri": [
+    0.007,
+    0.01,
+    0.0125
+   ],
+   "masuk": [
+    0.01,
+    0.0125,
+    0.0175
+   ]
+  },
+  "Lobby": {
+   "nama": "LOBBY RESORT",
+   "nic": "LOBBY",
+   "ROWS": 4,
+   "COLS": 2,
+   "fr": 1,
+   "wall": 1,
+   "wall_alpha": 4,
+   "blok": 50,
+   "standbooth": false,
+   "mainJenis": "Lobby",
+   "jenis": "Lobby",
+   "price": [
+    0,
+    10000,
+    20000
+   ],
+   "booked_price": 0,
+   "opened": 0,
+   "closed": 0,
+   "xpt": 0,
+   "drainpop": 1,
+   "sumStaff": 2,
+   "salary": [
+    36,
+    60,
+    72
+   ],
+   "RP_upgrade": [
+    0,
+    6,
+    10
+   ],
+   "pop": [
+    0,
+    3,
+    5,
+    0
+   ],
+   "Exp_add": [
+    [
+     2,
+     1,
+     1,
+     1
+    ],
+    [
+     4,
+     3,
+     2,
+     1
+    ],
+    [
+     6,
+     5,
+     2,
+     1
+    ]
+   ],
+   "Exp": [
+    0,
+    350,
+    1000
+   ],
+   "UT": [
+    0,
+    0,
+    0
+   ],
+   "boostMood": {
+    "served": [
+     0.1,
+     0.2,
+     0.3
+    ],
+    "canceled": [
+     0.05,
+     0.1,
+     0.15
+    ]
+   }
+  },
+  "Cottage": {
+   "nama": "COTTAGE",
+   "nic": "COTTAGE",
+   "ROWS": 2,
+   "COLS": 2,
+   "fr": 4,
+   "wall": 13,
+   "wall_alpha": 16,
+   "blok": 51,
+   "standbooth": false,
+   "mainJenis": "Room",
+   "jenis": "Cottage",
+   "price": [
+    1000,
+    1200,
+    1440
+   ],
+   "booked_price": [
+    100,
+    120,
+    192
+   ],
+   "opened": 0,
+   "closed": 0,
+   "xpt": 10,
+   "drainpop": 5,
+   "sumStaff": 0,
+   "salary": [
+    0,
+    0,
+    0
+   ],
+   "RP_upgrade": [
+    0,
+    3,
+    8
+   ],
+   "pop": [
+    1,
+    1.55,
+    2,
+    0.5
+   ],
+   "Exp_add": [
+    [
+     2,
+     2,
+     1,
+     1
+    ],
+    [
+     3,
+     2,
+     2,
+     1
+    ],
+    [
+     5,
+     4,
+     2,
+     1
+    ]
+   ],
+   "Exp": [
+    0,
+    12,
+    28
+   ],
+   "UT": [
+    0,
+    0,
+    0
+   ],
+   "boostMood": {
+    "served": [
+     [
+      0.04,
+      0.1
+     ],
+     [
+      0.055,
+      0.15
+     ],
+     [
+      0.1,
+      0.2
+     ]
+    ],
+    "canceled": [
+     [
+      0.01,
+      0.025
+     ],
+     [
+      0.01375,
+      0.0375
+     ],
+     [
+      0.025,
+      0.05
+     ]
+    ]
+   }
+  },
+  "Lodge": {
+   "nama": "LODGE",
+   "nic": "LODGE",
+   "ROWS": 2,
+   "COLS": 3,
+   "fr": 7,
+   "wall": 7,
+   "wall_alpha": 10,
+   "blok": 56,
+   "standbooth": false,
+   "mainJenis": "Room",
+   "jenis": "Lodge",
+   "price": [
+    2500,
+    3000,
+    4000
+   ],
+   "booked_price": [
+    250,
+    300,
+    480
+   ],
+   "opened": 0,
+   "closed": 0,
+   "xpt": 15,
+   "drainpop": 5,
+   "sumStaff": 0,
+   "salary": [
+    0,
+    0,
+    0
+   ],
+   "RP_upgrade": [
+    0,
+    4,
+    9
+   ],
+   "pop": [
+    1,
+    1.75,
+    2.25,
+    0.75
+   ],
+   "Exp_add": [
+    [
+     3,
+     2,
+     1,
+     1
+    ],
+    [
+     4,
+     3,
+     2,
+     1
+    ],
+    [
+     6,
+     5,
+     2,
+     1
+    ]
+   ],
+   "Exp": [
+    0,
+    13,
+    30
+   ],
+   "UT": [
+    0,
+    0,
+    0
+   ],
+   "boostMood": {
+    "served": [
+     [
+      0.05,
+      0.12
+     ],
+     [
+      0.075,
+      0.15
+     ],
+     [
+      0.125,
+      0.25
+     ]
+    ],
+    "canceled": [
+     [
+      0.0125,
+      0.03
+     ],
+     [
+      0.01875,
+      0.0375
+     ],
+     [
+      0.03125,
+      0.0625
+     ]
+    ]
+   }
+  },
+  "Sauna": {
+   "nama": "SAUNA",
+   "nic": "SAUNA",
+   "ROWS": 2,
+   "COLS": 2,
+   "fr": 41,
+   "wall": 89,
+   "wall_alpha": 92,
+   "blok": 51,
+   "standbooth": false,
+   "mainJenis": "Facility",
+   "jenis": "Sauna",
+   "price": [
+    1200,
+    1440,
+    1920
+   ],
+   "booked_price": [
+    24,
+    29,
+    77
+   ],
+   "opened": 6,
+   "closed": 20,
+   "xpt": 5,
+   "drainpop": 2,
+   "sumStaff": 0,
+   "salary": [
+    0,
+    0,
+    0
+   ],
+   "RP_upgrade": [
+    0,
+    3,
+    7
+   ],
+   "pop": [
+    0.25,
+    0.5,
+    0.75,
+    0.15
+   ],
+   "Exp_add": [
+    [
+     1,
+     1,
+     1,
+     1
+    ],
+    [
+     2,
+     2,
+     1,
+     1
+    ],
+    [
+     3,
+     2,
+     2,
+     1
+    ]
+   ],
+   "Exp": [
+    0,
+    32,
+    95
+   ],
+   "UT": [
+    0,
+    2,
+    5
+   ],
+   "boostMood": {
+    "served": [
+     [
+      0.025,
+      0.04
+     ],
+     [
+      0.03,
+      0.05
+     ],
+     [
+      0.05,
+      0.075
+     ]
+    ],
+    "canceled": [
+     [
+      0.00625,
+      0.01
+     ],
+     [
+      0.0075,
+      0.0125
+     ],
+     [
+      0.0125,
+      0.01875
+     ]
+    ]
+   },
+   "extraUpgrade": null
+  },
+  "Gym": {
+   "nama": "FITNESS CENTER",
+   "nic": "FITNESS C.",
+   "ROWS": 2,
+   "COLS": 2,
+   "fr": 47,
+   "wall": 101,
+   "wall_alpha": 104,
+   "blok": 51,
+   "standbooth": false,
+   "mainJenis": "Facility",
+   "jenis": "Gym",
+   "price": [
+    1500,
+    1800,
+    2400
+   ],
+   "booked_price": [
+    30,
+    36,
+    96
+   ],
+   "opened": 6,
+   "closed": 21,
+   "xpt": 5,
+   "drainpop": 2,
+   "sumStaff": 0,
+   "salary": [
+    0,
+    0,
+    0
+   ],
+   "RP_upgrade": [
+    0,
+    3,
+    7
+   ],
+   "pop": [
+    0.25,
+    0.5,
+    0.75,
+    0.15
+   ],
+   "Exp_add": [
+    [
+     1,
+     1,
+     1,
+     1
+    ],
+    [
+     2,
+     2,
+     1,
+     1
+    ],
+    [
+     3,
+     2,
+     2,
+     1
+    ]
+   ],
+   "Exp": [
+    0,
+    42,
+    102
+   ],
+   "UT": [
+    0,
+    2,
+    5
+   ],
+   "boostMood": {
+    "served": [
+     [
+      0.03,
+      0.07
+     ],
+     [
+      0.035,
+      0.075
+     ],
+     [
+      0.055,
+      0.09
+     ]
+    ],
+    "canceled": [
+     [
+      0.0075,
+      0.0175
+     ],
+     [
+      0.00875,
+      0.01875
+     ],
+     [
+      0.01375,
+      0.0225
+     ]
+    ]
+   },
+   "extraUpgrade": "treadmill"
+  },
+  "Bar": {
+   "nama": "BAR AND LOUNGE",
+   "nic": "BAR",
+   "ROWS": 2,
+   "COLS": 2,
+   "fr": 29,
+   "wall": 65,
+   "wall_alpha": 68,
+   "blok": 51,
+   "standbooth": false,
+   "mainJenis": "Facility",
+   "jenis": "Bar",
+   "price": [
+    2500,
+    3000,
+    4000
+   ],
+   "booked_price": [
+    50,
+    60,
+    160
+   ],
+   "opened": 17,
+   "closed": 5,
+   "xpt": 8,
+   "drainpop": 2,
+   "sumStaff": 1,
+   "salary": [
+    30,
+    36,
+    42
+   ],
+   "RP_upgrade": [
+    0,
+    3,
+    7
+   ],
+   "pop": [
+    0.25,
+    0.5,
+    0.75,
+    0.15
+   ],
+   "Exp_add": [
+    [
+     1,
+     1,
+     1,
+     1
+    ],
+    [
+     2,
+     2,
+     1,
+     1
+    ],
+    [
+     3,
+     2,
+     2,
+     1
+    ]
+   ],
+   "Exp": [
+    0,
+    35,
+    98
+   ],
+   "UT": [
+    0,
+    2,
+    5
+   ],
+   "boostMood": {
+    "served": [
+     [
+      0.035,
+      0.09
+     ],
+     [
+      0.04,
+      0.1
+     ],
+     [
+      0.07,
+      0.1
+     ]
+    ],
+    "canceled": [
+     [
+      0.00875,
+      0.0225
+     ],
+     [
+      0.01,
+      0.025
+     ],
+     [
+      0.0175,
+      0.025
+     ]
+    ]
+   },
+   "extraUpgrade": "leaf"
+  },
+  "Jacuzi": {
+   "nama": "JACCUZI",
+   "nic": "JACCUZI",
+   "ROWS": 2,
+   "COLS": 2,
+   "fr": 32,
+   "wall": 71,
+   "wall_alpha": 74,
+   "blok": 51,
+   "standbooth": false,
+   "mainJenis": "Facility",
+   "jenis": "Jacuzi",
+   "price": [
+    3000,
+    3600,
+    4800
+   ],
+   "booked_price": [
+    60,
+    72,
+    192
+   ],
+   "opened": 6,
+   "closed": 0,
+   "xpt": 5,
+   "drainpop": 2,
+   "sumStaff": 0,
+   "salary": [
+    0,
+    0,
+    0
+   ],
+   "RP_upgrade": [
+    0,
+    3,
+    7
+   ],
+   "pop": [
+    0.25,
+    0.5,
+    0.75,
+    0.15
+   ],
+   "Exp_add": [
+    [
+     1,
+     1,
+     1,
+     1
+    ],
+    [
+     2,
+     2,
+     1,
+     1
+    ],
+    [
+     3,
+     2,
+     2,
+     1
+    ]
+   ],
+   "Exp": [
+    0,
+    40,
+    111
+   ],
+   "UT": [
+    0,
+    2,
+    5
+   ],
+   "boostMood": {
+    "served": [
+     [
+      0.03,
+      0.05
+     ],
+     [
+      0.035,
+      0.06
+     ],
+     [
+      0.055,
+      0.075
+     ]
+    ],
+    "canceled": [
+     [
+      0.0075,
+      0.0125
+     ],
+     [
+      0.00875,
+      0.015
+     ],
+     [
+      0.01375,
+      0.01875
+     ]
+    ]
+   },
+   "extraUpgrade": "heater"
+  },
+  "Arcade": {
+   "nama": "ARCADE GAMEZONE",
+   "nic": "GAMEZONE",
+   "ROWS": 2,
+   "COLS": 2,
+   "fr": 13,
+   "wall": 25,
+   "wall_alpha": 28,
+   "blok": 51,
+   "standbooth": false,
+   "mainJenis": "Facility",
+   "jenis": "Arcade",
+   "price": [
+    4000,
+    4800,
+    6400
+   ],
+   "booked_price": [
+    80,
+    96,
+    256
+   ],
+   "opened": 10,
+   "closed": 21,
+   "xpt": 5,
+   "drainpop": 2,
+   "sumStaff": 0,
+   "salary": [
+    0,
+    0,
+    0
+   ],
+   "RP_upgrade": [
+    0,
+    3,
+    7
+   ],
+   "pop": [
+    0.25,
+    0.5,
+    0.75,
+    0.15
+   ],
+   "Exp_add": [
+    [
+     2,
+     1,
+     1,
+     1
+    ],
+    [
+     3,
+     2,
+     1,
+     1
+    ],
+    [
+     4,
+     3,
+     2,
+     1
+    ]
+   ],
+   "Exp": [
+    0,
+    50,
+    121
+   ],
+   "UT": [
+    0,
+    2,
+    5
+   ],
+   "boostMood": {
+    "served": [
+     [
+      0.02,
+      0.04
+     ],
+     [
+      0.03,
+      0.05
+     ],
+     [
+      0.05,
+      0.06
+     ]
+    ],
+    "canceled": [
+     [
+      0.005,
+      0.01
+     ],
+     [
+      0.0075,
+      0.0125
+     ],
+     [
+      0.0125,
+      0.015
+     ]
+    ]
+   },
+   "extraUpgrade": "wine"
+  },
+  "IndiaResto": {
+   "nama": "INDIA RESTAURANT",
+   "nic": "INDIA RESTO",
+   "ROWS": 2,
+   "COLS": 2,
+   "fr": 16,
+   "wall": 31,
+   "wall_alpha": 34,
+   "blok": 51,
+   "standbooth": false,
+   "mainJenis": "Facility",
+   "jenis": "IndiaResto",
+   "price": [
+    5000,
+    6000,
+    8000
+   ],
+   "booked_price": [
+    100,
+    120,
+    320
+   ],
+   "opened": 8,
+   "closed": 20,
+   "xpt": 8,
+   "drainpop": 2,
+   "sumStaff": 1,
+   "salary": [
+    30,
+    36,
+    42
+   ],
+   "RP_upgrade": [
+    0,
+    3,
+    7
+   ],
+   "pop": [
+    0.25,
+    0.5,
+    0.75,
+    0.15
+   ],
+   "Exp_add": [
+    [
+     2,
+     1,
+     1,
+     1
+    ],
+    [
+     3,
+     2,
+     1,
+     1
+    ],
+    [
+     4,
+     3,
+     2,
+     1
+    ]
+   ],
+   "Exp": [
+    0,
+    52,
+    140
+   ],
+   "UT": [
+    0,
+    2,
+    5
+   ],
+   "boostMood": {
+    "served": [
+     [
+      0.035,
+      0.07
+     ],
+     [
+      0.04,
+      0.09
+     ],
+     [
+      0.065,
+      0.09
+     ]
+    ],
+    "canceled": [
+     [
+      0.00875,
+      0.0175
+     ],
+     [
+      0.01,
+      0.0225
+     ],
+     [
+      0.01625,
+      0.0225
+     ]
+    ]
+   },
+   "extraUpgrade": "palm"
+  },
+  "Spa": {
+   "nama": "SPA AND MASSAGE",
+   "nic": "SPA",
+   "ROWS": 2,
+   "COLS": 2,
+   "fr": 44,
+   "wall": 95,
+   "wall_alpha": 98,
+   "blok": 51,
+   "standbooth": false,
+   "mainJenis": "Facility",
+   "jenis": "Spa",
+   "price": [
+    6000,
+    7200,
+    9600
+   ],
+   "booked_price": [
+    120,
+    144,
+    384
+   ],
+   "opened": 6,
+   "closed": 21,
+   "xpt": 8,
+   "drainpop": 2,
+   "sumStaff": 1,
+   "salary": [
+    38,
+    45,
+    53
+   ],
+   "RP_upgrade": [
+    0,
+    4,
+    7
+   ],
+   "pop": [
+    0.35,
+    0.5,
+    0.75,
+    0.15
+   ],
+   "Exp_add": [
+    [
+     2,
+     1,
+     1,
+     1
+    ],
+    [
+     3,
+     2,
+     1,
+     1
+    ],
+    [
+     4,
+     3,
+     2,
+     1
+    ]
+   ],
+   "Exp": [
+    0,
+    51,
+    145
+   ],
+   "UT": [
+    0,
+    2,
+    5
+   ],
+   "boostMood": {
+    "served": [
+     [
+      0.035,
+      0.05
+     ],
+     [
+      0.04,
+      0.07
+     ],
+     [
+      0.065,
+      0.07
+     ]
+    ],
+    "canceled": [
+     [
+      0.00875,
+      0.0125
+     ],
+     [
+      0.01,
+      0.0175
+     ],
+     [
+      0.01625,
+      0.0175
+     ]
+    ]
+   },
+   "extraUpgrade": "towel"
+  },
+  "JapanResto": {
+   "nama": "JAPAN RESTAURANT",
+   "nic": "JAPAN RESTO",
+   "ROWS": 2,
+   "COLS": 2,
+   "fr": 23,
+   "wall": 53,
+   "wall_alpha": 56,
+   "blok": 51,
+   "standbooth": false,
+   "mainJenis": "Facility",
+   "jenis": "JapanResto",
+   "price": [
+    5500,
+    6600,
+    8800
+   ],
+   "booked_price": [
+    110,
+    132,
+    352
+   ],
+   "opened": 15,
+   "closed": 22,
+   "xpt": 8,
+   "drainpop": 2,
+   "sumStaff": 1,
+   "salary": [
+    18,
+    22,
+    25
+   ],
+   "RP_upgrade": [
+    0,
+    3,
+    7
+   ],
+   "pop": [
+    0.25,
+    0.5,
+    0.75,
+    0.15
+   ],
+   "Exp_add": [
+    [
+     2,
+     1,
+     1,
+     1
+    ],
+    [
+     3,
+     2,
+     1,
+     1
+    ],
+    [
+     4,
+     3,
+     2,
+     1
+    ]
+   ],
+   "Exp": [
+    0,
+    50,
+    142
+   ],
+   "UT": [
+    0,
+    2,
+    5
+   ],
+   "boostMood": {
+    "served": [
+     [
+      0.035,
+      0.1
+     ],
+     [
+      0.04,
+      0.12
+     ],
+     [
+      0.07,
+      0.12
+     ]
+    ],
+    "canceled": [
+     [
+      0.00875,
+      0.025
+     ],
+     [
+      0.01,
+      0.03
+     ],
+     [
+      0.0175,
+      0.03
+     ]
+    ]
+   },
+   "extraUpgrade": "bamboo"
+  },
+  "BaratResto": {
+   "nama": "WEST RESTAURANT",
+   "nic": "WEST RESTO",
+   "ROWS": 2,
+   "COLS": 2,
+   "fr": 26,
+   "wall": 59,
+   "wall_alpha": 62,
+   "blok": 51,
+   "standbooth": false,
+   "mainJenis": "Facility",
+   "jenis": "BaratResto",
+   "price": [
+    6000,
+    7200,
+    9600
+   ],
+   "booked_price": [
+    120,
+    144,
+    384
+   ],
+   "opened": 14,
+   "closed": 21,
+   "xpt": 8,
+   "drainpop": 2,
+   "sumStaff": 1,
+   "salary": [
+    18,
+    22,
+    25
+   ],
+   "RP_upgrade": [
+    0,
+    4,
+    7
+   ],
+   "pop": [
+    0.25,
+    0.5,
+    0.75,
+    0.15
+   ],
+   "Exp_add": [
+    [
+     2,
+     1,
+     1,
+     1
+    ],
+    [
+     3,
+     2,
+     1,
+     1
+    ],
+    [
+     4,
+     3,
+     2,
+     1
+    ]
+   ],
+   "Exp": [
+    0,
+    52,
+    147
+   ],
+   "UT": [
+    0,
+    2,
+    5
+   ],
+   "boostMood": {
+    "served": [
+     [
+      0.04,
+      0.08
+     ],
+     [
+      0.045,
+      0.12
+     ],
+     [
+      0.075,
+      0.12
+     ]
+    ],
+    "canceled": [
+     [
+      0.01,
+      0.02
+     ],
+     [
+      0.01125,
+      0.03
+     ],
+     [
+      0.01875,
+      0.03
+     ]
+    ]
+   },
+   "extraUpgrade": "uniform"
+  },
+  "Medical": {
+   "nama": "MEDICAL CENTER",
+   "nic": "MEDICAL C.",
+   "ROWS": 3,
+   "COLS": 3,
+   "fr": 38,
+   "wall": 83,
+   "wall_alpha": 86,
+   "blok": 52,
+   "standbooth": false,
+   "mainJenis": "Facility",
+   "jenis": "Medical",
+   "price": [
+    7500,
+    9000,
+    9600
+   ],
+   "booked_price": [
+    150,
+    180,
+    480
+   ],
+   "opened": 7,
+   "closed": 23,
+   "xpt": 8,
+   "drainpop": 1,
+   "sumStaff": 1,
+   "salary": [
+    35,
+    42,
+    50
+   ],
+   "RP_upgrade": [
+    0,
+    5,
+    8
+   ],
+   "pop": [
+    0.65,
+    0.75,
+    1,
+    0.35
+   ],
+   "Exp_add": [
+    [
+     3,
+     2,
+     1,
+     1
+    ],
+    [
+     4,
+     3,
+     2,
+     1
+    ],
+    [
+     5,
+     4,
+     3,
+     1
+    ]
+   ],
+   "Exp": [
+    0,
+    30,
+    90
+   ],
+   "UT": [
+    0,
+    3,
+    6
+   ],
+   "boostMood": {
+    "served": [
+     [
+      0.03,
+      0.07
+     ],
+     [
+      0.035,
+      0.075
+     ],
+     [
+      0.055,
+      0.09
+     ]
+    ],
+    "canceled": [
+     [
+      0.0075,
+      0.0175
+     ],
+     [
+      0.00875,
+      0.01875
+     ],
+     [
+      0.01375,
+      0.0225
+     ]
+    ]
+   },
+   "extraUpgrade": "aid"
+  },
+  "Minimarket": {
+   "nama": "MINIMARKET",
+   "nic": "MINI MARKET",
+   "ROWS": 3,
+   "COLS": 3,
+   "fr": 35,
+   "wall": 77,
+   "wall_alpha": 80,
+   "blok": 52,
+   "standbooth": false,
+   "mainJenis": "Facility",
+   "jenis": "Minimarket",
+   "price": [
+    8000,
+    9600,
+    12800
+   ],
+   "booked_price": [
+    150,
+    192,
+    450
+   ],
+   "opened": 0,
+   "closed": 0,
+   "xpt": 8,
+   "drainpop": 2,
+   "sumStaff": 1,
+   "salary": [
+    31,
+    39,
+    43
+   ],
+   "RP_upgrade": [
+    0,
+    5,
+    8
+   ],
+   "pop": [
+    0.6,
+    0.75,
+    1,
+    0.3
+   ],
+   "Exp_add": [
+    [
+     3,
+     2,
+     2,
+     1
+    ],
+    [
+     4,
+     3,
+     2,
+     1
+    ],
+    [
+     5,
+     4,
+     3,
+     1
+    ]
+   ],
+   "Exp": [
+    0,
+    60,
+    185
+   ],
+   "UT": [
+    0,
+    0,
+    0
+   ],
+   "boostMood": {
+    "served": [
+     [
+      0.035,
+      0.1
+     ],
+     [
+      0.04,
+      0.12
+     ],
+     [
+      0.065,
+      0.15
+     ]
+    ],
+    "canceled": [
+     [
+      0.00875,
+      0.025
+     ],
+     [
+      0.01,
+      0.03
+     ],
+     [
+      0.01625,
+      0.0375
+     ]
+    ]
+   },
+   "extraUpgrade": "irrigation"
+  },
+  "Pool": {
+   "nama": "SWIMMING POOL",
+   "nic": "POOL",
+   "ROWS": 3,
+   "COLS": 4,
+   "fr": 20,
+   "wall": 47,
+   "wall_alpha": 50,
+   "blok": 54,
+   "standbooth": false,
+   "mainJenis": "Facility",
+   "jenis": "Pool",
+   "price": [
+    9000,
+    10800,
+    14400
+   ],
+   "booked_price": [
+    180,
+    216,
+    576
+   ],
+   "opened": 6,
+   "closed": 0,
+   "xpt": 20,
+   "drainpop": 2,
+   "sumStaff": 0,
+   "salary": [
+    0,
+    0,
+    0
+   ],
+   "RP_upgrade": [
+    0,
+    6,
+    9
+   ],
+   "pop": [
+    0.6,
+    0.75,
+    1,
+    0.3
+   ],
+   "Exp_add": [
+    [
+     3,
+     2,
+     2,
+     1
+    ],
+    [
+     4,
+     3,
+     2,
+     2
+    ],
+    [
+     5,
+     4,
+     3,
+     2
+    ]
+   ],
+   "Exp": [
+    0,
+    73,
+    191
+   ],
+   "UT": [
+    0,
+    4,
+    7
+   ],
+   "boostMood": {
+    "served": [
+     [
+      0.03,
+      0.07
+     ],
+     [
+      0.035,
+      0.075
+     ],
+     [
+      0.055,
+      0.09
+     ]
+    ],
+    "canceled": [
+     [
+      0.0075,
+      0.0175
+     ],
+     [
+      0.00875,
+      0.01875
+     ],
+     [
+      0.01375,
+      0.0225
+     ]
+    ]
+   },
+   "extraUpgrade": "wifi"
+  },
+  "Golf": {
+   "nama": "GOLF YARD",
+   "nic": "GOLF",
+   "ROWS": 4,
+   "COLS": 4,
+   "fr": 10,
+   "wall": 19,
+   "wall_alpha": 22,
+   "blok": 53,
+   "standbooth": false,
+   "mainJenis": "Facility",
+   "jenis": "Golf",
+   "price": [
+    12000,
+    14400,
+    19200
+   ],
+   "booked_price": [
+    240,
+    288,
+    768
+   ],
+   "opened": 6,
+   "closed": 17,
+   "xpt": 8,
+   "drainpop": 2,
+   "sumStaff": 0,
+   "salary": [
+    0,
+    0,
+    0
+   ],
+   "RP_upgrade": [
+    0,
+    8,
+    10
+   ],
+   "pop": [
+    0.75,
+    0.85,
+    1,
+    0.4
+   ],
+   "Exp_add": [
+    [
+     4,
+     3,
+     2,
+     1
+    ],
+    [
+     5,
+     4,
+     3,
+     2
+    ],
+    [
+     6,
+     5,
+     4,
+     2
+    ]
+   ],
+   "Exp": [
+    0,
+    80,
+    200
+   ],
+   "UT": [
+    0,
+    4,
+    7
+   ],
+   "boostMood": {
+    "served": [
+     [
+      0.04,
+      0.1
+     ],
+     [
+      0.055,
+      0.12
+     ],
+     [
+      0.1,
+      0.15
+     ]
+    ],
+    "canceled": [
+     [
+      0.01,
+      0.025
+     ],
+     [
+      0.01375,
+      0.03
+     ],
+     [
+      0.025,
+      0.0375
+     ]
+    ]
+   },
+   "extraUpgrade": "gardening"
+  },
+  "Icecream": {
+   "nama": "ICE CREAM",
+   "nic": "ICE CREAM",
+   "ROWS": 1,
+   "COLS": 1,
+   "fr": 19,
+   "wall": 37,
+   "wall_alpha": 38,
+   "blok": 55,
+   "standbooth": true,
+   "mainJenis": "Facility",
+   "jenis": "Icecream",
+   "price": [
+    750,
+    0,
+    0
+   ],
+   "Xmax": 120,
+   "booked_price": [
+    3,
+    9,
+    0
+   ],
+   "opened": 9,
+   "closed": 20,
+   "xpt": 8,
+   "drainpop": 3,
+   "sumStaff": 1,
+   "salary": [
+    9
+   ],
+   "pop": [
+    0.5,
+    0,
+    0,
+    0.2
+   ],
+   "Exp_add": [
+    [
+     1
+    ]
+   ],
+   "Exp": [
+    0
+   ],
+   "UT": [
+    0
+   ],
+   "boostMood": {
+    "served": [
+     0.15,
+     0.3
+    ],
+    "canceled": [
+     0.05,
+     0.075
+    ]
+   },
+   "extraUpgrade": null
+  },
+  "Hotdog": {
+   "nama": "HOTDOG",
+   "nic": "HOTDOG",
+   "ROWS": 1,
+   "COLS": 1,
+   "fr": 19,
+   "wall": 41,
+   "wall_alpha": 42,
+   "blok": 55,
+   "standbooth": true,
+   "mainJenis": "Facility",
+   "jenis": "Hotdog",
+   "price": [
+    800,
+    0,
+    0
+   ],
+   "Xmax": 110,
+   "booked_price": [
+    3,
+    10,
+    0
+   ],
+   "opened": 8,
+   "closed": 19,
+   "xpt": 8,
+   "drainpop": 3,
+   "sumStaff": 1,
+   "salary": [
+    10
+   ],
+   "pop": [
+    0.55,
+    0,
+    0,
+    0.25
+   ],
+   "Exp_add": [
+    [
+     1
+    ]
+   ],
+   "Exp": [
+    0
+   ],
+   "UT": [
+    0
+   ],
+   "boostMood": {
+    "served": [
+     0.15,
+     0.4
+    ],
+    "canceled": [
+     0.075,
+     0.09
+    ]
+   },
+   "extraUpgrade": "wallpaper"
+  },
+  "Taco": {
+   "nama": "TACO",
+   "nic": "TACO",
+   "ROWS": 1,
+   "COLS": 1,
+   "fr": 19,
+   "wall": 39,
+   "wall_alpha": 40,
+   "blok": 55,
+   "standbooth": true,
+   "mainJenis": "Facility",
+   "jenis": "Taco",
+   "price": [
+    800,
+    0,
+    0
+   ],
+   "Xmax": 105,
+   "booked_price": [
+    3,
+    11,
+    0
+   ],
+   "opened": 12,
+   "closed": 23,
+   "xpt": 8,
+   "drainpop": 3,
+   "sumStaff": 1,
+   "salary": [
+    14
+   ],
+   "pop": [
+    0.6,
+    0,
+    0,
+    0.3
+   ],
+   "Exp_add": [
+    [
+     1
+    ]
+   ],
+   "Exp": [
+    0
+   ],
+   "UT": [
+    0
+   ],
+   "boostMood": {
+    "served": [
+     0.15,
+     0.4
+    ],
+    "canceled": [
+     0.075,
+     0.09
+    ]
+   },
+   "extraUpgrade": "sauce"
+  },
+  "Giftshop": {
+   "nama": "GIFTSHOP",
+   "nic": "GIFTSHOP",
+   "ROWS": 1,
+   "COLS": 1,
+   "fr": 19,
+   "wall": 43,
+   "wall_alpha": 44,
+   "blok": 55,
+   "standbooth": true,
+   "mainJenis": "Facility",
+   "jenis": "Giftshop",
+   "price": [
+    900,
+    0,
+    0
+   ],
+   "Xmax": 100,
+   "booked_price": [
+    4,
+    13,
+    0
+   ],
+   "opened": 13,
+   "closed": 22,
+   "xpt": 8,
+   "drainpop": 3,
+   "sumStaff": 1,
+   "salary": [
+    15
+   ],
+   "pop": [
+    0.7,
+    0,
+    0,
+    0.4
+   ],
+   "Exp_add": [
+    [
+     1
+    ]
+   ],
+   "Exp": [
+    0
+   ],
+   "UT": [
+    0
+   ],
+   "boostMood": {
+    "served": [
+     0.1,
+     0.25
+    ],
+    "canceled": [
+     0.05,
+     0.075
+    ]
+   },
+   "extraUpgrade": "meat"
+  },
+  "JanitorRoom": {
+   "nama": "JANITOR'S ROOM",
+   "nic": "JANITOR'S ROOM",
+   "ROWS": 1,
+   "COLS": 1,
+   "fr": 19,
+   "wall": 45,
+   "wall_alpha": 46,
+   "blok": 55,
+   "standbooth": true,
+   "mainJenis": "JanitorRoom",
+   "jenis": "JanitorRoom",
+   "price": [
+    300,
+    500,
+    800
+   ],
+   "hire_price": [
+    150,
+    210,
+    250
+   ],
+   "gaji_pokok": [
+    15,
+    20,
+    25
+   ],
+   "opened": 0,
+   "closed": 0,
+   "xpt": 8,
+   "drainpop": 3,
+   "RP_upgrade": [
+    0,
+    1,
+    2
+   ],
+   "pop": [
+    0.75,
+    1.25,
+    1.75,
+    0.5
+   ],
+   "Exp_add": [
+    1,
+    2,
+    3
+   ],
+   "Exp": [
+    0,
+    0,
+    0
+   ]
+  }
+ },
+ "Visitor": {
+  "Visitor1": {
+   "jenis": 1,
+   "sex": 1,
+   "speed": 1.15,
+   "MAX_MOOD": 3,
+   "money": 5000,
+   "room_stay": 2,
+   "tip": 4,
+   "hygiene": 3,
+   "hygCounter": 40,
+   "medical_prob": 35,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Lodge",
+     "Cottage"
+    ],
+    "Room2": 10,
+    "Facility": [
+     [
+      "Arcade",
+      "IndiaResto",
+      "Jacuzi",
+      "Giftshop"
+     ],
+     [
+      35,
+      60,
+      80,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Hotdog",
+    "Taco",
+    "Sauna",
+    "Gym",
+    "Pool",
+    "Medical",
+    "Minimarket",
+    "Bar",
+    "Spa",
+    "JapanResto",
+    "BaratResto",
+    "Golf"
+   ]
+  },
+  "Visitor2": {
+   "jenis": 2,
+   "sex": 0,
+   "speed": 1,
+   "MAX_MOOD": 3,
+   "money": 5000,
+   "room_stay": 2,
+   "tip": 3,
+   "hygiene": 2,
+   "hygCounter": 39,
+   "medical_prob": 40,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Cottage",
+     "Lodge"
+    ],
+    "Room2": 10,
+    "Facility": [
+     [
+      "JapanResto",
+      "Arcade",
+      "Sauna",
+      "Taco"
+     ],
+     [
+      35,
+      60,
+      80,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Hotdog",
+    "Giftshop",
+    "Jacuzi",
+    "Gym",
+    "Pool",
+    "Medical",
+    "Minimarket",
+    "Bar",
+    "Spa",
+    "BaratResto",
+    "IndiaResto",
+    "Golf"
+   ]
+  },
+  "Visitor3": {
+   "jenis": 3,
+   "sex": 1,
+   "speed": 1.8,
+   "MAX_MOOD": 2,
+   "money": 6500,
+   "room_stay": 2,
+   "tip": 2,
+   "hygiene": 4,
+   "hygCounter": 38,
+   "medical_prob": 29,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Cottage",
+     "Lodge"
+    ],
+    "Room2": 9,
+    "Facility": [
+     [
+      "Pool",
+      "Arcade",
+      "Spa",
+      "JapanResto"
+     ],
+     [
+      35,
+      60,
+      80,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Hotdog",
+    "Taco",
+    "Giftshop",
+    "Sauna",
+    "Jacuzi",
+    "Gym",
+    "Medical",
+    "Minimarket",
+    "Bar",
+    "BaratResto",
+    "IndiaResto",
+    "Golf"
+   ]
+  },
+  "Visitor4": {
+   "jenis": 4,
+   "sex": 0,
+   "speed": 1.2,
+   "MAX_MOOD": 4,
+   "money": 7000,
+   "room_stay": 2,
+   "tip": 3,
+   "hygiene": 1,
+   "hygCounter": 33,
+   "medical_prob": 25,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Lodge",
+     "Cottage"
+    ],
+    "Room2": 7,
+    "Facility": [
+     [
+      "Golf",
+      "BaratResto",
+      "Pool",
+      "Bar"
+     ],
+     [
+      35,
+      60,
+      80,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Hotdog",
+    "Taco",
+    "Giftshop",
+    "Arcade",
+    "Sauna",
+    "Jacuzi",
+    "Gym",
+    "Medical",
+    "Minimarket",
+    "Spa",
+    "JapanResto",
+    "IndiaResto"
+   ]
+  },
+  "Visitor5": {
+   "jenis": 5,
+   "sex": 1,
+   "speed": 2,
+   "MAX_MOOD": 3,
+   "money": 8000,
+   "room_stay": 2,
+   "tip": 2,
+   "hygiene": 5,
+   "hygCounter": 36,
+   "medical_prob": 25,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Lodge",
+     "Cottage"
+    ],
+    "Room2": 11,
+    "Facility": [
+     [
+      "Pool",
+      "Jacuzi",
+      "Sauna",
+      "Minimarket"
+     ],
+     [
+      35,
+      60,
+      80,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Hotdog",
+    "Taco",
+    "Giftshop",
+    "Arcade",
+    "Gym",
+    "Medical",
+    "Bar",
+    "Spa",
+    "JapanResto",
+    "BaratResto",
+    "IndiaResto",
+    "Golf"
+   ]
+  },
+  "Visitor6": {
+   "jenis": 6,
+   "sex": 0,
+   "speed": 1.5,
+   "MAX_MOOD": 1,
+   "money": 8800,
+   "room_stay": 2,
+   "tip": 3,
+   "hygiene": 3,
+   "hygCounter": 32,
+   "medical_prob": 30,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Cottage",
+     "Lodge"
+    ],
+    "Room2": 9,
+    "Facility": [
+     [
+      "IndiaResto",
+      "Bar",
+      "Arcade",
+      "Taco"
+     ],
+     [
+      35,
+      60,
+      80,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Hotdog",
+    "Giftshop",
+    "Sauna",
+    "Jacuzi",
+    "Gym",
+    "Pool",
+    "Medical",
+    "Minimarket",
+    "Spa",
+    "JapanResto",
+    "BaratResto",
+    "Golf"
+   ]
+  },
+  "Visitor7": {
+   "jenis": 7,
+   "sex": 1,
+   "speed": 0.95,
+   "MAX_MOOD": 2,
+   "money": 9250,
+   "room_stay": 2,
+   "tip": 4,
+   "hygiene": 5,
+   "hygCounter": 37,
+   "medical_prob": 45,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Cottage",
+     "Lodge"
+    ],
+    "Room2": 10,
+    "Facility": [
+     [
+      "Giftshop",
+      "Icecream",
+      "Gym",
+      "Sauna"
+     ],
+     [
+      35,
+      60,
+      80,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Hotdog",
+    "Taco",
+    "Arcade",
+    "Jacuzi",
+    "Pool",
+    "Medical",
+    "Minimarket",
+    "Bar",
+    "Spa",
+    "JapanResto",
+    "BaratResto",
+    "IndiaResto",
+    "Golf"
+   ]
+  },
+  "Visitor8": {
+   "jenis": 8,
+   "sex": 0,
+   "speed": 1.5,
+   "MAX_MOOD": 4,
+   "money": 9500,
+   "room_stay": 2,
+   "tip": 5,
+   "hygiene": 1,
+   "hygCounter": 32,
+   "medical_prob": 45,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Lodge",
+     "Cottage"
+    ],
+    "Room2": 10,
+    "Facility": [
+     [
+      "Bar",
+      "BaratResto",
+      "Jacuzi",
+      "Hotdog"
+     ],
+     [
+      35,
+      60,
+      80,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Taco",
+    "Giftshop",
+    "Arcade",
+    "Sauna",
+    "Gym",
+    "Pool",
+    "Medical",
+    "Minimarket",
+    "Spa",
+    "JapanResto",
+    "IndiaResto",
+    "Golf"
+   ]
+  },
+  "Visitor9": {
+   "jenis": 9,
+   "sex": 0,
+   "speed": 1.4,
+   "MAX_MOOD": 2,
+   "money": 9800,
+   "room_stay": 3,
+   "tip": 4,
+   "hygiene": 2,
+   "hygCounter": 36,
+   "medical_prob": 45,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Cottage",
+     "Lodge"
+    ],
+    "Room2": 10,
+    "Facility": [
+     [
+      "Arcade",
+      "Gym",
+      "Golf",
+      "Pool"
+     ],
+     [
+      35,
+      60,
+      80,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Hotdog",
+    "Taco",
+    "Giftshop",
+    "Sauna",
+    "Jacuzi",
+    "Medical",
+    "Minimarket",
+    "Bar",
+    "Spa",
+    "JapanResto",
+    "BaratResto",
+    "IndiaResto"
+   ]
+  },
+  "Visitor10": {
+   "jenis": 10,
+   "sex": 1,
+   "speed": 1.35,
+   "MAX_MOOD": 2,
+   "money": 10000,
+   "room_stay": 3,
+   "tip": 5,
+   "hygiene": 2,
+   "hygCounter": 35,
+   "medical_prob": 45,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Cottage",
+     "Lodge"
+    ],
+    "Room2": 3,
+    "Facility": [
+     [
+      "IndiaResto",
+      "JapanResto",
+      "Sauna",
+      "Minimarket"
+     ],
+     [
+      35,
+      60,
+      80,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Hotdog",
+    "Taco",
+    "Giftshop",
+    "Arcade",
+    "Jacuzi",
+    "Gym",
+    "Pool",
+    "Medical",
+    "Bar",
+    "Spa",
+    "BaratResto",
+    "Golf"
+   ]
+  },
+  "Visitor11": {
+   "jenis": 11,
+   "sex": 0,
+   "speed": 0.75,
+   "MAX_MOOD": 2,
+   "money": 11000,
+   "room_stay": 2,
+   "tip": 2,
+   "hygiene": 2,
+   "hygCounter": 34,
+   "medical_prob": 95,
+   "maxK": 8,
+   "old": true,
+   "likes": {
+    "Room": [
+     "Cottage",
+     "Lodge"
+    ],
+    "Room2": 11,
+    "Facility": [
+     [
+      "Jacuzi",
+      "Sauna",
+      "Giftshop",
+      "BaratResto"
+     ],
+     [
+      35,
+      60,
+      80,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Hotdog",
+    "Taco",
+    "Arcade",
+    "Gym",
+    "Pool",
+    "Medical",
+    "Minimarket",
+    "Bar",
+    "Spa",
+    "JapanResto",
+    "IndiaResto",
+    "Golf"
+   ]
+  },
+  "Visitor12": {
+   "jenis": 12,
+   "sex": 1,
+   "speed": 0.95,
+   "MAX_MOOD": 3,
+   "money": 11200,
+   "room_stay": 3,
+   "tip": 3,
+   "hygiene": 3,
+   "hygCounter": 35,
+   "medical_prob": 85,
+   "maxK": 8,
+   "old": true,
+   "likes": {
+    "Room": [
+     "Lodge",
+     "Cottage"
+    ],
+    "Room2": 11,
+    "Facility": [
+     [
+      "Icecream",
+      "Pool",
+      "JapanResto",
+      "Sauna"
+     ],
+     [
+      35,
+      60,
+      80,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Hotdog",
+    "Taco",
+    "Giftshop",
+    "Arcade",
+    "Jacuzi",
+    "Gym",
+    "Medical",
+    "Minimarket",
+    "Bar",
+    "Spa",
+    "BaratResto",
+    "IndiaResto",
+    "Golf"
+   ]
+  },
+  "Visitor13": {
+   "jenis": 13,
+   "sex": 0,
+   "speed": 0.6,
+   "MAX_MOOD": 4,
+   "money": 12500,
+   "room_stay": 3,
+   "tip": 2,
+   "hygiene": 2,
+   "hygCounter": 34,
+   "medical_prob": 90,
+   "maxK": 8,
+   "old": true,
+   "likes": {
+    "Room": [
+     "Lodge",
+     "Cottage"
+    ],
+    "Room2": 10,
+    "Facility": [
+     [
+      "Golf",
+      "Spa",
+      "Medical",
+      "BaratResto"
+     ],
+     [
+      35,
+      60,
+      80,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Hotdog",
+    "Taco",
+    "Giftshop",
+    "Arcade",
+    "Sauna",
+    "Jacuzi",
+    "Gym",
+    "Pool",
+    "Minimarket",
+    "Bar",
+    "JapanResto",
+    "IndiaResto"
+   ]
+  },
+  "Visitor14": {
+   "jenis": 14,
+   "sex": 1,
+   "speed": 0.8,
+   "MAX_MOOD": 1,
+   "money": 13000,
+   "room_stay": 3,
+   "tip": 3,
+   "hygiene": 5,
+   "hygCounter": 33,
+   "medical_prob": 85,
+   "maxK": 8,
+   "old": true,
+   "likes": {
+    "Room": [
+     "Cottage",
+     "Lodge"
+    ],
+    "Room2": 10,
+    "Facility": [
+     [
+      "IndiaResto",
+      "Gym",
+      "Giftshop",
+      "Minimarket"
+     ],
+     [
+      35,
+      60,
+      80,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Hotdog",
+    "Taco",
+    "Arcade",
+    "Sauna",
+    "Jacuzi",
+    "Pool",
+    "Medical",
+    "Bar",
+    "Spa",
+    "JapanResto",
+    "BaratResto",
+    "Golf"
+   ]
+  },
+  "Visitor15": {
+   "jenis": 15,
+   "sex": 0,
+   "speed": 0.75,
+   "MAX_MOOD": 4,
+   "money": 9500,
+   "room_stay": 2,
+   "tip": 4,
+   "hygiene": 2,
+   "hygCounter": 32,
+   "medical_prob": 90,
+   "maxK": 8,
+   "old": true,
+   "likes": {
+    "Room": [
+     "Lodge",
+     "Cottage"
+    ],
+    "Room2": 13,
+    "Facility": [
+     [
+      "Arcade",
+      "Jacuzi",
+      "Taco",
+      "Sauna"
+     ],
+     [
+      35,
+      60,
+      80,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Hotdog",
+    "Giftshop",
+    "Gym",
+    "Pool",
+    "Medical",
+    "Minimarket",
+    "Bar",
+    "Spa",
+    "JapanResto",
+    "BaratResto",
+    "IndiaResto",
+    "Golf"
+   ]
+  },
+  "Visitor16": {
+   "jenis": 16,
+   "sex": 1,
+   "speed": 0.7,
+   "MAX_MOOD": 4,
+   "money": 9800,
+   "room_stay": 2,
+   "tip": 4,
+   "hygiene": 2,
+   "hygCounter": 35,
+   "medical_prob": 95,
+   "maxK": 8,
+   "old": true,
+   "likes": {
+    "Room": [
+     "Lodge",
+     "Cottage"
+    ],
+    "Room2": 12,
+    "Facility": [
+     [
+      "Minimarket",
+      "Hotdog",
+      "Jacuzi",
+      "Spa",
+      "Pool"
+     ],
+     [
+      30,
+      55,
+      73,
+      88,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Taco",
+    "Giftshop",
+    "Arcade",
+    "Sauna",
+    "Gym",
+    "Medical",
+    "Bar",
+    "JapanResto",
+    "BaratResto",
+    "IndiaResto",
+    "Golf"
+   ]
+  },
+  "Visitor17": {
+   "jenis": 17,
+   "sex": 3,
+   "jenis1": 2,
+   "jenis2": 1,
+   "speed": 0.95,
+   "MAX_MOOD": 3,
+   "money": 12500,
+   "room_stay": 1,
+   "tip": 6,
+   "hygiene": 3,
+   "hygCounter": 37,
+   "medical_prob": 75,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Cottage",
+     "Lodge"
+    ],
+    "Room2": 15,
+    "Facility": [
+     [
+      "Bar",
+      "Hotdog",
+      "Taco",
+      "Giftshop",
+      "Golf",
+      "Gym",
+      "IndiaResto"
+     ],
+     [
+      20,
+      35,
+      50,
+      70,
+      80,
+      90,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Arcade",
+    "Sauna",
+    "Jacuzi",
+    "Pool",
+    "Medical",
+    "Minimarket",
+    "Spa",
+    "JapanResto",
+    "BaratResto"
+   ]
+  },
+  "Visitor18": {
+   "jenis": 18,
+   "sex": 3,
+   "jenis1": 4,
+   "jenis2": 3,
+   "speed": 0.95,
+   "MAX_MOOD": 4,
+   "money": 13000,
+   "room_stay": 3,
+   "tip": 5,
+   "hygiene": 4,
+   "hygCounter": 38,
+   "medical_prob": 45,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Lodge",
+     "Cottage"
+    ],
+    "Room2": 15,
+    "Facility": [
+     [
+      "Bar",
+      "BaratResto",
+      "Spa",
+      "Gym",
+      "Jacuzi",
+      "Gym",
+      "Arcade"
+     ],
+     [
+      20,
+      35,
+      50,
+      70,
+      80,
+      90,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Hotdog",
+    "Taco",
+    "Giftshop",
+    "Sauna",
+    "Pool",
+    "Medical",
+    "Minimarket",
+    "JapanResto",
+    "IndiaResto",
+    "Golf"
+   ]
+  },
+  "Visitor19": {
+   "jenis": 19,
+   "sex": 3,
+   "jenis1": 6,
+   "jenis2": 5,
+   "speed": 0.95,
+   "MAX_MOOD": 3,
+   "money": 13500,
+   "room_stay": 2,
+   "tip": 4,
+   "hygiene": 5,
+   "hygCounter": 37,
+   "medical_prob": 60,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Cottage",
+     "Lodge"
+    ],
+    "Room2": 15,
+    "Facility": [
+     [
+      "BaratResto",
+      "Hotdog",
+      "Taco",
+      "Icecream",
+      "JapanResto",
+      "Spa",
+      "IndiaResto"
+     ],
+     [
+      20,
+      35,
+      50,
+      70,
+      80,
+      90,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Giftshop",
+    "Arcade",
+    "Sauna",
+    "Jacuzi",
+    "Gym",
+    "Pool",
+    "Medical",
+    "Minimarket",
+    "Bar",
+    "Golf"
+   ]
+  },
+  "Visitor20": {
+   "jenis": 20,
+   "sex": 3,
+   "jenis1": 8,
+   "jenis2": 7,
+   "speed": 0.95,
+   "MAX_MOOD": 2,
+   "money": 13700,
+   "room_stay": 3,
+   "tip": 5,
+   "hygiene": 4,
+   "hygCounter": 36,
+   "medical_prob": 55,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Lodge",
+     "Cottage"
+    ],
+    "Room2": 15,
+    "Facility": [
+     [
+      "IndiaResto",
+      "Bar",
+      "Pool",
+      "Jacuzi",
+      "Minimarket",
+      "Hotdog",
+      "Giftshop"
+     ],
+     [
+      20,
+      35,
+      50,
+      70,
+      80,
+      90,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Taco",
+    "Arcade",
+    "Sauna",
+    "Gym",
+    "Medical",
+    "Spa",
+    "JapanResto",
+    "BaratResto",
+    "Golf"
+   ]
+  },
+  "Visitor21": {
+   "jenis": 21,
+   "sex": 3,
+   "jenis1": 9,
+   "jenis2": 10,
+   "speed": 0.95,
+   "MAX_MOOD": 3,
+   "money": 13500,
+   "room_stay": 3,
+   "tip": 4,
+   "hygiene": 3,
+   "hygCounter": 48,
+   "medical_prob": 50,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Cottage",
+     "Lodge"
+    ],
+    "Room2": 15,
+    "Facility": [
+     [
+      "IndiaResto",
+      "Minimarket",
+      "Golf",
+      "Hotdog",
+      "JapanResto",
+      "Sauna",
+      "Taco"
+     ],
+     [
+      20,
+      35,
+      50,
+      70,
+      80,
+      90,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Giftshop",
+    "Arcade",
+    "Jacuzi",
+    "Gym",
+    "Pool",
+    "Medical",
+    "Bar",
+    "Spa",
+    "BaratResto"
+   ]
+  },
+  "Visitor22": {
+   "jenis": 22,
+   "sex": 3,
+   "jenis1": 11,
+   "jenis2": 12,
+   "speed": 1,
+   "MAX_MOOD": 4,
+   "money": 14550,
+   "room_stay": 3,
+   "tip": 6,
+   "hygiene": 2,
+   "hygCounter": 33,
+   "medical_prob": 90,
+   "maxK": 9,
+   "old": true,
+   "likes": {
+    "Room": [
+     "Lodge",
+     "Cottage"
+    ],
+    "Room2": 20,
+    "Facility": [
+     [
+      "Pool",
+      "BaratResto",
+      "Gym",
+      "Giftshop",
+      "Jacuzi",
+      "Golf",
+      "Sauna"
+     ],
+     [
+      20,
+      35,
+      50,
+      70,
+      80,
+      90,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Hotdog",
+    "Taco",
+    "Arcade",
+    "Medical",
+    "Minimarket",
+    "Bar",
+    "Spa",
+    "JapanResto",
+    "IndiaResto"
+   ]
+  },
+  "Visitor23": {
+   "jenis": 23,
+   "sex": 3,
+   "jenis1": 13,
+   "jenis2": 14,
+   "speed": 0.95,
+   "MAX_MOOD": 3,
+   "money": 14500,
+   "room_stay": 3,
+   "tip": 7,
+   "hygiene": 1,
+   "hygCounter": 32,
+   "medical_prob": 95,
+   "maxK": 9,
+   "old": true,
+   "likes": {
+    "Room": [
+     "Cottage",
+     "Lodge"
+    ],
+    "Room2": 30,
+    "Facility": [
+     [
+      "Golf",
+      "Medical",
+      "JapanResto",
+      "Taco",
+      "Jacuzi",
+      "Spa",
+      "Sauna"
+     ],
+     [
+      20,
+      35,
+      50,
+      70,
+      80,
+      90,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Hotdog",
+    "Giftshop",
+    "Arcade",
+    "Gym",
+    "Pool",
+    "Minimarket",
+    "Bar",
+    "BaratResto",
+    "IndiaResto"
+   ]
+  },
+  "Visitor24": {
+   "jenis": 24,
+   "sex": 3,
+   "jenis1": 15,
+   "jenis2": 16,
+   "speed": 0.7,
+   "MAX_MOOD": 2,
+   "money": 15000,
+   "room_stay": 2,
+   "tip": 4,
+   "hygiene": 1,
+   "hygCounter": 30,
+   "medical_prob": 98,
+   "maxK": 9,
+   "old": true,
+   "likes": {
+    "Room": [
+     "Lodge",
+     "Cottage"
+    ],
+    "Room2": 25,
+    "Facility": [
+     [
+      "Medical",
+      "Golf",
+      "IndiaResto",
+      "Minimarket",
+      "Gym",
+      "Hotdog",
+      "Giftshop"
+     ],
+     [
+      20,
+      35,
+      50,
+      70,
+      80,
+      90,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Taco",
+    "Arcade",
+    "Sauna",
+    "Jacuzi",
+    "Pool",
+    "Bar",
+    "Spa",
+    "JapanResto",
+    "BaratResto"
+   ]
+  },
+  "Visitor25": {
+   "jenis": 25,
+   "sex": 1,
+   "nick": "Ann Hat Away",
+   "car": 1,
+   "speed": 0.8,
+   "MAX_MOOD": 2,
+   "money": 17000,
+   "room_stay": 3,
+   "tip": 12,
+   "hygiene": 5,
+   "hygCounter": 43,
+   "medical_prob": 75,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Lodge",
+     "Cottage"
+    ],
+    "Room2": 8,
+    "Facility": [
+     [
+      "Golf",
+      "Bar",
+      "Pool",
+      "Gym",
+      "Arcade",
+      "Medical",
+      "Taco"
+     ],
+     [
+      20,
+      35,
+      50,
+      70,
+      80,
+      90,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Hotdog",
+    "Giftshop",
+    "Sauna",
+    "Jacuzi",
+    "Minimarket",
+    "Spa",
+    "JapanResto",
+    "BaratResto",
+    "IndiaResto"
+   ]
+  },
+  "Visitor26": {
+   "jenis": 26,
+   "sex": 1,
+   "nick": "Mr. Rock",
+   "car": 1,
+   "speed": 1.4,
+   "MAX_MOOD": 3,
+   "money": 18500,
+   "room_stay": 3,
+   "tip": 13,
+   "hygiene": 5,
+   "hygCounter": 43,
+   "medical_prob": 90,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Lodge",
+     "Cottage"
+    ],
+    "Room2": 6,
+    "Facility": [
+     [
+      "Minimarket",
+      "Pool",
+      "Golf",
+      "Spa",
+      "Giftshop",
+      "Medical",
+      "Icecream"
+     ],
+     [
+      20,
+      35,
+      50,
+      70,
+      80,
+      90,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Hotdog",
+    "Taco",
+    "Arcade",
+    "Sauna",
+    "Jacuzi",
+    "Gym",
+    "Bar",
+    "JapanResto",
+    "BaratResto",
+    "IndiaResto"
+   ]
+  },
+  "Visitor27": {
+   "jenis": 27,
+   "sex": 1,
+   "nick": "Naomi Volts",
+   "car": 0,
+   "speed": 0.95,
+   "MAX_MOOD": 2,
+   "money": 20000,
+   "room_stay": 3,
+   "tip": 14,
+   "hygiene": 5,
+   "hygCounter": 43,
+   "medical_prob": 75,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Lodge"
+    ],
+    "Room2": 0,
+    "Facility": [
+     [
+      "Icecream",
+      "Taco",
+      "JapanResto",
+      "IndiaResto",
+      "BaratResto",
+      "Bar",
+      "Hotdog"
+     ],
+     [
+      20,
+      35,
+      50,
+      70,
+      80,
+      90,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Giftshop",
+    "Arcade",
+    "Sauna",
+    "Jacuzi",
+    "Gym",
+    "Pool",
+    "Medical",
+    "Minimarket",
+    "Spa",
+    "Golf"
+   ]
+  },
+  "Visitor28": {
+   "jenis": 28,
+   "sex": 1,
+   "nick": "Robert Fatinson",
+   "car": 0,
+   "speed": 0.5,
+   "MAX_MOOD": 4,
+   "money": 24000,
+   "room_stay": 3,
+   "tip": 20,
+   "hygiene": 5,
+   "hygCounter": 43,
+   "medical_prob": 90,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Lodge"
+    ],
+    "Room2": 0,
+    "Facility": [
+     [
+      "Medical",
+      "Pool",
+      "Spa",
+      "Sauna",
+      "Jacuzi",
+      "IndiaResto",
+      "Icecream"
+     ],
+     [
+      20,
+      35,
+      50,
+      70,
+      80,
+      90,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Hotdog",
+    "Taco",
+    "Giftshop",
+    "Arcade",
+    "Gym",
+    "Minimarket",
+    "Bar",
+    "JapanResto",
+    "BaratResto",
+    "Golf"
+   ]
+  },
+  "Visitor29": {
+   "jenis": 29,
+   "sex": 1,
+   "nick": "Jason State",
+   "car": 1,
+   "speed": 1.35,
+   "MAX_MOOD": 3,
+   "money": 25000,
+   "room_stay": 3,
+   "tip": 15,
+   "hygiene": 5,
+   "hygCounter": 43,
+   "medical_prob": 80,
+   "maxK": 12,
+   "old": false,
+   "likes": {
+    "Room": [
+     "Lodge",
+     "Cottage"
+    ],
+    "Room2": 0,
+    "Facility": [
+     [
+      "Minimarket",
+      "Golf",
+      "Arcade",
+      "Giftshop",
+      "JapanResto",
+      "Gym",
+      "Spa"
+     ],
+     [
+      20,
+      35,
+      50,
+      70,
+      80,
+      90,
+      100
+     ]
+    ],
+    "Other": []
+   },
+   "Other": [
+    "Icecream",
+    "Hotdog",
+    "Taco",
+    "Sauna",
+    "Jacuzi",
+    "Pool",
+    "Medical",
+    "Bar",
+    "BaratResto",
+    "IndiaResto"
+   ]
+  },
+  "Cottage": [
+   2,
+   3,
+   6,
+   7,
+   9,
+   10,
+   11,
+   14,
+   17,
+   19,
+   21,
+   23
+  ],
+  "Lodge": [
+   1,
+   4,
+   5,
+   8,
+   12,
+   13,
+   15,
+   16,
+   18,
+   20,
+   22,
+   24
+  ],
+  "Old": [
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   22,
+   23,
+   24
+  ],
+  "TanpaOld": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   17,
+   18,
+   19,
+   20,
+   21
+  ],
+  "Cottage_TanpaOld": [
+   2,
+   3,
+   6,
+   7,
+   9,
+   10,
+   17,
+   19,
+   21
+  ],
+  "Lodge_TanpaOld": [
+   1,
+   4,
+   5,
+   8,
+   18,
+   20
+  ],
+  "halfBaldOldMan": {
+   "Visitor9": true,
+   "Visitor11": true,
+   "Visitor15": true,
+   "Visitor21": true,
+   "Visitor22": true,
+   "Visitor24": true
+  },
+  "shortHairedOldLady": {
+   "Visitor12": true,
+   "Visitor14": true,
+   "Visitor16": true,
+   "Visitor22": true,
+   "Visitor23": true,
+   "Visitor24": true
+  },
+  "HYGIENE_RANGE": [],
+  "PROB_RANGE": [
+   50,
+   40,
+   30,
+   25,
+   15,
+   5
+  ],
+  "FIRSTNAME_MALE": [
+   "Brian",
+   "Maxwell",
+   "Paul",
+   "Erick",
+   "Ernest",
+   "Nelson",
+   "Matt",
+   "Morgan",
+   "Zach",
+   "Nicholas",
+   "Robert",
+   "Harold",
+   "Bob Harper",
+   "Theodore",
+   "Chartzen",
+   "Godwyn",
+   "Blake",
+   "Rooney",
+   "Jerome",
+   "Brad"
+  ],
+  "SECONDNAME_MALE": [
+   "McBrown",
+   "Tzebaltski",
+   "Bradley",
+   "Ford",
+   "Powell",
+   "Gray",
+   "Ward",
+   "Collins",
+   "Stewart",
+   "Reed",
+   "Bailey",
+   "Cooper",
+   "Rivera",
+   "Stones",
+   "Hudson",
+   "Duncan",
+   "Foster",
+   "Woods",
+   "Simmons",
+   "Michaels",
+   "Phillips",
+   "Martinez",
+   "Thompson",
+   "Harris",
+   "Moore",
+   "Miller",
+   "Jackson",
+   "Jones",
+   "Williams",
+   "Snyder",
+   "Oliver"
+  ],
+  "FIRSTNAME_FEMALE": [
+   "Michelle",
+   "Barbara",
+   "Sabrina",
+   "Debby",
+   "Bernadett",
+   "Alexa",
+   "Alice",
+   "Elvina",
+   "Nadine",
+   "Heather",
+   "Hannah",
+   "Jillian",
+   "Yvonne",
+   "Tabitha",
+   "Jean",
+   "Julia",
+   "Scarlett"
+  ],
+  "SECONDNAME_FEMALE": [
+   "McBrown",
+   "Tzebaltski",
+   "Bradley",
+   "Ford",
+   "Powell",
+   "Gray",
+   "Ward",
+   "Collins",
+   "Stewart",
+   "Reed",
+   "Bailey",
+   "Cooper",
+   "Rivera",
+   "Stones",
+   "Hudson",
+   "Duncan",
+   "Foster",
+   "Woods",
+   "Simmons",
+   "Michaels",
+   "Phillips",
+   "Martinez",
+   "Thompson",
+   "Harris",
+   "Moore",
+   "Miller",
+   "Jackson",
+   "Jones",
+   "Williams",
+   "Snyder",
+   "Oliver"
+  ],
+  "COUPLE_NAME": [
+   "McBrown",
+   "Tzebaltski",
+   "Bradley",
+   "Ford",
+   "Powell",
+   "Gray",
+   "Ward",
+   "Collins",
+   "Stewart",
+   "Reed",
+   "Bailey",
+   "Cooper",
+   "Rivera",
+   "Stones",
+   "Hudson",
+   "Duncan",
+   "Foster",
+   "Woods",
+   "Simmons",
+   "Michaels",
+   "Phillips",
+   "Martinez",
+   "Thompson",
+   "Harris",
+   "Moore",
+   "Miller",
+   "Jackson",
+   "Jones",
+   "Williams",
+   "Snyder",
+   "Oliver"
+  ]
+ },
+ "Employee": {
+  "Janitor": {
+   "nama": "JANITOR",
+   "jenis": 1,
+   "sex": 0,
+   "MAX_MOOD": [
+    3,
+    4,
+    5
+   ],
+   "smiley": {
+    "__ref__": "dataOb.Smiley"
+   },
+   "price": [
+    0,
+    100,
+    200
+   ],
+   "gaji_pokok": [
+    5,
+    10,
+    15
+   ],
+   "pop": [
+    0.25,
+    0.5,
+    0.75
+   ],
+   "speedWork": [
+    1,
+    1.5,
+    2
+   ],
+   "Exp_add": [
+    1,
+    1,
+    1
+   ],
+   "Exp": [
+    0,
+    0,
+    0
+   ],
+   "breakTimer": [
+    50,
+    40,
+    30
+   ],
+   "sleepTimer": 125,
+   "sleepMinus": [
+    0.25,
+    0.5,
+    1
+   ],
+   "jamTidur": [
+    21,
+    23
+   ],
+   "istirahatTimer": [
+    25,
+    60
+   ],
+   "jamBangun": [
+    8,
+    9
+   ],
+   "speed": [
+    1,
+    1.5,
+    2
+   ]
+  },
+  "FIRSTNAME": [
+   "Max",
+   "Budi",
+   "Bob",
+   "Agung",
+   "Herry",
+   "Bobby",
+   "Brian",
+   "Morgan",
+   "John",
+   "Jaka"
+  ],
+  "SECONDNAME": [
+   "Brown",
+   "Smith",
+   "Power",
+   "Tiger",
+   "Goody",
+   "Smiley",
+   "Smash",
+   "Permata",
+   "Carmen",
+   "Maxwell"
+  ]
+ },
+ "Smiley": {
+  "very_happy": {
+   "nama": "VERY HAPPY",
+   "range_a": 80,
+   "range_b": 100,
+   "nilai": 2
+  },
+  "happy": {
+   "nama": "HAPPY",
+   "range_a": 65,
+   "range_b": 80,
+   "nilai": 1
+  },
+  "neutral": {
+   "nama": "NEUTRAL",
+   "range_a": 55,
+   "range_b": 65,
+   "nilai": 0
+  },
+  "upset": {
+   "nama": "UPSET",
+   "range_a": 35,
+   "range_b": 55,
+   "nilai": -1.5
+  },
+  "very_upset": {
+   "nama": "VERY UPSET",
+   "range_a": 0,
+   "range_b": 35,
+   "nilai": -2.5
+  },
+  "sleepy": {
+   "nama": "SLEEPY",
+   "range_a": 0,
+   "range_b": 0,
+   "nilai": 0
+  }
+ },
+ "Mission": {
+  "build_room": {
+   "desc": "Build a room on your resort ",
+   "bonus": 500,
+   "batas": 0
+  },
+  "connect_tiles": {
+   "desc": "Connected room with main road ",
+   "bonus": 500,
+   "batas": 0
+  },
+  "put_scenery": {
+   "desc": "Put a plant on your resort ",
+   "bonus": 500,
+   "batas": 0
+  },
+  "build_facility": {
+   "desc": "Build a facility on your resort ",
+   "bonus": 750,
+   "batas": 0
+  },
+  "scenery_grass": {
+   "desc": "Put a plant on grass tile ",
+   "bonus": 750,
+   "batas": 0
+  },
+  "one_stayed": {
+   "desc": "Have at least 1 visitor stayed on your resort ",
+   "bonus": 750,
+   "batas": 1
+  },
+  "one_janitor": {
+   "desc": "Hire at least 1 cleaning service ",
+   "bonus": 500,
+   "batas": 1
+  },
+  "x_money": {
+   "desc": "Total money $2500 ",
+   "bonus": 1000,
+   "batas": 2500
+  },
+  "x_tree": {
+   "desc": "Have 12 plants on your resort ",
+   "bonus": 1000,
+   "batas": 12
+  },
+  "x_facilityRoom": {
+   "desc": "Have total 8 facilities and rooms on your resort ",
+   "bonus": 2500,
+   "batas": 8
+  },
+  "x_janitor": {
+   "desc": "Have 4 cleaning service staffs on your resort ",
+   "bonus": 1500,
+   "batas": 4
+  },
+  "xx_tree": {
+   "desc": "Have 20 plants on your resort ",
+   "bonus": 1000,
+   "batas": 20
+  },
+  "x_stayed": {
+   "desc": "Have 8 booked rooms on your resort ",
+   "bonus": 1000,
+   "batas": 8
+  },
+  "x_profit": {
+   "desc": "Earn $1000 profit at end day ",
+   "bonus": 1000,
+   "batas": 0
+  },
+  "x_room": {
+   "desc": "Have 12 rooms on your resort ",
+   "bonus": 5000,
+   "batas": 12
+  },
+  "one_facilityUpgrade": {
+   "desc": "Upgrade at least one facility ",
+   "bonus": 4000,
+   "batas": 0
+  },
+  "x_customer": {
+   "desc": "Have customers using facility 25 times in a day ",
+   "bonus": 2000,
+   "batas": 25
+  },
+  "first_meal": {
+   "desc": "Served your first meal ",
+   "bonus": 2000,
+   "batas": 0
+  },
+  "x_facility": {
+   "desc": "Build 5 booth 'types' of facility ",
+   "bonus": 5000,
+   "batas": 5
+  },
+  "janitorRoom_upgrade": {
+   "desc": "Have one Janitor's Room with full upgrade ",
+   "bonus": 2500,
+   "batas": 0
+  },
+  "x_promote": {
+   "desc": "Have 3 janitors with full promote ",
+   "bonus": 3000,
+   "batas": 3
+  },
+  "x_facilityUpgrade": {
+   "desc": "Have 3 facilities with two stars or more ",
+   "bonus": 5000,
+   "batas": 3
+  },
+  "x_maple": {
+   "desc": "Have 10 maple trees ",
+   "bonus": 1200,
+   "batas": 10
+  },
+  "x_cottageUpgrade": {
+   "desc": "Have 3 Cottages with two stars or more ",
+   "bonus": 4000,
+   "batas": 3
+  },
+  "stars_5": {
+   "desc": "Reach 5 Resort's Stars ",
+   "bonus": 5000,
+   "batas": 5
+  },
+  "one_lodge": {
+   "desc": "Have one lodge room ",
+   "bonus": 1500,
+   "batas": 0
+  },
+  "first_spcVisitor": {
+   "desc": "Have your first special visitor inside your resort ",
+   "bonus": 3500,
+   "batas": 0
+  },
+  "x_unlocked": {
+   "desc": "Have at least 10 booths unlocked ",
+   "bonus": 1500,
+   "batas": 10
+  },
+  "expand1": {
+   "desc": "Expand your resort land ",
+   "bonus": 5000,
+   "batas": 0
+  },
+  "x_profit2": {
+   "desc": "Earn $2500 profit  at end day ",
+   "bonus": 1500,
+   "batas": 0
+  },
+  "xx_facility": {
+   "desc": "Have total 15 facilities ",
+   "bonus": 12500,
+   "batas": 15
+  },
+  "x_lodge": {
+   "desc": "Have at least 4 lodge ",
+   "bonus": 3000,
+   "batas": 4
+  },
+  "x_visitors": {
+   "desc": "Have 25 visitors inside your resort ",
+   "bonus": 3000,
+   "batas": 25
+  },
+  "xx_tree2": {
+   "desc": "Have 40 plants on your resort ",
+   "bonus": 2500,
+   "batas": 40
+  },
+  "x_facilityUpgrade2": {
+   "desc": "Have 3 facilities with full upgrade ",
+   "bonus": 5000,
+   "batas": 3
+  },
+  "x_customer2": {
+   "desc": "Have customers using facility 80 times in a day ",
+   "bonus": 2000,
+   "batas": 80
+  },
+  "lobby_upgrade": {
+   "desc": "Upgrade your lobby room",
+   "bonus": 5000,
+   "batas": 0
+  },
+  "x_giftshop": {
+   "desc": "Have at least 2 Giftshops ",
+   "bonus": 1000,
+   "batas": 2
+  },
+  "spend_1": {
+   "desc": "Spend $15000 money in a day ",
+   "bonus": 5000,
+   "batas": 15000
+  },
+  "xx_stayed": {
+   "desc": "Have 15 booked rooms on your resort ",
+   "bonus": 7000,
+   "batas": 15
+  },
+  "x_minibooth": {
+   "desc": "Have all kind of minibooths ",
+   "bonus": 2500,
+   "batas": 4
+  },
+  "x_booths": {
+   "desc": "Have total 35 facilities and rooms on your resort ",
+   "bonus": 15000,
+   "batas": 35
+  },
+  "x_medical": {
+   "desc": "Have at least 1 Medical Center ",
+   "bonus": 3000,
+   "batas": 0
+  },
+  "x_jacuziFullUpgrade": {
+   "desc": "Have at least 1 full upgrade Jacuzzi ",
+   "bonus": 4500,
+   "batas": 0
+  },
+  "xx_room": {
+   "desc": "Have 20 rooms on your resort ",
+   "bonus": 6500,
+   "batas": 20
+  },
+  "x_janitorRoom": {
+   "desc": "Have 4 Janitor's Room with full upgrade ",
+   "bonus": 3500,
+   "batas": 4
+  },
+  "x_medicine": {
+   "desc": "'Medical Center(s)' has been used 11 times ",
+   "bonus": 2500,
+   "batas": 11
+  },
+  "x_barFullUpgrade": {
+   "desc": "Have at least 1 full upgrade Bar and Lounge ",
+   "bonus": 3500,
+   "batas": 0
+  },
+  "anne_hataway": {
+   "desc": "'Ann Hat Away' inside your resort ",
+   "bonus": 7000,
+   "batas": 0
+  },
+  "x_baratResto": {
+   "desc": "Have at least 1 West Restaurant ",
+   "bonus": 2500,
+   "batas": 0
+  },
+  "x_cottageFullUpgrade": {
+   "desc": "Have at least 3 full upgrade Cottage ",
+   "bonus": 4500,
+   "batas": 3
+  },
+  "x_facilityStar": {
+   "desc": "Have 10 facilities with two stars or more ",
+   "bonus": 8000,
+   "batas": 10
+  },
+  "x_roomStar": {
+   "desc": "Have 12 rooms with two stars or more ",
+   "bonus": 4000,
+   "batas": 12
+  },
+  "x_customer3": {
+   "desc": "Have customers using facility 110 times in a day ",
+   "bonus": 7000,
+   "batas": 110
+  },
+  "x_facilityUpgrade3": {
+   "desc": "Have 7 facilities with full upgrade ",
+   "bonus": 7500,
+   "batas": 7
+  },
+  "x_minimarket": {
+   "desc": "Have at least 2 Minimarket ",
+   "bonus": 5000,
+   "batas": 2
+  },
+  "mr_rock": {
+   "desc": "'Mr.Rock' inside your resort ",
+   "bonus": 7000,
+   "batas": 0
+  },
+  "x_couples": {
+   "desc": "There are 10 couples inside your resort ",
+   "bonus": 3000,
+   "batas": 10
+  },
+  "x_lodgeUpgrade": {
+   "desc": "Have 3 Lodges with two stars or more ",
+   "bonus": 4500,
+   "batas": 3
+  },
+  "x_visitors2": {
+   "desc": "Have 50 visitors inside your resort ",
+   "bonus": 3250,
+   "batas": 50
+  },
+  "expand2": {
+   "desc": "Expand your resort land twice ",
+   "bonus": 10000,
+   "batas": 0
+  },
+  "xx_tree3": {
+   "desc": "Have 70 plants on your resort ",
+   "bonus": 4000,
+   "batas": 70
+  },
+  "x_buyers": {
+   "desc": "'Minimarket(s)' has been used 100 times ",
+   "bonus": 3500,
+   "batas": 100
+  },
+  "x_medicine2": {
+   "desc": "'Medical Center(s)' has been used 55 times ",
+   "bonus": 5000,
+   "batas": 55
+  },
+  "x_lodgeFullUpgrade": {
+   "desc": "Have at least 1 full upgrade Lodge ",
+   "bonus": 5000,
+   "batas": 0
+  },
+  "x_money2": {
+   "desc": "Total money $100000 ",
+   "bonus": 10000,
+   "batas": 100000
+  },
+  "naomi_volts": {
+   "desc": "'Naomi Volts' inside your resort ",
+   "bonus": 7000,
+   "batas": 0
+  },
+  "xx_lodge": {
+   "desc": "Have at least 15 lodge ",
+   "bonus": 5000,
+   "batas": 15
+  },
+  "xxx_facility": {
+   "desc": "Have 15 booth 'types' of facility ",
+   "bonus": 10000,
+   "batas": 15
+  },
+  "x_customer4": {
+   "desc": "Have customers using facility 200 times in a day ",
+   "bonus": 2000,
+   "batas": 200
+  },
+  "x_booths2": {
+   "desc": "Have total 60 booths ",
+   "bonus": 15000,
+   "batas": 60
+  },
+  "x_lobbyUsed": {
+   "desc": "Your Lobby has been used 750 times ",
+   "bonus": 5000,
+   "batas": 750
+  },
+  "x_trash": {
+   "desc": "Janitor  staffs clean 5 trash in one day ",
+   "bonus": 3000,
+   "batas": 5
+  },
+  "robert": {
+   "desc": "'Robert Fatinson' inside your resort ",
+   "bonus": 7000,
+   "batas": 0
+  },
+  "x_roomUpgrade": {
+   "desc": "Have 10 rooms with full upgrade ",
+   "bonus": 15000,
+   "batas": 10
+  },
+  "xx_tree4": {
+   "desc": "Have 90 plants on your resort ",
+   "bonus": 4000,
+   "batas": 90
+  },
+  "x_medicalUpgrade": {
+   "desc": "Have at least 1 Medical Center with two stars or more ",
+   "bonus": 4000,
+   "batas": 0
+  },
+  "jason": {
+   "desc": "'Jason State' inside your resort ",
+   "bonus": 7000,
+   "batas": 0
+  },
+  "all_extraUpgrade": {
+   "desc": "Buy all extra upgrades ",
+   "bonus": 50000,
+   "batas": 15
+  },
+  "x_PoolGolf": {
+   "desc": "Have Swiming Pool and Golf ",
+   "bonus": 10000,
+   "batas": 2
+  },
+  "x_buyers2": {
+   "desc": "'Minimarket(s)' has been used 250 times ",
+   "bonus": 6000,
+   "batas": 250
+  },
+  "all_booth": {
+   "desc": "Build all kind of booth on your resort ",
+   "bonus": 25000,
+   "batas": 20
+  },
+  "x_spcVisitor": {
+   "desc": "Have 2 special visitors inside your resort ",
+   "bonus": 10000,
+   "batas": 2
+  },
+  "x_trash2": {
+   "desc": "Janitor  staffs clean 10 trash in one day ",
+   "bonus": 3000,
+   "batas": 10
+  },
+  "x_promote2": {
+   "desc": "Have 20 janitors with full promote ",
+   "bonus": 6000,
+   "batas": 20
+  },
+  "x_acv": {
+   "desc": "At least 12 achievements completed ",
+   "bonus": 10000,
+   "batas": 12
+  },
+  "xx_tree5": {
+   "desc": "Have 120 plants on your resort ",
+   "bonus": 4000,
+   "batas": 120
+  },
+  "x_medicalUpgrade2": {
+   "desc": "Have at least 1 Medical Center with full upgrade ",
+   "bonus": 9000,
+   "batas": 0
+  },
+  "x_visitors3": {
+   "desc": "Have 75 visitors inside your resort ",
+   "bonus": 3000,
+   "batas": 75
+  },
+  "lobby_upgrade2": {
+   "desc": "Fully upgrade your lobby room ",
+   "bonus": 10000,
+   "batas": 0
+  },
+  "x_poolFullUpgrade": {
+   "desc": "Have at least 1 full upgrade Swimming Pool ",
+   "bonus": 9000,
+   "batas": 0
+  },
+  "x_spcVisitor2": {
+   "desc": "Have 3 special visitors inside your resort ",
+   "bonus": 10000,
+   "batas": 3
+  },
+  "complete_acv": {
+   "desc": "Achievements completed ",
+   "bonus": 50000,
+   "batas": 15
+  },
+  "complete_mission": {
+   "desc": "All missions completed ",
+   "bonus": 100000,
+   "batas": 94
+  },
+  "listing": [
+   "build_room",
+   "connect_tiles",
+   "put_scenery",
+   "build_facility",
+   "scenery_grass",
+   "one_stayed",
+   "one_janitor",
+   "x_money",
+   "x_tree",
+   "x_facilityRoom",
+   "x_janitor",
+   "xx_tree",
+   "x_stayed",
+   "x_profit",
+   "x_room",
+   "one_facilityUpgrade",
+   "x_customer",
+   "first_meal",
+   "x_facility",
+   "janitorRoom_upgrade",
+   "x_promote",
+   "x_facilityUpgrade",
+   "x_maple",
+   "x_cottageUpgrade",
+   "stars_5",
+   "one_lodge",
+   "first_spcVisitor",
+   "x_unlocked",
+   "expand1",
+   "x_profit2",
+   "xx_facility",
+   "x_lodge",
+   "x_visitors",
+   "xx_tree2",
+   "x_facilityUpgrade2",
+   "x_customer2",
+   "lobby_upgrade",
+   "x_giftshop",
+   "spend_1",
+   "xx_stayed",
+   "x_minibooth",
+   "x_booths",
+   "x_medical",
+   "x_jacuziFullUpgrade",
+   "xx_room",
+   "x_janitorRoom",
+   "x_medicine",
+   "x_barFullUpgrade",
+   "anne_hataway",
+   "x_baratResto",
+   "x_cottageFullUpgrade",
+   "x_facilityStar",
+   "x_roomStar",
+   "x_customer3",
+   "x_facilityUpgrade3",
+   "x_minimarket",
+   "mr_rock",
+   "x_couples",
+   "x_lodgeUpgrade",
+   "x_visitors2",
+   "expand2",
+   "xx_tree3",
+   "x_buyers",
+   "x_medicine2",
+   "x_lodgeFullUpgrade",
+   "x_money2",
+   "naomi_volts",
+   "xx_lodge",
+   "xxx_facility",
+   "x_customer4",
+   "x_booths2",
+   "x_lobbyUsed",
+   "x_trash",
+   "robert",
+   "x_roomUpgrade",
+   "xx_tree4",
+   "x_medicalUpgrade",
+   "jason",
+   "all_extraUpgrade",
+   "x_PoolGolf",
+   "x_buyers2",
+   "all_booth",
+   "x_spcVisitor",
+   "x_trash2",
+   "x_promote2",
+   "x_acv",
+   "xx_tree5",
+   "x_medicalUpgrade2",
+   "x_visitors3",
+   "lobby_upgrade2",
+   "x_poolFullUpgrade",
+   "x_spcVisitor2",
+   "complete_acv",
+   "complete_mission"
+  ]
+ },
+ "Extra_Upgrade": {
+  "treadmill": {
+   "name": "Secondhand Treadmill",
+   "effect": "Boost staff's stamina",
+   "unlocked": "Gym",
+   "price": 1500,
+   "need_star": 1
+  },
+  "leaf": {
+   "name": "Garnish Leaf",
+   "effect": "Reduce cedar tree price",
+   "unlocked": "Bar",
+   "price": 2800,
+   "need_star": 2,
+   "val": 10
+  },
+  "wallpaper": {
+   "name": "Wallpaper",
+   "effect": "Reduce palm tree price",
+   "unlocked": "Hotdog",
+   "price": 3250,
+   "need_star": 3,
+   "val": 20
+  },
+  "heater": {
+   "name": "Water Heater",
+   "effect": "Boost Visitor Mood in Cottage",
+   "unlocked": "Jacuzi",
+   "price": 4250,
+   "need_star": 3
+  },
+  "sauce": {
+   "name": "Barbeque Sauce",
+   "effect": "Reduce bamboo tree prices",
+   "unlocked": "Taco",
+   "price": 3100,
+   "need_star": 4,
+   "val": 10
+  },
+  "wine": {
+   "name": "80 years old wine",
+   "effect": "Add extra earnings",
+   "unlocked": "Arcade",
+   "price": 4800,
+   "need_star": 4
+  },
+  "palm": {
+   "name": "Palm Oil",
+   "effect": "Add extra earnings Lodge",
+   "unlocked": "IndiaResto",
+   "price": 4500,
+   "need_star": 5
+  },
+  "towel": {
+   "name": "Luxury Towel",
+   "effect": "Boost visitor Mood in Lodge",
+   "unlocked": "Spa",
+   "price": 4500,
+   "need_star": 5
+  },
+  "meat": {
+   "name": "Minced Meat",
+   "effect": "Add extra earnings from Hot Dog",
+   "unlocked": "Giftshop",
+   "price": 3500,
+   "need_star": 6
+  },
+  "bamboo": {
+   "name": "Bamboo",
+   "effect": "Add extra earnings from Cottage",
+   "unlocked": "JapanResto",
+   "price": 4750,
+   "need_star": 6
+  },
+  "aid": {
+   "name": "First Aid Kit",
+   "effect": "Boost half bald old man Mood, short haired old lady Mood",
+   "unlocked": "Medical",
+   "price": 4950,
+   "need_star": 6
+  },
+  "uniform": {
+   "name": "Cotton Uniform",
+   "effect": "Boost staff' experience",
+   "unlocked": "BaratResto",
+   "price": 5000,
+   "need_star": 7
+  },
+  "irrigation": {
+   "name": "Premium Irrigation",
+   "effect": "Extra earnings from West Restaurant",
+   "unlocked": "Minimarket",
+   "price": 5500,
+   "need_star": 8
+  },
+  "wifi": {
+   "name": "Wi Fi Access",
+   "effect": "Boost Visitor Mood",
+   "unlocked": "Pool",
+   "price": 5750,
+   "need_star": 9
+  },
+  "gardening": {
+   "name": "Ornamental gardening",
+   "effect": "Add extra popularity rate to decoration",
+   "unlocked": "Golf",
+   "price": 6500,
+   "need_star": 10,
+   "val": 5
+  },
+  "listing": [
+   "treadmill",
+   "leaf",
+   "wallpaper",
+   "heater",
+   "sauce",
+   "wine",
+   "palm",
+   "towel",
+   "meat",
+   "bamboo",
+   "aid",
+   "uniform",
+   "irrigation",
+   "wifi",
+   "gardening"
+  ],
+  "level_1": [
+   "treadmill"
+  ],
+  "level_2": [
+   "leaf"
+  ],
+  "level_3": [
+   "wallpaper",
+   "heater"
+  ],
+  "level_4": [
+   "sauce",
+   "wine"
+  ],
+  "level_5": [
+   "palm",
+   "towel"
+  ],
+  "level_6": [
+   "meat",
+   "bamboo",
+   "aid"
+  ],
+  "level_7": [
+   "uniform"
+  ],
+  "level_8": [
+   "irrigation"
+  ],
+  "level_9": [
+   "wifi"
+  ],
+  "level_10": [
+   "gardening"
+  ]
+ },
+ "listing": [
+  "Icecream",
+  "Hotdog",
+  "Taco",
+  "Giftshop",
+  "Arcade",
+  "Sauna",
+  "Jacuzi",
+  "Gym",
+  "Pool",
+  "Medical",
+  "Minimarket",
+  "Bar",
+  "Spa",
+  "JapanResto",
+  "BaratResto",
+  "IndiaResto",
+  "Golf"
+ ],
+ "ExpandPrice": [
+  0,
+  20000,
+  125000
+ ],
+ "Expand": [
+  {
+   "COLS": 37,
+   "ROWS": 37,
+   "lahan": [
+    16.0,
+    16.0
+   ]
+  },
+  {
+   "COLS": 43,
+   "ROWS": 43,
+   "lahan": [
+    22.0,
+    22.0
+   ]
+  },
+  {
+   "COLS": 50,
+   "ROWS": 50,
+   "lahan": [
+    29.0,
+    29.0
+   ]
+  }
+ ],
+ "resortName": [
+  "SUMMER ISLAND",
+  "BULABULA RESORT",
+  "FANTASY LAND",
+  "HAPPY PARADISE",
+  "MY WONDERLAND",
+  "HOME SWEET LAND",
+  "GREEN ISLAND",
+  "RAINBOW ISLE",
+  "SILVER PARADISE",
+  "DIAMOND RESORT",
+  "LITTLEGIANT WORLD"
+ ],
+ "Achievements": {
+  "acv_credit": {
+   "nama": "ENTER THE CREDIT",
+   "desc": "Nice to meet you! :)",
+   "bonus": 1500,
+   "RP": 2
+  },
+  "acv_goodResort": {
+   "nama": "GOOD RESORT",
+   "desc": "Popularity 17% + 50% visitors happy",
+   "bonus": 4000,
+   "RP": 4
+  },
+  "acv_loveBeingHere": {
+   "nama": "I LOVE BEING HERE",
+   "desc": "Popularity 50% + 75% visitor happy",
+   "bonus": 11000,
+   "RP": 7
+  },
+  "acv_goodResearch": {
+   "nama": "GOOD RESEARCH",
+   "desc": "10 booths upgraded",
+   "bonus": 7500,
+   "RP": 5
+  },
+  "acv_growingResort": {
+   "nama": "GROWING RESORT",
+   "desc": "Unlock 10 booths",
+   "bonus": 5000,
+   "RP": 4
+  },
+  "acv_rookieResort": {
+   "nama": "ROOKIE RESORT",
+   "desc": "Have 10 visitors inside resort",
+   "bonus": 1000,
+   "RP": 3
+  },
+  "acv_famousResort": {
+   "nama": "FAMOUS RESORT",
+   "desc": "All special visitors visited your resort",
+   "bonus": 12000,
+   "RP": 8
+  },
+  "acv_marvelousResort": {
+   "nama": "MARVELOUS RESORT",
+   "desc": "Unlocked all booth types",
+   "bonus": 15000,
+   "RP": 7
+  },
+  "acv_grandResort": {
+   "nama": "GRAND RESORT",
+   "desc": "Have total 25 booths",
+   "bonus": 8000,
+   "RP": 6
+  },
+  "acv_awesomeContractor": {
+   "nama": "AWESOME CONTRACTOR",
+   "desc": "Expand Resort to level 2",
+   "bonus": 10000,
+   "RP": 8
+  },
+  "acv_expertContractor": {
+   "nama": "EXPERT CONTRACTOR",
+   "desc": "Expand Resort to level 3",
+   "bonus": 15000,
+   "RP": 9
+  },
+  "acv_superDev": {
+   "nama": "SUPER DEVELOPER",
+   "desc": "Popularity 70% + Build all booth types",
+   "bonus": 17000,
+   "RP": 9
+  },
+  "acv_masterDev": {
+   "nama": "MASTER DEVELOPER",
+   "desc": "Popularity 100% reached + Expert Contractor",
+   "bonus": 50000,
+   "RP": 10
+  },
+  "acv_greenBucks": {
+   "nama": "GREEN BUCKS",
+   "desc": "Have total money $250.000",
+   "bonus": 60000,
+   "RP": 10
+  },
+  "acv_bagOfGold": {
+   "nama": "BAG OF GOLD",
+   "desc": "Have total money $500.000",
+   "bonus": 70000,
+   "RP": 10
+  }
+ }
+}
