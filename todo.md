@@ -68,36 +68,66 @@ Juego jugable en: https://correo415415.github.io/resem/ (gh-pages, se actualiza 
 - [ ] Pantalla de título / menú principal del original
 
 ## Experiencia 1:1 desde el arranque (vídeo de referencia del usuario)
-Vídeo del emulador (carga → fin del tutorial) guardado en AI Drive:
-`/mnt/aidrive/referencias/resort_empire_tutorial_2026-08-28.mp4` (13.9MB, 2026-08-28).
-La experiencia del port debe ser IDÉNTICA a esta secuencia. Fases con timestamps (ms):
+Referencias EN EL REPO (PRs #37/#38): `docs/reference/resort_empire_tutorial.mp4`
+(recortado a 640x480, solo contenido del juego, 129.4s) + 39 frames curados en
+`docs/reference/tutorial_frames/`. Copia sin recortar en AI Drive
+(`/mnt/aidrive/referencias/resort_empire_tutorial_2026-08-28.mp4`).
+La experiencia del port debe ser IDÉNTICA. Fases con timestamps del vídeo recortado
+(≈ vídeo antiguo − 2.2s). Detalles CONFIRMADOS frame a frame con Read:
 
-- [ ] Preloader (0–2500): fondo gris con grid isométrico, barra de progreso central,
-      texto "LOADING" azul; al 100% el logo Resort Empire pulsa/brilla y transiciona
-- [ ] Splash 1 (2500–6000): fondo azul claro, mascota dragón verde + logo del sponsor
-- [ ] Splash 2 (6000–9500): fondo negro, logo pixel-art "Little Giant World" + PRESENTS
-- [ ] Menú principal (9500–14000): escena isométrica del resort de fondo, panel verde a
-      la derecha con 4 botones dorados biselados PLAY / OPTIONS / CREDIT / MORE GAMES,
-      "ver 1.1" abajo a la derecha
-- [ ] Submenú PLAY (12000): el panel verde cambia a NEW GAME / LOAD GAME / BACK
-- [ ] NEW GAME (13000–14000): modal "Input Your Name" + OK → barra "Please Wait...
-      Initializing Objects" sobre el grid
-- [ ] Tutorial (24000–64000): panel central pergamino con borde amarillo + avatar del
-      manager (gorra roja) + botón "Click here to skip tutorial". Pasos:
-      1. Intro (24s) · 2. objetivo: construir en arena dentro de los setos (28s)
-      3. construir habitación (29–38s): flecha roja rebotando sobre el icono de
-         Accommodation en la toolbar izquierda → colocar Cottage $1000 (X roja en
-         tiles inválidos) · 4. tiles (40–48s): flecha al icono Tiles → conectar 2
-         tiles walkable del cottage a la carretera · 5. plantas (48–56s): flecha al
-         icono Plants → colocar Windbill Palm $40 · 6. upgrades (56s): flecha al
-         icono estrella · 7. cámara y tips (58–62s): drag/WASD y botón "?" ·
-         8. felicitación y cierre (63s)
-- [ ] Durante el tutorial: los botones de la UI no señalados quedan bloqueados/grises
-- [ ] Post-tutorial (64s): notificación "NEW MISSION" arriba a la derecha + objetivo
-      en el ticker inferior (ya portado el motor de misiones, falta la notificación)
-- [ ] Tooltip en ítems bloqueados del menú de construcción: "Need Resort Upgrade: ..."
-- [ ] Menús con efecto pop-in de escala (Achievements, Statistics, Settings);
-      Statistics = hoja de ingresos/gastos diarios
+- [ ] Arranque (0–0.8s): pantalla de carga tenue sobre el mapa isométrico apagado
+- [ ] Splash 1 (~0.8–4s): mascota dragón verde, fondo azul pizarra
+- [ ] Splash 2 (~4–7s): logo pixel-art "Little Giant World", fondo negro
+- [ ] Diálogo "CHECKING... DATA..." (~7.8s): panel gris centrado antes del menú
+- [ ] Menú de título (~10.3s, frame t0010_3s): resort animado de fondo con visitantes,
+      logo "Resort empire" manuscrito en círculo azul arriba-dcha, panel verde con
+      botones dorados NEW GAME / LOAD GAME / BACK, "(c)LittleGiantWorld" arriba-izq,
+      logo GAMESFREE.com abajo-izq, "ver 1.1" abajo-dcha
+- [ ] Modal "INPUT YOUR NAME HERE" (~11.8s): nombre por defecto "HOME SWEET LAND",
+      botones CANCEL / OK
+- [ ] Intro del mapa (~13.8–21.8s, frame t0021_8s): mapa vacío SIN HUD; una
+      apisonadora (steamroller) con obreros y andamios construye la entrada;
+      el dragón mascota asoma arriba-izquierda
+- [ ] Tutorial (~21.8–62s): diálogos en PANEL OSCURO arriba-derecha (no pergamino
+      central) con ilustración interior + botón circular AMARILLO con flecha para
+      avanzar; botón verde "Click here to skip tutorial" centrado abajo; etiqueta
+      roja "YOUR MISSION" sobre el ticker; el HUD aparece con candados en los
+      botones no habilitados de la toolbar izquierda. Pasos confirmados:
+      1. Intro + "puedes construir en los tiles de arena dentro de los setos"
+         (t0025_8/t0027_8) · 2. "Para ganar dinero construye habitaciones" +
+         notificación NEW MISSION arriba-dcha y ticker "Build a room..." con
+         "$ 500" en el icono regalo (t0029_8) · 3. Construir Cottage: flyout del
+         menú con solo Cottage desbloqueado, etiqueta "Build here" + rombo
+         contorno blanco en el tile objetivo (t0035_8); al comprar: texto rojo
+         flotante "-$1000" + animación de andamios (t0037_8) · 4. Diálogo de
+         tipos de tile con iconos (t0040_8) → "Create two walkable tiles to
+         connect the new room" con tiles objetivo resaltados (t0043_8); flyout
+         de tiles con tooltip "Create TILE 4 ($25) WALKABLE"; ticker pasa a
+         "Connected room with main road" · 5. Plantas: "Let's try to put some
+         plants" (t0048_8), flyout plantas (t0051_8), tooltip "Create Plant"
+         (t0053_8), diálogo de compra abajo-dcha con cabecera "OR PRESS ESC TO
+         CANCEL", preview + precio (CANNA $35), indicador "AUTO PAUSED"
+         (t0055_8); ticker "Put a plant on your resort" · 6. "Very good!
+         Explore the other menus..." con labels FACILITY / JANITOR ROOM /
+         QUICK DESTROY / EXPAND AREA señalando iconos de la toolbar (t0059_8) ·
+         7. Cierre "GREAT ! Now you're ready to build your own resort..."
+         (t0061_3) + notificación NEW MISSION; ticker "Build a facility"
+- [ ] Post-tutorial confirmado (frames t0062_8–t0129_0): badge "NEW" amarillo
+      arriba-izq de la toolbar; tooltip de ítems bloqueados "JACCUZI (LOCKED)
+      Need Resort Upgrade: Water Heater" (t0064_3); cartel "DAY 1" gigante
+      pixel al cerrar tutorial (t0064_3); diálogo compra SAUNA $1200 con "OR
+      PRESS ESC TO CANCEL" y botón close (t0067_8); panel STATISTICS "DAY - 1"
+      con tabla DESCRIPTION/VISITORS/INCOME(G)/EXPENDITUR(W)/GAIN(LOSS)(G),
+      filas LOBBY RESORT / ROOMS(1) #Cottages(1) / FACILITIES(1) -SAUNA1 /
+      SCENERIES / TILES / JANITOR'S ROOMS(0), checkbox "Always show this
+      report", TOTAL PROFIT y BALANCE (t0098_8); al pasar el ratón por el
+      dragón el nombre del resort cambia a "3000+ Free Games" (t0107_8);
+      "Move Stage - Auto Paused" junto al badge NEW al arrastrar cámara
+      (t0127_8, día ya 7 con visitantes entrando)
+- [ ] Ticker de misión durante tutorial progresa: Build a room → Connected room
+      with main road → Put a plant on your resort → Build a facility →
+      Put a plant on grass tile
+- [ ] Menús con efecto pop-in de escala (Achievements, Statistics, Settings)
 
 ## Gameplay pendiente
 - [ ] Economía: reservas de habitaciones (booked_price), horarios opened/closed, salarios, ingresos por día
