@@ -27,13 +27,28 @@ impl Plugin for MapPlugin {
             .add_systems(OnEnter(AppState::Playing), spawn_map)
             .add_systems(
                 Update,
-                (camera_pan_zoom,).run_if(in_state(AppState::Playing)),
+                (camera_pan_zoom, wall_alpha_hover).run_if(in_state(AppState::Playing)),
             );
     }
 }
 
 #[derive(Component)]
 pub struct MainCamera;
+
+/// Solid wall sprite of a booth + its tile footprint (tx range, ty range).
+/// `wallOnAlpha(true)` in Booth.as hides this and shows the alpha twin.
+#[derive(Component)]
+pub struct BoothWall {
+    pub tx: (i32, i32),
+    pub ty: (i32, i32),
+}
+
+/// Semi-transparent wall twin (walls/{wall_alpha}.png), hidden by default.
+#[derive(Component)]
+pub struct BoothWallAlpha {
+    pub tx: (i32, i32),
+    pub ty: (i32, i32),
+}
 
 fn setup_camera(mut commands: Commands) {
     let (cx, cy) = iso::tile_center(14, 22); // lobby
@@ -241,6 +256,8 @@ pub fn spawn_booth_at(
     // building / wall sprite (walls/N.png) drawn on top of the floor.
     // Its measured `n_corner` pixel (intersection of the two wall base edges)
     // must sit on the same footprint N vertex as the floor anchor.
+    let foot_tx = (tx - b.rows + 1, tx);
+    let foot_ty = (ty, ty + b.cols - 1);
     if let Some(wall_fr) = b.wall {
         if let Some(wa) = an.wall.get(&wall_fr.to_string()) {
             commands.spawn((
@@ -250,7 +267,74 @@ pub fn spawn_booth_at(
                     ..default()
                 },
                 Transform::from_xyz(wx, wy, Z_OBJ + depth_sum as f32 * 0.01 + 0.005),
+                BoothWall {
+                    tx: foot_tx,
+                    ty: foot_ty,
+                },
             ));
+        }
+    }
+    // alpha twin (wallOnAlpha): same anchor point, hidden until hover
+    if let Some(alpha_fr) = b.wall_alpha {
+        if let Some(wa) = an.wall.get(&alpha_fr.to_string()) {
+            commands.spawn((
+                Sprite {
+                    image: assets.load(format!("sprites/walls/{alpha_fr}.png")),
+                    anchor: px_anchor(wa.n_corner[0], wa.n_corner[1], wa.size[0], wa.size[1]),
+                    ..default()
+                },
+                Transform::from_xyz(wx, wy, Z_OBJ + depth_sum as f32 * 0.01 + 0.005),
+                Visibility::Hidden,
+                BoothWallAlpha {
+                    tx: foot_tx,
+                    ty: foot_ty,
+                },
+            ));
+        }
+    }
+}
+
+/// Port of Booth.wallOnAlpha(): when the mouse is over a booth's footprint,
+/// hide the solid wall and show the semi-transparent twin so the player can
+/// see behind/inside the building.
+fn wall_alpha_hover(
+    windows: Query<&Window, With<bevy::window::PrimaryWindow>>,
+    camera: Query<(&Camera, &GlobalTransform), With<MainCamera>>,
+    mut walls: Query<(&BoothWall, &mut Visibility), Without<BoothWallAlpha>>,
+    mut alphas: Query<(&BoothWallAlpha, &mut Visibility), Without<BoothWall>>,
+) {
+    let cursor_tile = (|| {
+        let window = windows.single().ok()?;
+        let (cam, cam_tf) = camera.single().ok()?;
+        let cursor = window.cursor_position()?;
+        let world = cam.viewport_to_world_2d(cam_tf, cursor).ok()?;
+        Some(iso::world_to_tile(world.x, world.y))
+    })();
+    let hit = |txr: (i32, i32), tyr: (i32, i32)| {
+        cursor_tile.is_some_and(|(tx, ty)| {
+            tx >= txr.0 && tx <= txr.1 && ty >= tyr.0 && ty <= tyr.1
+        })
+    };
+    for (w, mut vis) in &mut walls {
+        let over = hit(w.tx, w.ty);
+        let want = if over {
+            Visibility::Hidden
+        } else {
+            Visibility::Inherited
+        };
+        if *vis != want {
+            *vis = want;
+        }
+    }
+    for (a, mut vis) in &mut alphas {
+        let over = hit(a.tx, a.ty);
+        let want = if over {
+            Visibility::Inherited
+        } else {
+            Visibility::Hidden
+        };
+        if *vis != want {
+            *vis = want;
         }
     }
 }
