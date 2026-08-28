@@ -227,7 +227,10 @@ pub struct DataHandles {
 pub enum AppState {
     #[default]
     Loading,
-    /// Main menu (original mainMenuD "init_load" pose).
+    /// Sponsor + developer splash animations (GAMESFREE dragon, then
+    /// Little Giant World), shown once before the menu like the original.
+    Splash,
+    /// Main menu (original mainMenuD).
     Title,
     Playing,
 }
@@ -260,6 +263,6 @@ fn check_loaded(
     mut next: ResMut<NextState<AppState>>,
 ) {
     if gamedata.get(&handles.gamedata).is_some() && anchors.get(&handles.anchors).is_some() {
-        next.set(AppState::Title);
+        next.set(AppState::Splash);
     }
 }
