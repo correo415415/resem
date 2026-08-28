@@ -40,18 +40,26 @@ Juego jugable en: https://correo415415.github.io/resem/ (gh-pages, se actualiza 
       (btn_scenery, btn_destroy, btn_tile, etc.) y menú de construcción con el arte original
 - [x] Manecillas del reloj animadas sobre la esfera + caras día/noche (animasiJam) (PR #25)
 - [ ] Icono de regalo (gift) funcional
-- [ ] PULIR HUD vs original (reporte del usuario): la barra superior (título GREEN ISLAND,
-      barra RP) y la estrella de nivel no están tan pulidas como en el original — comparar
-      pixel a pixel con navigator1 del SWF y corregir posiciones/recortes/escalas
-- [ ] Fuente: usar/extraer la tipografía del juego o una equivalente con acentos (Día, etc.)
+- [x] PULIR HUD vs original (reporte del usuario): barra superior + estrella — medidos los
+      bboxes exactos en nav1_left.png (estrella (189,23)-(220,54), barra título gris
+      (50,33)-(192,52), barra RP negra (134,54)-(192,66)); estrella centrada en caja 32×32,
+      título en contenedor centrado 136×20, RP realineado (PR #29) — PENDIENTE verificar
+      visualmente en el próximo build
+- [x] Fuente: extraída la tipografía original del SWF (Starmap Truetype, 89 glifos ASCII)
+      → assets/fonts/starmap.ttf, aplicada a los 9 nodos de texto del HUD (PR #29)
+- [ ] Fallback de fuente con acentos: Starmap NO tiene á/é/í/ó/ú/ñ — añadir fuente de
+      respaldo o evitar acentos en textos dinámicos
 - [ ] Paredes alpha (wall_alpha) al pasar el ratón por detrás de edificios
 - [x] Tráfico de carretera (port de Mobil.as): buses/furgonetas en las carreteras de entrada,
       bus de pasajeros con parada en (5,19), aceleración 2→rand(7..10) px/frame (PR #26)
       — VERIFICADO in-game (screenshot build 44cdf66): bus naranja circulando bien asentado
       sobre el asfalto, anchor (94,96) y profundidad correctos
-- [ ] Llegada de visitantes bajándose del bus (Mobil.as modo pasajeros: newMobil() 55% Bus
-      maxVisitor=min(pop*0.1,8) / 45% Box maxVisitor=min(pop*0.1,4), jumlahV=rand(1..max),
-      para en stop_point (5,19), suelta 1 visitante por tick vía newVisitor(false,true))
+- [x] Llegada de visitantes bajándose del bus (PR #29): evento BusArrival en car.rs —
+      el bus de pasajeros (roll<20) calcula jumlahV = 1 + rand·clamp(pop·0.1, 1, 8) y lo
+      emite al llegar a la parada (5,19); listener bus_arrivals en visitor.rs hace spawn
+      de `count` visitantes en la acera (4,19) caminando al lobby (helper spawn_visitor
+      compartido) — PENDIENTE verificar in-game. Falta la variante Box (45%, max 4) y el
+      ritmo 1-por-tick del original (ahora salen todos a la vez)
 - [ ] Pantalla de título / menú principal del original
 
 ## Gameplay pendiente
