@@ -27,6 +27,17 @@ const BTN_LOAD_Y: f32 = 275.0;
 const BTN_CREDIT_Y: f32 = 313.0;
 const BTN_BACK_Y: f32 = 349.0;
 
+/// CHECKING...DATA panel (shape 2863) stage position and size, measured
+/// on the reference capture (panel bbox x227-412 y216-327, 1:1 bitmap).
+const CHECK_POS: (f32, f32) = (227.0, 216.0);
+const CHECK_SIZE: (f32, f32) = (186.0, 112.0);
+/// Curtain gray sampled from the reference capture (tutup covers the
+/// whole 640x480 stage while CheckLocalData runs).
+const CHECK_CURTAIN: Color = Color::srgb(0.4, 0.4, 0.4);
+/// How long the overlay stays up. The original tutup "anim" is 13 frames
+/// @30fps plus the SharedObject read; the reference shows it ~1.3s.
+const CHECK_SECS: f32 = 1.3;
+
 /// Input-name dialog art size and baked button rects (measured on the
 /// original Box_inputName render).
 const DLG_SIZE: (f32, f32) = (212.0, 120.0);
@@ -97,6 +108,13 @@ struct NameText {
     select_all: bool,
 }
 
+/// The CHECKING...DATA startup overlay (original tutup.showing() +
+/// CheckLocalData() in Application.initMainMenu). Despawned on timeout.
+#[derive(Component)]
+struct CheckingOverlay {
+    timer: Timer,
+}
+
 /// The three state images for one button (swapped on Interaction).
 #[derive(Component)]
 struct ButtonArt {
@@ -114,7 +132,7 @@ impl Plugin for TitlePlugin {
             .add_systems(OnExit(AppState::Title), despawn_title)
             .add_systems(
                 Update,
-                (title_scale, title_buttons, name_typing)
+                (title_scale, title_buttons, name_typing, checking_tick)
                     .run_if(in_state(AppState::Title)),
             );
     }
@@ -269,8 +287,81 @@ fn spawn_title(mut commands: Commands, assets: Res<AssetServer>) {
                             ));
                         }
                     });
+
+                // CHECKING...DATA overlay: gray curtain over the whole
+                // stage + the semi-transparent panel with pixel text,
+                // shown briefly before the menu (initMainMenu ->
+                // tutup.showing() + CheckLocalData()).
+                let panel = assets.load("sprites/title/checking_panel.png");
+                let font = assets.load("fonts/starmap.ttf");
+                stage
+                    .spawn((
+                        CheckingOverlay {
+                            timer: Timer::from_seconds(CHECK_SECS, TimerMode::Once),
+                        },
+                        Node {
+                            position_type: PositionType::Absolute,
+                            left: Val::Px(0.0),
+                            top: Val::Px(0.0),
+                            width: Val::Px(TITLE_W),
+                            height: Val::Px(TITLE_H),
+                            ..default()
+                        },
+                        BackgroundColor(CHECK_CURTAIN),
+                        GlobalZIndex(70),
+                    ))
+                    .with_children(|curtain| {
+                        curtain
+                            .spawn((
+                                Node {
+                                    position_type: PositionType::Absolute,
+                                    left: Val::Px(CHECK_POS.0),
+                                    top: Val::Px(CHECK_POS.1),
+                                    width: Val::Px(CHECK_SIZE.0),
+                                    height: Val::Px(CHECK_SIZE.1),
+                                    ..default()
+                                },
+                                ImageNode::new(panel),
+                            ))
+                            .with_children(|p| {
+                                // Text 2865: two centered lines in the
+                                // panel's upper half (rows 43-67 measured
+                                // on the reference).
+                                p.spawn((
+                                    Node {
+                                        position_type: PositionType::Absolute,
+                                        left: Val::Px(0.0),
+                                        top: Val::Px(40.0),
+                                        width: Val::Px(CHECK_SIZE.0),
+                                        ..default()
+                                    },
+                                    Text::new("CHECKING...\nDATA..."),
+                                    TextFont {
+                                        font: font.clone(),
+                                        font_size: 12.0,
+                                        ..default()
+                                    },
+                                    TextColor(Color::WHITE),
+                                    TextLayout::new_with_justify(JustifyText::Center),
+                                ));
+                            });
+                    });
             });
         });
+}
+
+/// Despawn the CHECKING...DATA overlay once its time is up (original
+/// tutup.hiding() after the "anim" frames + data check).
+fn checking_tick(
+    mut commands: Commands,
+    time: Res<Time>,
+    mut q: Query<(Entity, &mut CheckingOverlay)>,
+) {
+    for (e, mut c) in &mut q {
+        if c.timer.tick(time.delta()).finished() {
+            commands.entity(e).despawn();
+        }
+    }
 }
 
 fn despawn_title(mut commands: Commands, roots: Query<Entity, With<TitleRoot>>) {
@@ -290,7 +381,11 @@ fn title_buttons(
     mut resort: ResMut<ResortName>,
     time: Res<Time>,
     mut next: ResMut<NextState<AppState>>,
+    checking: Query<(), With<CheckingOverlay>>,
 ) {
+    // While the CHECKING...DATA curtain is up the menu is not
+    // interactive (original tutup covers the stage).
+    let checking_up = !checking.is_empty();
     let dialog_open = dialog
         .single()
         .map(|v| *v == Visibility::Visible)
@@ -322,7 +417,7 @@ fn title_buttons(
         // it are inert (original showing() covers the menu).
         let is_dialog_btn =
             matches!(which, TitleButton::DialogOk | TitleButton::DialogCancel);
-        if dialog_open && !is_dialog_btn {
+        if checking_up || (dialog_open && !is_dialog_btn) {
             img.image = art.up.clone();
             continue;
         }
