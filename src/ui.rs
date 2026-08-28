@@ -156,6 +156,8 @@ fn update_ui_scale(
 }
 
 fn spawn_hud(mut commands: Commands, assets: Res<AssetServer>) {
+    // Original embedded game font (Starmap Truetype, exported from the SWF).
+    let font = assets.load("fonts/starmap.ttf");
     // ---------- top panel (navigator1): full-width ----------
     commands
         .spawn((
@@ -195,25 +197,35 @@ fn spawn_hud(mut commands: Commands, assets: Res<AssetServer>) {
                 },
             ))
             .with_children(|l| {
-                // resort title over the gray title bar (52,35)-(188,50)
+                // resort title, vertically centered in the gray title bar
+                // (measured bbox in nav1_left.png: (50,33)-(192,52))
                 l.spawn((
-                    Text::new("GREEN ISLAND"),
-                    TextFont {
-                        font_size: 10.0,
-                        ..default()
-                    },
-                    TextColor(Color::WHITE),
                     Node {
                         position_type: PositionType::Absolute,
-                        left: Val::Px(58.0),
-                        top: Val::Px(36.0),
+                        left: Val::Px(56.0),
+                        top: Val::Px(33.0),
+                        width: Val::Px(136.0),
+                        height: Val::Px(20.0),
+                        align_items: AlignItems::Center,
                         ..default()
                     },
-                ));
+                ))
+                .with_children(|t| {
+                    t.spawn((
+                        Text::new("GREEN ISLAND"),
+                        TextFont {
+                            font: font.clone(),
+                            font_size: 11.0,
+                            ..default()
+                        },
+                        TextColor(Color::WHITE),
+                    ));
+                });
                 // RP label over the green strip (52,52)-(133,68)
                 l.spawn((
                     Text::new("RP (0%)"),
                     TextFont {
+                        font: font.clone(),
                         font_size: 9.0,
                         ..default()
                     },
@@ -221,32 +233,35 @@ fn spawn_hud(mut commands: Commands, assets: Res<AssetServer>) {
                     Node {
                         position_type: PositionType::Absolute,
                         left: Val::Px(58.0),
-                        top: Val::Px(54.0),
+                        top: Val::Px(55.0),
                         ..default()
                     },
                     HudField::Rp,
                 ));
-                // red RP progress fill inside the black bar (134,54)-(192,64)
+                // red RP progress fill inside the black bar
+                // (measured bbox in nav1_left.png: (134,54)-(192,66))
                 l.spawn((
                     Node {
                         position_type: PositionType::Absolute,
-                        left: Val::Px(135.0),
-                        top: Val::Px(55.0),
+                        left: Val::Px(136.0),
+                        top: Val::Px(56.0),
                         width: Val::Px(0.0),
-                        height: Val::Px(8.0),
+                        height: Val::Px(9.0),
                         ..default()
                     },
                     BackgroundColor(Color::srgb(0.85, 0.1, 0.1)),
                 ));
-                // star level number (star art around x188-218, y28-56)
+                // star level number, centered on the star art
+                // (measured orange bbox in nav1_left.png: (189,23)-(220,54))
                 l.spawn((
                     Node {
                         position_type: PositionType::Absolute,
-                        left: Val::Px(190.0),
-                        top: Val::Px(33.0),
-                        width: Val::Px(22.0),
-                        height: Val::Px(16.0),
+                        left: Val::Px(189.0),
+                        top: Val::Px(23.0),
+                        width: Val::Px(32.0),
+                        height: Val::Px(32.0),
                         justify_content: JustifyContent::Center,
+                        align_items: AlignItems::Center,
                         ..default()
                     },
                 ))
@@ -254,6 +269,7 @@ fn spawn_hud(mut commands: Commands, assets: Res<AssetServer>) {
                     s.spawn((
                         Text::new("0"),
                         TextFont {
+                            font: font.clone(),
                             font_size: 12.0,
                             ..default()
                         },
@@ -293,6 +309,7 @@ fn spawn_hud(mut commands: Commands, assets: Res<AssetServer>) {
                             b.spawn((
                                 Text::new(if i == 0 { "0(0)" } else { "0" }),
                                 TextFont {
+                                    font: font.clone(),
                                     font_size: 9.0,
                                     ..default()
                                 },
@@ -485,6 +502,7 @@ fn spawn_hud(mut commands: Commands, assets: Res<AssetServer>) {
                 l.spawn((
                     Text::new("DAY 1"),
                     TextFont {
+                        font: font.clone(),
                         font_size: 10.0,
                         ..default()
                     },
@@ -536,6 +554,7 @@ fn spawn_hud(mut commands: Commands, assets: Res<AssetServer>) {
                 r.spawn((
                     Text::new("$ 500"),
                     TextFont {
+                        font: font.clone(),
                         font_size: 9.0,
                         ..default()
                     },
@@ -552,6 +571,7 @@ fn spawn_hud(mut commands: Commands, assets: Res<AssetServer>) {
                 r.spawn((
                     Text::new("POPULARITY 0%"),
                     TextFont {
+                        font: font.clone(),
                         font_size: 9.0,
                         ..default()
                     },
@@ -568,6 +588,7 @@ fn spawn_hud(mut commands: Commands, assets: Res<AssetServer>) {
                 r.spawn((
                     Text::new("10000"),
                     TextFont {
+                        font: font.clone(),
                         font_size: 11.0,
                         ..default()
                     },
@@ -595,6 +616,7 @@ fn spawn_hud(mut commands: Commands, assets: Res<AssetServer>) {
                     t.spawn((
                         Text::new("Build a room on your resort"),
                         TextFont {
+                            font: font.clone(),
                             font_size: 9.0,
                             ..default()
                         },
