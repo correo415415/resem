@@ -64,6 +64,8 @@ pub struct Car {
     pub pause: f32,
     /// visitors to unload at the stop (jumlahV); 0 for dummy traffic
     pub passengers: u32,
+    /// seconds until the next passenger steps off (paces 1-per-tick unloading)
+    pub unload_timer: f32,
 }
 
 #[derive(Resource)]
@@ -128,15 +130,26 @@ fn spawn_cars(
         let f = if color { 1 } else { 2 };
         (vec![(4.0, 32.0), (4.0, 1.0)], f, None)
     } else if roll < 20.0 {
-        // io=4: passenger bus on row 5, stops at (5,19), then continues out.
-        // jumlahV = rand(1..maxVisitor); maxVisitor = clamp(pop*0.1, 1, 8) for Bus.
-        let max_v = ((wallet.popularity * 0.1) as u32).clamp(1, 8);
+        // io=4: passenger vehicle on row 5, stops at (5,19), then continues out.
+        // newMobil(): rand(0..100) > 45 -> "Bus" else "Box" van.
+        // maxVisitor = clamp(pop*0.1, 1, 8) for Bus, clamp(.., 1, 4) for Box;
+        // jumlahV = randomRange(1, maxVisitor).
+        let bus = st.rand() * 100.0 > 45.0;
+        let cap = if bus { 8 } else { 4 };
+        let max_v = ((wallet.popularity * 0.1) as u32).clamp(1, cap);
         passengers = 1 + (st.rand() * max_v as f64) as u32;
-        (
-            vec![(5.0, 32.0), (5.0, 19.0), (5.0, 1.0)],
-            if color { 1 } else { 2 },
-            Some(1),
-        )
+        // Bus art: frames 1/2 (orange/blue); Box van art facing the same
+        // direction: frame 5 (white van).
+        let f = if bus {
+            if color {
+                1
+            } else {
+                2
+            }
+        } else {
+            5
+        };
+        (vec![(5.0, 32.0), (5.0, 19.0), (5.0, 1.0)], f, Some(1))
     } else {
         // io=2/3: vans along col 5 or 6 from the far edge (i 34 -> 1).
         // Columns run the opposite screen direction to the rows, so use the
@@ -166,6 +179,7 @@ fn spawn_cars(
             stop_at,
             pause: 0.0,
             passengers,
+            unload_timer: 0.0,
         },
     ));
 }
@@ -183,6 +197,21 @@ fn drive(
     let dt = time.delta_secs() * clock.speed as f32;
     for (e, mut car, mut tf) in q.iter_mut() {
         if car.pause > 0.0 {
+            // Unload 1 visitor per tick while stopped (activitiesOnTick:
+            // one newVisitor(false, true) per tick until jumlah_turun == jumlahV).
+            if car.passengers > 0 {
+                car.unload_timer -= dt;
+                if car.unload_timer <= 0.0 {
+                    car.unload_timer += 0.25;
+                    arrivals.write(BusArrival {
+                        count: 1,
+                        tile: (4, 19),
+                    });
+                    car.passengers -= 1;
+                }
+                // hold at the stop until everyone is off
+                car.pause = car.pause.max(0.5);
+            }
             car.pause -= dt;
             car.speed = 2.0; // pull away slowly after the stop
             continue;
@@ -203,16 +232,10 @@ fn drive(
             tf.translation.x = gx;
             tf.translation.y = gy;
             if car.stop_at == Some(car.next) {
-                car.pause = 2.5; // bus dwell at the stop
-                if car.passengers > 0 {
-                    // unload at the sidewalk row just past the road (stop is
-                    // at (5,19); visitors appear on the walkway tile (4,19))
-                    arrivals.write(BusArrival {
-                        count: car.passengers,
-                        tile: (4, 19),
-                    });
-                    car.passengers = 0;
-                }
+                // dwell at the stop; unloading happens in the pause branch,
+                // paced 1 visitor per tick like the original
+                car.pause = 2.5;
+                car.unload_timer = 0.25;
             }
             car.next += 1;
         } else {
