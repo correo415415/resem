@@ -157,7 +157,11 @@ fn update_ui_scale(
     }
 }
 
-fn spawn_hud(mut commands: Commands, assets: Res<AssetServer>) {
+fn spawn_hud(
+    mut commands: Commands,
+    assets: Res<AssetServer>,
+    resort: Res<crate::title::ResortName>,
+) {
     // Original embedded game font (Starmap Truetype, exported from the SWF).
     let font = assets.load("fonts/starmap.ttf");
     // ---------- top panel (navigator1): full-width ----------
@@ -214,7 +218,7 @@ fn spawn_hud(mut commands: Commands, assets: Res<AssetServer>) {
                 ))
                 .with_children(|t| {
                     t.spawn((
-                        Text::new("GREEN ISLAND"),
+                        Text::new(resort.0.clone()),
                         TextFont {
                             font: font.clone(),
                             font_size: 11.0,
