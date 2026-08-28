@@ -19,10 +19,21 @@
 //! COLS-5 = 32 and ROWS-3 = 34.
 
 use crate::data::AppState;
-use crate::game::GameClock;
+use crate::game::{GameClock, Wallet};
 use crate::iso::{HALF, SIZE};
 use bevy::prelude::*;
 use bevy::sprite::Anchor;
+
+/// Fired when a passenger bus finishes its stop and unloads visitors.
+/// Port of Mobil.activitiesOnTick: while stopped (udahStop && penumpang) one
+/// visitor is created per tick until jumlahV, via parent_.newVisitor(false,true).
+#[derive(Event)]
+pub struct BusArrival {
+    /// number of visitors stepping off (jumlahV)
+    pub count: u32,
+    /// sidewalk tile where they appear (next to the stop_point)
+    pub tile: (i32, i32),
+}
 
 /// Base z for cars: above tiles/objects band, below HUD. Depth within the band
 /// follows the painter rule (bigger tx+ty = farther back = smaller z).
@@ -51,6 +62,8 @@ pub struct Car {
     pub stop_at: Option<usize>,
     /// seconds of pause left at the stop
     pub pause: f32,
+    /// visitors to unload at the stop (jumlahV); 0 for dummy traffic
+    pub passengers: u32,
 }
 
 #[derive(Resource)]
@@ -78,6 +91,7 @@ impl Plugin for CarPlugin {
             cooldown: 3.0,
             rng: 0xCA7,
         })
+        .add_event::<BusArrival>()
         .add_systems(
             Update,
             (spawn_cars, drive).run_if(in_state(AppState::Playing)),
@@ -91,6 +105,7 @@ fn spawn_cars(
     mut st: ResMut<CarSpawn>,
     mut commands: Commands,
     assets: Res<AssetServer>,
+    wallet: Res<Wallet>,
 ) {
     if clock.paused {
         return;
@@ -107,12 +122,16 @@ fn spawn_cars(
     let color = st.rand() < 0.5;
 
     // Route + frame per Mobil.as branches. Default map: COLS-5=32, ROWS-3=34.
+    let mut passengers = 0u32;
     let (route, frame, stop_at): (Vec<(f32, f32)>, u32, Option<usize>) = if roll >= 60.0 {
         // arah=1, io=1: along row 4 from the far edge toward the exit (j 32 -> 1)
         let f = if color { 1 } else { 2 };
         (vec![(4.0, 32.0), (4.0, 1.0)], f, None)
     } else if roll < 20.0 {
-        // io=4: passenger bus on row 5, stops at (5,19), then continues out
+        // io=4: passenger bus on row 5, stops at (5,19), then continues out.
+        // jumlahV = rand(1..maxVisitor); maxVisitor = clamp(pop*0.1, 1, 8) for Bus.
+        let max_v = ((wallet.popularity * 0.1) as u32).clamp(1, 8);
+        passengers = 1 + (st.rand() * max_v as f64) as u32;
         (
             vec![(5.0, 32.0), (5.0, 19.0), (5.0, 1.0)],
             if color { 1 } else { 2 },
@@ -146,6 +165,7 @@ fn spawn_cars(
             speed_max,
             stop_at,
             pause: 0.0,
+            passengers,
         },
     ));
 }
@@ -155,6 +175,7 @@ fn drive(
     clock: Res<GameClock>,
     mut commands: Commands,
     mut q: Query<(Entity, &mut Car, &mut Transform)>,
+    mut arrivals: EventWriter<BusArrival>,
 ) {
     if clock.paused {
         return;
@@ -183,6 +204,15 @@ fn drive(
             tf.translation.y = gy;
             if car.stop_at == Some(car.next) {
                 car.pause = 2.5; // bus dwell at the stop
+                if car.passengers > 0 {
+                    // unload at the sidewalk row just past the road (stop is
+                    // at (5,19); visitors appear on the walkway tile (4,19))
+                    arrivals.write(BusArrival {
+                        count: car.passengers,
+                        tile: (4, 19),
+                    });
+                    car.passengers = 0;
+                }
             }
             car.next += 1;
         } else {
