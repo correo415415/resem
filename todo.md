@@ -65,7 +65,18 @@ Juego jugable en: https://correo415415.github.io/resem/ (gh-pages, se actualiza 
       compartido) — PENDIENTE verificar in-game
 - [x] Variante Box van (45%, max 4 pasajeros, frame 5) + bajada 1-por-tick (0.25s) del
       original Mobil.activitiesOnTick (PR #31) — PENDIENTE verificar in-game
-- [ ] Pantalla de título / menú principal del original
+- [x] Pantalla de título / menú principal (PRs #40/#41): AppState::Title entre
+      Loading y Playing; fondo = render original mainMenuD frame 38 recortado al
+      stage 640x480 (offset calibrado 203,153 contra frame t0010_3s; botón CREDIT
+      in-painted hasta tener pantalla de créditos); botones NEW GAME / LOAD GAME /
+      BACK con arte up/over/down original en (484, 240/275/349), tamaño 106x26.
+      NEW GAME → Playing; LOAD GAME deshabilitado (sin saves aún, como el
+      mouseEnabled=false del original); BACK no-op visual. Reloj del juego ahora
+      limitado a Playing — PENDIENTE verificar in-game
+- [ ] Título: fondo animado del resort con visitantes (el original anima la escena
+      detrás del panel; nuestro fondo es estático de momento)
+- [ ] Título: pose "stand" previa (PLAY/OPTIONS/CREDIT/MORE GAMES, botones
+      2972/2968/2976/2964) + transición init_load de mainMenuD_470
 
 ## Experiencia 1:1 desde el arranque (vídeo de referencia del usuario)
 Referencias EN EL REPO (PRs #37/#38): `docs/reference/resort_empire_tutorial.mp4`
