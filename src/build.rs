@@ -461,6 +461,7 @@ fn ghost_and_place(
                     Transform::from_xyz(wx, wy, 0.5),
                     PaintedTile(tx, ty),
                 ));
+                counts.tiles_painted += 1;
             }
         }
     }

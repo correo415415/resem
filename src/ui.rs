@@ -42,6 +42,8 @@ pub struct HudCounts {
     pub rooms: u32,
     pub plants: u32,
     pub facilities: u32,
+    /// path tiles painted by the player (for the connect_tiles mission)
+    pub tiles_painted: u32,
 }
 
 /// Animated clock pieces (original animasiJam clip: panjang/pendek hands
@@ -666,6 +668,7 @@ fn update_hud(
     clock: Res<GameClock>,
     wallet: Res<Wallet>,
     counts: Res<HudCounts>,
+    missions: Res<crate::missions::MissionState>,
     visitors: Query<(), With<Visitor>>,
     mut texts: Query<(&HudField, &mut Text)>,
 ) {
@@ -680,7 +683,9 @@ fn update_hud(
             HudField::Counter(2) => format!("{}", counts.rooms),
             HudField::Counter(3) => format!("{}", counts.plants),
             HudField::Counter(4) => format!("{}", counts.facilities),
-            // static for now (RP/level/gift/ticker systems come later)
+            HudField::Ticker if !missions.ticker.is_empty() => missions.ticker.clone(),
+            HudField::Gift if !missions.gift.is_empty() => missions.gift.clone(),
+            // static for now (RP/level systems come later)
             _ => continue,
         };
         if t.0 != new {
