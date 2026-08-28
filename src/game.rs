@@ -4,6 +4,7 @@
 //! `minute = counter / 9`, `hour = minute / 60`, `hourDay = hour % 24`.
 //! Start: day 0, 08:00, $10,000, popularity 0.
 
+use crate::data::AppState;
 use bevy::prelude::*;
 
 pub const TICKS_PER_MINUTE: f64 = 9.0;
@@ -94,7 +95,10 @@ impl Plugin for GamePlugin {
             .init_resource::<Wallet>()
             .add_event::<MinuteTick>()
             .add_event::<HourTick>()
-            .add_systems(Update, (tick_clock, speed_keys));
+            .add_systems(
+                Update,
+                (tick_clock, speed_keys).run_if(in_state(AppState::Playing)),
+            );
     }
 }
 
