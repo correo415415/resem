@@ -113,6 +113,13 @@ struct NameText {
 #[derive(Component)]
 struct CheckingOverlay {
     timer: Timer,
+    /// The timer only starts once these are actually loaded: assets load
+    /// asynchronously and on wasm the panel PNG/font can take longer than
+    /// the overlay's lifetime, despawning the curtain before its contents
+    /// ever painted (matches the original, which hides the curtain only
+    /// after CheckLocalData completes).
+    panel: Handle<Image>,
+    font: Handle<Font>,
 }
 
 /// The three state images for one button (swapped on Interaction).
@@ -302,6 +309,8 @@ fn spawn_title(mut commands: Commands, assets: Res<AssetServer>) {
                     .spawn((
                         CheckingOverlay {
                             timer: Timer::from_seconds(CHECK_SECS, TimerMode::Once),
+                            panel: panel.clone(),
+                            font: font.clone(),
                         },
                         Node {
                             position_type: PositionType::Absolute,
@@ -325,7 +334,7 @@ fn spawn_title(mut commands: Commands, assets: Res<AssetServer>) {
                                     height: Val::Px(CHECK_SIZE.1),
                                     ..default()
                                 },
-                                ImageNode::new(panel),
+                                ImageNode::new(panel.clone()),
                                 // Children of a non-root GlobalZIndex node
                                 // paint in the *stage* context, i.e. below
                                 // the lifted parent -- lift them too or the
@@ -365,9 +374,17 @@ fn spawn_title(mut commands: Commands, assets: Res<AssetServer>) {
 fn checking_tick(
     mut commands: Commands,
     time: Res<Time>,
+    assets: Res<AssetServer>,
     mut q: Query<(Entity, &mut CheckingOverlay)>,
 ) {
     for (e, mut c) in &mut q {
+        // Hold the curtain until the panel art + font are actually
+        // renderable; only then run the original ~1.3s check delay.
+        if !assets.is_loaded_with_dependencies(&c.panel)
+            || !assets.is_loaded_with_dependencies(&c.font)
+        {
+            continue;
+        }
         if c.timer.tick(time.delta()).finished() {
             commands.entity(e).despawn();
         }
